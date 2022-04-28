@@ -20,7 +20,7 @@ pairwise_rhythm(x, measurement, groups, time, period = 24, verbose = T)
 \item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.}
 }
 \value{
-A list containing coefficients and all operations.
+A kronosOut S4 object containing coefficients and all operations.
 }
 \description{
 This is the main workhorse function in the kronos package. It manages the individual functionalities of kronos, including rhythmicity analysis and differential rhythmicity.

@@ -4,7 +4,7 @@
 \alias{fit_groupwise_model}
 \title{Fit cosinor model}
 \usage{
-fit_groupwise_model(x, measurement, groups, group, time, verbose = T)
+fit_groupwise_model(x, measurement, groups, group, time, period, verbose = T)
 }
 \description{
 Fit cosinor model for one aspect of data

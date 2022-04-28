@@ -6,7 +6,7 @@
 #' @param time A string. Should be the column name containing the time values.  
 #' @param period A numeric. The length of a period, in the same format as the \code{time} parameter.  
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
-#' @return A list containing coefficients and all operations.
+#' @return A kronosOut S4 object containing coefficients and all operations.
 #' @export 
 #' 
 pairwise_rhythm <- function(x, measurement, groups, time, period = 24, verbose = T){
@@ -29,18 +29,21 @@ pairwise_rhythm <- function(x, measurement, groups, time, period = 24, verbose =
   
   groupwise = list()
   for(g in 1:length(allgroups)){
-    groupwise[[g]] = fit_groupwise_model(x = x, measurement = measurement, groups = groups, group = allgroups[g], time = time, verbose = T)
+    groupwise[[g]] = fit_groupwise_model(x = x, measurement = measurement, 
+                                         groups = groups, group = allgroups[g], time = time, period = period, verbose = T)
   }
   bygroup = do.call(rbind, groupwise)
   row.names(bygroup) <- NULL
-  ###############Plot
+  #initialize output object
+  output = new("kronosOut", 
+               input      = x,
+               fit        = fit,
+               to_plot    = vals, 
+               ind_fit    = bygroup)
   
-  
-  return(list(input   = x, 
-              fit     = fit, 
-              to_plot = vals, 
-              ind_fit = bygroup))
+  return(output)
 }
+
 #' Calculate standard error
 #' @description calculate standard error for plotting purposes
 std <- function(x, na.rm = TRUE) {
@@ -74,7 +77,7 @@ fit_cosinor_model <- function(x, measurement, groups, time,  verbose = T){
 
 #' Fit cosinor model
 #' @description Fit cosinor model for one aspect of data
-fit_groupwise_model <- function(x, measurement, groups, group, time,  verbose = T){
+fit_groupwise_model <- function(x, measurement, groups, group, time, period, verbose = T){
   
   x = x[x[,groups] == group,]
   form = as.formula(paste0(measurement, " ~ (", time, "_cos + ", time, "_sin)" ))
