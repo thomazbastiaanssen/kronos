@@ -1,24 +1,12 @@
----
-output:
-  md_document:
-    variant: gfm
-
----
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r setup, include = F}
-knitr::opts_chunk$set(echo = TRUE)
-library(kronos)
-```
-
-##Introduction
+\#\#Introduction
 
 Please note this package is in active development.
 
 If you use this software, please cite our work.
 
-```{r, eval=TRUE}
+``` r
 #install and load kronos
 #devtools::install_github(“thomazbastiaanssen/kronos”) library(kronos)
 
