@@ -6,6 +6,12 @@
 \usage{
 std(x, na.rm = TRUE)
 }
+\arguments{
+\item{x}{input vector}
+}
+\value{
+standard error of the input vector
+}
 \description{
 calculate standard error for plotting purposes
 }

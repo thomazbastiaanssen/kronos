@@ -7,9 +7,57 @@
 #' @param period A numeric. The length of a period, in the same format as the \code{time} parameter.  
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' @return A kronosOut S4 object containing coefficients and all operations.
-#' @export 
+#' @export
+#' @examples 
+#' \dontrun{
+#' library(tidyverse)
 #' 
-pairwise_rhythm <- function(x, measurement, groups, time, period = 24, verbose = T){
+#' dat = read.delim("~/Documents/PhD/circadian/diff_rhythm/TPH1_colon.csv", sep = ",")
+#' 
+#' out = kronos(x = dat, measurement = "Value", time = "Time", groups = "Treatment", period = 24)
+#' 
+#' out %>% {
+#'   ggplot() +
+#'     #Light gray rectangle for dark phase
+#'     geom_rect(data=NULL,aes(xmin=12,xmax=Inf,ymin=-Inf,ymax=Inf),
+#'               fill="lightgray") +
+#'     #Whiskers for SEM
+#'     geom_errorbar(data = .@input %>%
+#'                     group_by(Time, Treatment) %>%
+#'                     summarise(stder = std(Value),
+#'                               Value = mean(Value, na.rm = T)),
+#'                   aes(x = Time,
+#'                       ymin = Value - stder,
+#'                       ymax = Value + stder,
+#'                       group = interaction(Time, Treatment)),
+#'                   width = 2, position = position_dodge(0.8)) +
+#'     #Big average point per group
+#'     geom_point(data = .@input %>%
+#'                  group_by(Time, Treatment) %>%
+#'                  summarise(Value = mean(Value, na.rm = T)),
+#'                aes(x = Time, y = Value, fill = Treatment),
+#'                size = 4, shape = 21,
+#'                position = position_dodge(0.8))+
+#'     #Smaller points per observation
+#'     geom_point(data = .@input, aes(x = Time, y = Value, fill = Treatment),
+#'                shape = 21,
+#'                position = position_dodge(0.8),
+#'                alpha = 3/4) +
+#'     
+#'     #add the line information
+#'     geom_line(data = .@to_plot, aes(x = zt, y = pred_value, colour = Treatment)) +
+#'     
+#'     #Separate by treatment?
+#'     #facet_wrap(~Treatment) +
+#'     #Fix scales and general layout
+#'     scale_x_continuous(breaks = c(0, 6, 12, 18, 24)) +
+#'     theme_bw() +
+#'     xlab("Time (h)") +
+#'     ylab("Gene expression")
+#' }
+#' } 
+#' 
+kronos <- function(x, measurement, groups, time, period = 24, verbose = T){
   stopifnot("The 'time' argument needs to be exactly the same name as one of the columns in input data." = 
               time %in% colnames(x))
   stopifnot("The 'groups' argument needs to be exactly the same name as one of the columns in input data." = 
@@ -46,6 +94,9 @@ pairwise_rhythm <- function(x, measurement, groups, time, period = 24, verbose =
 
 #' Calculate standard error
 #' @description calculate standard error for plotting purposes
+#' @param x input vector
+#' @return standard error of the input vector 
+#' @export
 std <- function(x, na.rm = TRUE) {
   if (na.rm) x <- na.omit(x)
   sqrt(var(x) / length(x))
