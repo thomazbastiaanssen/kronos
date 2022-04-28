@@ -1,0 +1,9 @@
+Package: kronos
+Title: Microbiome Oriented Circadian Rhythm Analysis Toolkit 
+Version: 0.1.0.0
+Authors@R: person("Thomaz", "Bastiaanssen", email = "thomaz.bastiaanssen@ucc.ie", role = c("aut", "cre"))
+Description: Microbiome Oriented Circadian Rhythm Analysis Toolkit made at the APC microbiome in Ireland. 
+Depends: R (>= 3.4.4)
+License: GPLv3
+Encoding: UTF-8
+LazyData: true
