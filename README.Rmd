@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(kronos)
 ```
 
-##Introduction
+## Introduction
 
 Please note this package is in active development.
 
