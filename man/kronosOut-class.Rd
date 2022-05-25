@@ -17,5 +17,7 @@ kronosOut is the main output container of the kronos function.
 \item{\code{to_plot}}{A data.frame with the traces required to plot individual sinusoid curves}
 
 \item{\code{ind_fit}}{A data.frame with the parameters from individual rhythmic model fits.}
+
+\item{\code{pairwise_t}}{A data.frame with the p.values for pairwise comparisons, if applicable.}
 }}
 

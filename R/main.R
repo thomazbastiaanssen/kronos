@@ -57,7 +57,7 @@
 #' }
 #' } 
 #' 
-kronos <- function(x, measurement, groups, time, period = 24, verbose = T){
+kronos <- function(x, measurement, groups, time, period = 24, pairwise = F, verbose = T){
   stopifnot("The 'time' argument needs to be exactly the same name as one of the columns in input data." = 
               time %in% colnames(x))
   stopifnot("The 'groups' argument needs to be exactly the same name as one of the columns in input data." = 
@@ -82,12 +82,21 @@ kronos <- function(x, measurement, groups, time, period = 24, verbose = T){
   bygroup = do.call(rbind, groupwise)
   row.names(bygroup) <- NULL
   
+  pairwise_t <- list("pairwise was not activated.")
+  if(pairwise){  
+    pairwise_t <- list()
+    if(verbose){print("Fitting pairwise models")}
+    pairwise_t = pairwise_cosinor_model(x = x, measurement = measurement, groups = groups, time = time, pairwise_t = pairwise_t, verbose = verbose)
+  }
+  
+  
   #initialize output container object
   output = new("kronosOut", 
                input      = x,
                fit        = fit,
                to_plot    = vals, 
-               ind_fit    = bygroup)
+               ind_fit    = bygroup, 
+               pairwise_t = pairwise_t)
   
   return(output)
 }
@@ -199,6 +208,23 @@ get_rhythmic_trace <- function(fit, groups, allgroups, time, period, verbose = T
   vals$pred_value = vals$base + vals$cos_part + vals$sin_part + vals$cos_int + vals$sin_int
   
   return(vals)
+}
+
+#' Fit pairwise cosinor models as some sort of TukeyHSD. 
+#' @description Fit cosinor model for subset of data.
+#' 
+pairwise_cosinor_model <- function(x = x, measurement = measurement, groups = groups, time = time, pairwise_t = pairwise_t, verbose = verbose){
+  stopifnot("You need more that two groups in order to sensibly do pairwise comparisons. " = (unique(x[,groups])) > 2)
+  combos <- combn(c(unique(x[,groups])), m = 2)
+  
+  for(c in 1:ncol(combos)){
+    group_pair = combos[,c]
+    x_pair     = x[x[,groups] %in% group_pair,]
+    
+    pairwise_t[[c]] <- anova(fit_cosinor_model(x = x_pair, measurement = measurement, groups = groups, time = time,  verbose = T))
+    names(pairwise_t)[c] <- paste(group_pair, collapse = " vs ")
+  }
+  return(pairwise_t)
 }
 
 

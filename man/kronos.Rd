@@ -4,7 +4,7 @@
 \alias{kronos}
 \title{Fit a cosinor model and extract relevant parameters}
 \usage{
-kronos(x, measurement, groups, time, period = 24, verbose = T)
+kronos(x, measurement, groups, time, period = 24, pairwise = F, verbose = T)
 }
 \arguments{
 \item{x}{input data}
