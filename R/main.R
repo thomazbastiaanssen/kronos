@@ -72,7 +72,6 @@ kronos <- function(x, measurement, groups, time, period = 24, verbose = T){
   
   fit = fit_cosinor_model(x = x, measurement = measurement, groups = groups, time = time,  verbose = verbose)
   
-  #tidyfit = broom::tidy(fit)
   vals = get_rhythmic_trace(fit = fit, groups = groups, allgroups = allgroups, time = time, period = period, verbose = verbose)
   
   groupwise = list()
@@ -82,7 +81,8 @@ kronos <- function(x, measurement, groups, time, period = 24, verbose = T){
   }
   bygroup = do.call(rbind, groupwise)
   row.names(bygroup) <- NULL
-  #initialize output object
+  
+  #initialize output container object
   output = new("kronosOut", 
                input      = x,
                fit        = fit,

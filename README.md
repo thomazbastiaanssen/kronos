@@ -8,7 +8,8 @@ If you use this software, please cite our work.
 
 ``` r
 #install and load kronos
-#devtools::install_github(“thomazbastiaanssen/kronos”) library(kronos)
+#devtools::install_github(“thomazbastiaanssen/kronos”) 
+library(kronos)
 
 ?kronos
 ```
