@@ -5,6 +5,7 @@
 #' @param groups A string. Should be the column name containing the group names.  
 #' @param time A string. Should be the column name containing the time values.  
 #' @param period A numeric. The length of a period, in the same format as the \code{time} parameter.  
+#' @param pairwise A boolean. Toggles whether to perform pairwise ANOVAs as a TukeyHSD-like post-hoc. 
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' @return A kronosOut S4 object containing coefficients and all operations.
 #' @export

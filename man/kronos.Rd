@@ -17,6 +17,8 @@ kronos(x, measurement, groups, time, period = 24, pairwise = F, verbose = T)
 
 \item{period}{A numeric. The length of a period, in the same format as the \code{time} parameter.}
 
+\item{pairwise}{A boolean. Toggles whether to perform pairwise ANOVAs as a TukeyHSD-like post-hoc.}
+
 \item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.}
 }
 \value{
