@@ -2,7 +2,7 @@
 #' @description This is the main workhorse function in the kronos package. It manages the individual functionalities of kronos, including rhythmicity analysis and differential rhythmicity.
 #' @param x input data
 #' @param measurement A string. Should be the column name containing the meansurement data
-#' @param groups A string. Should be the column name containing the group names.  
+#' @param groups A string. Should be the column name containing the group names. If this is kept NULL, kronos will fit a single model without groups.  
 #' @param time A string. Should be the column name containing the time values.  
 #' @param period A numeric. The length of a period, in the same format as the \code{time} parameter.  
 #' @param pairwise A boolean. Toggles whether to perform pairwise ANOVAs as a TukeyHSD-like post-hoc. 
@@ -58,7 +58,7 @@
 #' }
 #' } 
 #' 
-kronos <- function(x, measurement, groups, time, period = 24, pairwise = F, verbose = T){
+kronos <- function(x, measurement, groups = NULL, time, period = 24, pairwise = F, verbose = T){
   
   
   stopifnot("The 'time' argument needs to be exactly the same name as one of the columns in input data." = 
