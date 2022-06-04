@@ -59,12 +59,16 @@
 #' } 
 #' 
 kronos <- function(x, measurement, groups, time, period = 24, pairwise = F, verbose = T){
+  
+  
   stopifnot("The 'time' argument needs to be exactly the same name as one of the columns in input data." = 
               time %in% colnames(x))
   stopifnot("The 'groups' argument needs to be exactly the same name as one of the columns in input data." = 
               groups %in% colnames(x))
   stopifnot("The 'measurement' argument needs to be exactly the same name as one of the columns in input data." = 
               measurement %in% colnames(x))
+  
+  if(is.null(groups)){x = cbind(x, dummy_groups = 1); groups = "dummy_groups"}
   
   allgroups = sort(unique(x[,groups]))
   
@@ -125,8 +129,12 @@ get_cos_sine <- function(x, period, colnamePrefix = NULL){
 #' Fit cosinor model
 #' @description Fit cosinor model for totality of data
 fit_cosinor_model <- function(x, measurement, groups, time,  verbose = T){
+
   
   form = as.formula(paste0(measurement, " ~ ", groups, " * (", time, "_cos + ", time, "_sin) -1" ))
+  
+  #in case of singular group
+  if(groups == "dummy_groups"){ form = as.formula(paste0(measurement, " ~ (", time, "_cos + ", time, "_sin)" ))}
   
   if(verbose){print(paste0("Using the following model: ", c(form) ))}
   
@@ -193,6 +201,7 @@ fit_groupwise_model <- function(x, measurement, groups, group, time, period, ver
 #' @description Calculates coordinates to plot traces for rhythmic data based on /code{fit_groupwise_model}
 #' 
 get_rhythmic_trace <- function(fit, groups, allgroups, time, period, verbose = T){
+  
   vals = expand.grid(groups = allgroups, zt = seq(0, period, 0.25))
   colnames(vals)[1] <- groups
   
@@ -206,6 +215,10 @@ get_rhythmic_trace <- function(fit, groups, allgroups, time, period, verbose = T
   vals$cos_int  = rep(c(0, coef(fit)[paste0(groups, allgroups[-1], ":", time, "_cos")])) * vals$zt_cos
   vals$sin_int  = rep(c(0, coef(fit)[paste0(groups, allgroups[-1], ":", time, "_sin")])) * vals$zt_sin
   #sum them all up
+  
+  #In the case of a singular group; kill the interaction terms:
+  if(groups == "dummy_groups"){vals$cos_int = 0; vals$sin_int = 0}
+  
   vals$pred_value = vals$base + vals$cos_part + vals$sin_part + vals$cos_int + vals$sin_int
   
   return(vals)

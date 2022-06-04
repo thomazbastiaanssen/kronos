@@ -4,14 +4,22 @@
 \alias{kronos}
 \title{Fit a cosinor model and extract relevant parameters}
 \usage{
-kronos(x, measurement, groups, time, period = 24, pairwise = F, verbose = T)
+kronos(
+  x,
+  measurement,
+  groups = NULL,
+  time,
+  period = 24,
+  pairwise = F,
+  verbose = T
+)
 }
 \arguments{
 \item{x}{input data}
 
 \item{measurement}{A string. Should be the column name containing the meansurement data}
 
-\item{groups}{A string. Should be the column name containing the group names.}
+\item{groups}{A string. Should be the column name containing the group names. If this is kept NULL, kronos will fit a single model without groups.}
 
 \item{time}{A string. Should be the column name containing the time values.}
 
