@@ -4,7 +4,7 @@
 \alias{fit_cosinor_model}
 \title{Fit cosinor model}
 \usage{
-fit_cosinor_model(x, measurement, groups, time, verbose = T)
+fit_cosinor_model(x, measurement, groups, time, verbose = T, for_pw = F)
 }
 \description{
 Fit cosinor model for totality of data

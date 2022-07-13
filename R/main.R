@@ -128,11 +128,15 @@ get_cos_sine <- function(x, period, colnamePrefix = NULL){
 
 #' Fit cosinor model
 #' @description Fit cosinor model for totality of data
-fit_cosinor_model <- function(x, measurement, groups, time,  verbose = T){
+fit_cosinor_model <- function(x, measurement, groups, time,  verbose = T, for_pw = F){
 
   
   form = as.formula(paste0(measurement, " ~ ", groups, " * (", time, "_cos + ", time, "_sin) -1" ))
   
+  #fix intercept for pf_fits
+  if(for_pw){
+    form = as.formula(paste0(measurement, " ~ ", groups, " * (", time, "_cos + ", time, "_sin)" ))
+  }
   #in case of singular group
   if(groups == "dummy_groups"){ form = as.formula(paste0(measurement, " ~ (", time, "_cos + ", time, "_sin)" ))}
   
@@ -235,7 +239,7 @@ pairwise_cosinor_model <- function(x = x, measurement = measurement, groups = gr
     group_pair = combos[,c]
     x_pair     = x[x[,groups] %in% group_pair,]
     
-    pairwise_t[[c]] <- anova(fit_cosinor_model(x = x_pair, measurement = measurement, groups = groups, time = time,  verbose = T))
+    pairwise_t[[c]] <- anova(fit_cosinor_model(x = x_pair, measurement = measurement, groups = groups, time = time,  verbose = T, for_pw = T))
     names(pairwise_t)[c] <- paste(group_pair, collapse = " vs ")
   }
   return(pairwise_t)
