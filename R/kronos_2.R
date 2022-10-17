@@ -63,7 +63,8 @@ output = new("kronosOut",
              fit        = fit,
              to_plot    = vals,
              ind_fit    = bygroup, 
-             pairwise_t = pairwise_t)
+             pairwise_t = pairwise_t, 
+             plot_info  = list(time = time))
 
 return(output)
 }

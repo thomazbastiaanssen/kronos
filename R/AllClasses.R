@@ -13,7 +13,8 @@ setClass("kronosOut",
            fit        = "lm",
            to_plot    = "data.frame", 
            ind_fit    = "data.frame", 
-           pairwise_t = "list" 
+           pairwise_t = "list", 
+           plot_info  = "list"
          )
 )
 
