@@ -16,12 +16,25 @@ time <- get_time_test(formula = formula, time = time, data = data, verbose = ver
 #Set up sine and cosine component
 data <- cbind(data, get_cos_sine_test(data = data[,time], colnamePrefix = paste0(time, "_"), period = period))
 
+#Update formula to reflect sine and cosine component
+formula <- build_kronos_formula(formula = formula, time = time, verbose = verbose)
+
 #Fit the general model
 fit  <- fit_cosinor_model_test(formula = formula, data = data, time = time, verbose = verbose, for_pw = F)
 
 #Predict values for plotting
 vals <- kronos_predict_test(fit = fit, period = period, time = time, verbose = verbose)
 
+#In case of no non-time factors
+if(length(fit$xlevels) == 0){
+  fit$model$unique_name = T
+  groupwise = vector(mode = "list", length = 1)
+  groupwise[[1]] <- fit_groupwise_model_test(data = fit$model, group = T, 
+                                             time = time, period = period, verbose = T)
+}
+
+#In case of multiple groups
+if(length(fit$xlevels) > 0){
 fit$model$unique_name <- paste(fit$model[,names(fit$xlevels)])
 
 groupwise = vector(mode = "list", length = length(unique(fit$model$unique_name)))
@@ -30,7 +43,9 @@ for(g in 1:length(groupwise)){
   groupwise[[g]] = fit_groupwise_model_test(data = fit$model, 
                                        group = unique(fit$model$unique_name)[g], 
                                        time = time, period = period, verbose = T)
+  }
 }
+
 bygroup = do.call(rbind, groupwise)
 row.names(bygroup) <- NULL
 
@@ -104,23 +119,14 @@ get_cos_sine_test <- function(data, period, colnamePrefix = NULL){
 #' @param for_pw A boolean. Toggles whether to perform pairwise ANOVAs as a TukeyHSD-like post-hoc. 
 #' 
 fit_cosinor_model_test <- function(formula, data, time = NULL, verbose = T, for_pw = F){
+  #fix intercept for pairwise fits
   
-  #Standardize formula
-  formula = update.formula(formula, formula(paste("~ . + time(", time, ")")))
-  
-  formula = update.formula(formula, formula(paste("~ . -time(", time, ")")))
-  
-  #Add sine and cosine components
-  formula = update.formula(formula, formula(paste0("~ . * (", time, "_cos + ", time, "_sin)" )))
-  
-  #fix intercept for pf_fits
   if(!for_pw){
   formula = update.formula(formula, formula(paste0("~ . -1")))
-    
   }
+  
   #in case of singular group
-
-  if(verbose){print(paste0("Using the following model: ", c(formula)))}
+  if(verbose){print(paste0("Using the following model: ", Reduce(paste0, deparse(formula))))}
   
   fit = lm(formula, data = data)
   
@@ -226,4 +232,23 @@ pairwise_cosinor_model_test <- function(data = fit$model, formula = formula, tim
 std_test <- function(x, na.rm = TRUE) {
   if (na.rm) x <- na.omit(x)
   sqrt(var(x) / length(x))
+}
+
+#' Update kronos formula in light of sine and cosine components
+#' @description Update fronos formula.
+#'
+build_kronos_formula <- function(formula, time, verbose){
+  #Trim off the time component
+  temp_form = gsub("time\\(.*\\)", Reduce(paste0, deparse(formula)), replacement = "")
+  temp_form = gsub("[ ]*\\*[ ]*$|[ ]*\\+[ ]*$", replacement = "", temp_form)
+  
+  #trim off trailing spaces
+  temp_form = gsub("[ ]*$", replacement = "", temp_form)
+  
+  #if there were no other components to the formula:
+  if(grepl("\\~$", x = temp_form)){
+    return(formula(paste0(temp_form, " ", time, "_cos + ", time, "_sin")))
+  }else{
+  return(formula(paste0(temp_form, " * (", time, "_cos + ", time, "_sin)")))
+    }
 }
