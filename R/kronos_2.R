@@ -243,6 +243,7 @@ build_kronos_formula <- function(formula, time, verbose){
   temp_form = gsub("[ ]*\\*[ ]*$|[ ]*\\+[ ]*$", replacement = "", temp_form)
   
   #trim off trailing spaces
+  temp_form = gsub("1$",    replacement = "", temp_form)
   temp_form = gsub("[ ]*$", replacement = "", temp_form)
   
   #if there were no other components to the formula:
