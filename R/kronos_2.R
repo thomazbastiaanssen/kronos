@@ -204,7 +204,7 @@ fit_groupwise_model_test <- function(data, group, time = time, period = period, 
 #' Fit pairwise cosinor models as some sort of TukeyHSD.
 #' @description Fit cosinor model for subset of data.
 #'
-pairwise_cosinor_model_test <- function(data = fit$model, time = time, pairwise_t = pairwise_t, verbose = verbose){
+pairwise_cosinor_model_test <- function(data = fit$model, formula = formula, time = time, pairwise_t = pairwise_t, verbose = verbose){
   stopifnot("You need more that two groups in order to sensibly do pairwise comparisons. " = (unique(data[,"unique_name"])) > 2)
   combos <- combn(c(unique(data[,"unique_name"])), m = 2)
   

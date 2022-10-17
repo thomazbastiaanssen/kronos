@@ -6,6 +6,7 @@
 \usage{
 pairwise_cosinor_model_test(
   data = fit$model,
+  formula = formula,
   time = time,
   pairwise_t = pairwise_t,
   verbose = verbose
