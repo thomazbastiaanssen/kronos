@@ -4,13 +4,7 @@
 \alias{pairwise_cosinor_model_test}
 \title{Fit pairwise cosinor models as some sort of TukeyHSD.}
 \usage{
-pairwise_cosinor_model_test(
-  data = fit$model,
-  formula = formula,
-  time = time,
-  pairwise_t = pairwise_t,
-  verbose = verbose
-)
+pairwise_cosinor_model_test(data, formula, time, verbose)
 }
 \description{
 Fit cosinor model for subset of data.

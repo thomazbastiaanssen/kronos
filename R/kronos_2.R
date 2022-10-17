@@ -53,7 +53,7 @@ pairwise_t <- list("pairwise was not activated.")
 if(pairwise){  
   pairwise_t <- list()
   if(verbose){print("Fitting pairwise models")}
-  pairwise_t = pairwise_cosinor_model_test(data = fit$model, time = time, pairwise_t = pairwise_t, verbose = verbose)
+  pairwise_t = pairwise_cosinor_model_test(data = fit$model, formula = formula, time = time, verbose = verbose)
 }
 
 
@@ -210,15 +210,16 @@ fit_groupwise_model_test <- function(data, group, time = time, period = period, 
 #' Fit pairwise cosinor models as some sort of TukeyHSD.
 #' @description Fit cosinor model for subset of data.
 #'
-pairwise_cosinor_model_test <- function(data = fit$model, formula = formula, time = time, pairwise_t = pairwise_t, verbose = verbose){
+pairwise_cosinor_model_test <- function(data, formula, time, verbose){
   stopifnot("You need more that two groups in order to sensibly do pairwise comparisons. " = (unique(data[,"unique_name"])) > 2)
   combos <- combn(c(unique(data[,"unique_name"])), m = 2)
   
   for(c in 1:ncol(combos)){
     group_pair = combos[,c]
     x_pair     = data[data[,"unique_name"] %in% group_pair,]
-    
-    pairwise_t[[c]] <- anova(fit_cosinor_model_test(formula = update.formula(formula, ~ unique_name), data = x_pair, time = time, verbose = T, for_pw = T))
+    formula_pair = update.formula(formula, ~ unique_name)
+    formula_pair = build_kronos_formula(formula = formula_pair, time = time)
+    pairwise_t[[c]] <- anova(fit_cosinor_model_test(formula = formula_pair, data = x_pair, time = time, verbose = T, for_pw = T))
     names(pairwise_t)[c] <- paste(group_pair, collapse = " vs ")
   }
   return(pairwise_t)
