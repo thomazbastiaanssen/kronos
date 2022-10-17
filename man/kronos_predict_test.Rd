@@ -4,7 +4,7 @@
 \alias{kronos_predict_test}
 \title{Give tracing information for plotting purposes}
 \usage{
-kronos_predict_test(fit, verbose = T)
+kronos_predict_test(fit, period, time, verbose = T)
 }
 \arguments{
 \item{fit}{A model fit. Can be found in KronosOut@fit}

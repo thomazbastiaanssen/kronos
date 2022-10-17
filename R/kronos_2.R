@@ -20,9 +20,10 @@ data <- cbind(data, get_cos_sine_test(data = data[,time], colnamePrefix = paste0
 fit  <- fit_cosinor_model_test(formula = formula, data = data, time = time, verbose = verbose, for_pw = F)
 
 #Predict values for plotting
-vals <- kronos_predict_test(fit = fit, verbose = verbose)
+vals <- kronos_predict_test(fit = fit, period = period, time = time, verbose = verbose)
 
 fit$model$unique_name <- paste(fit$model[,names(fit$xlevels)])
+
 groupwise = vector(mode = "list", length = length(unique(fit$model$unique_name)))
 
 for(g in 1:length(groupwise)){
@@ -131,7 +132,7 @@ fit_cosinor_model_test <- function(formula, data, time = NULL, verbose = T, for_
 #' @param fit A model fit. Can be found in KronosOut@fit
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' 
-kronos_predict_test = function(fit, verbose = T){
+kronos_predict_test = function(fit, period, time, verbose = T){
   new_data <-  fit$xlevels
   
   new_data$zt     = seq(0, period, 0.25) 
@@ -155,7 +156,7 @@ fit_groupwise_model_test <- function(data, group, time = time, period = period, 
   
   data = data[data[,"unique_name"] == group,]
   
-  form = as.formula(paste0(colnames(fit$model)[1], " ~ (", time, "_cos + ", time, "_sin)" ))
+  form = as.formula(paste0(colnames(data)[1], " ~ (", time, "_cos + ", time, "_sin)" ))
   
   if(verbose){print(paste0("Using the following model: ", c(form) ))}
   
