@@ -8,28 +8,28 @@
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' @return A kronosOut S4 object containing coefficients and all operations.
 #' @export
-kronos_test <- function(formula, data, time = NULL, period = 24, verbose = T, pairwise = T){
+kronos <- function(formula, data, time = NULL, period = 24, verbose = T, pairwise = T){
   
 #Identify time component
-time <- get_time_test(formula = formula, time = time, data = data, verbose = verbose)  
+time <- get_time(formula = formula, time = time, data = data, verbose = verbose)  
 
 #Set up sine and cosine component
-data <- cbind(data, get_cos_sine_test(data = data[,time], colnamePrefix = paste0(time, "_"), period = period))
+data <- cbind(data, get_cos_sine(data = data[,time], colnamePrefix = paste0(time, "_"), period = period))
 
 #Update formula to reflect sine and cosine component
 formula <- build_kronos_formula(formula = formula, time = time, verbose = verbose)
 
 #Fit the general model
-fit  <- fit_cosinor_model_test(formula = formula, data = data, time = time, verbose = verbose, for_pw = F)
+fit  <- fit_cosinor_model(formula = formula, data = data, time = time, verbose = verbose, for_pw = F)
 
 #Predict values for plotting
-vals <- kronos_predict_test(fit = fit, period = period, time = time, verbose = verbose)
+vals <- kronos_predict(fit = fit, period = period, time = time, verbose = verbose)
 
 #In case of no non-time factors
 if(length(fit$xlevels) == 0){
   fit$model$unique_name = T
   groupwise = vector(mode = "list", length = 1)
-  groupwise[[1]] <- fit_groupwise_model_test(data = fit$model, group = T, 
+  groupwise[[1]] <- fit_groupwise_model(data = fit$model, group = T, 
                                              time = time, period = period, verbose = T)
 }
 
@@ -40,7 +40,7 @@ fit$model$unique_name <- paste(fit$model[,names(fit$xlevels)])
 groupwise = vector(mode = "list", length = length(unique(fit$model$unique_name)))
 
 for(g in 1:length(groupwise)){
-  groupwise[[g]] = fit_groupwise_model_test(data = fit$model, 
+  groupwise[[g]] = fit_groupwise_model(data = fit$model, 
                                        group = unique(fit$model$unique_name)[g], 
                                        time = time, period = period, verbose = T)
   }
@@ -53,7 +53,7 @@ pairwise_t <- list("pairwise was not activated.")
 if(pairwise){  
   pairwise_t <- list()
   if(verbose){print("Fitting pairwise models")}
-  pairwise_t = pairwise_cosinor_model_test(data = fit$model, formula = formula, time = time, verbose = verbose)
+  pairwise_t = pairwise_cosinor_model(data = fit$model, formula = formula, time = time, verbose = verbose)
 }
 
 
@@ -75,7 +75,7 @@ return(output)
 #' @param data input data
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' 
-get_time_test <- function(formula, time, data, verbose = T){
+get_time <- function(formula, time, data, verbose = T){
   #extract time from formula
   modelterms <- terms(formula, specials = "time", keep.order = T)
   
@@ -102,7 +102,7 @@ get_time_test <- function(formula, time, data, verbose = T){
 #' @param data input data
 #' @param period A numeric. The length of a period, in the same format as the \code{time} parameter.  
 #' 
-get_cos_sine_test <- function(data, period, colnamePrefix = NULL){
+get_cos_sine <- function(data, period, colnamePrefix = NULL){
   b = cbind(cos(data/period * 2 * pi), 
             sin(data/period * 2 * pi))
   colnames(b) = c("cos", "sin")
@@ -118,7 +118,7 @@ get_cos_sine_test <- function(data, period, colnamePrefix = NULL){
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' @param for_pw A boolean. Toggles whether to perform pairwise ANOVAs as a TukeyHSD-like post-hoc. 
 #' 
-fit_cosinor_model_test <- function(formula, data, time = NULL, verbose = T, for_pw = F){
+fit_cosinor_model <- function(formula, data, time = NULL, verbose = T, for_pw = F){
   #fix intercept for pairwise fits
   
   if(!for_pw){
@@ -138,7 +138,7 @@ fit_cosinor_model_test <- function(formula, data, time = NULL, verbose = T, for_
 #' @param fit A model fit. Can be found in KronosOut@fit
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' 
-kronos_predict_test = function(fit, period, time, verbose = T){
+kronos_predict = function(fit, period, time, verbose = T){
   new_data <-  fit$xlevels
   
   new_data$zt     = seq(0, period, 0.25) 
@@ -158,7 +158,7 @@ kronos_predict_test = function(fit, period, time, verbose = T){
 
 #' Fit cosinor model
 #' @description Fit cosinor model for one aspect of data
-fit_groupwise_model_test <- function(data, group, time = time, period = period, verbose = T){
+fit_groupwise_model <- function(data, group, time = time, period = period, verbose = T){
   
   data = data[data[,"unique_name"] == group,]
   
@@ -210,7 +210,7 @@ fit_groupwise_model_test <- function(data, group, time = time, period = period, 
 #' Fit pairwise cosinor models as some sort of TukeyHSD.
 #' @description Fit cosinor model for subset of data.
 #'
-pairwise_cosinor_model_test <- function(data, formula, time, verbose){
+pairwise_cosinor_model <- function(data, formula, time, verbose){
   stopifnot("You need more that two groups in order to sensibly do pairwise comparisons. " = (unique(data[,"unique_name"])) > 2)
   combos <- combn(c(unique(data[,"unique_name"])), m = 2)
   
@@ -219,7 +219,7 @@ pairwise_cosinor_model_test <- function(data, formula, time, verbose){
     x_pair     = data[data[,"unique_name"] %in% group_pair,]
     formula_pair = update.formula(formula, ~ unique_name)
     formula_pair = build_kronos_formula(formula = formula_pair, time = time)
-    pairwise_t[[c]] <- anova(fit_cosinor_model_test(formula = formula_pair, data = x_pair, time = time, verbose = T, for_pw = T))
+    pairwise_t[[c]] <- anova(fit_cosinor_model(formula = formula_pair, data = x_pair, time = time, verbose = T, for_pw = T))
     names(pairwise_t)[c] <- paste(group_pair, collapse = " vs ")
   }
   return(pairwise_t)
@@ -230,7 +230,7 @@ pairwise_cosinor_model_test <- function(data, formula, time, verbose){
 #' @param x input vector
 #' @return standard error of the input vector
 #' @export
-std_test <- function(x, na.rm = TRUE) {
+std <- function(x, na.rm = TRUE) {
   if (na.rm) x <- na.omit(x)
   sqrt(var(x) / length(x))
 }
