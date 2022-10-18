@@ -64,7 +64,7 @@ output = new("kronosOut",
              to_plot    = vals,
              ind_fit    = bygroup, 
              pairwise_t = pairwise_t, 
-             plot_info  = list(time = time))
+             plot_info  = list(time = time, period = period))
 
 return(output)
 }
@@ -122,7 +122,7 @@ get_cos_sine <- function(data, period, colnamePrefix = NULL){
 fit_cosinor_model <- function(formula, data, time = NULL, verbose = T, for_pw = F){
   #fix intercept for pairwise fits
   
-  if(!for_pw){
+  if(!for_pw & length(all.vars(formula)) > 3){
   formula = update.formula(formula, formula(paste0("~ . -1")))
   }
   
