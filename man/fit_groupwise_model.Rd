@@ -4,8 +4,19 @@
 \alias{fit_groupwise_model}
 \title{Fit cosinor model}
 \usage{
-fit_groupwise_model(data, group, time = time, period = period, verbose = T)
+fit_groupwise_model(data, group, time, period, verbose)
+}
+\arguments{
+\item{data}{input data}
+
+\item{group}{A character string. signifies which group will be assessed.}
+
+\item{time}{A string. Should be the column name containing the time values.}
+
+\item{period}{A numeric. The length of a period, in the same format as the \code{time} parameter.}
+
+\item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.}
 }
 \description{
-Fit cosinor model for one aspect of data
+Fit cosinor model for one aspect of data. Called by main kronos function.
 }

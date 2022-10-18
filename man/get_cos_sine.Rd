@@ -10,6 +10,8 @@ get_cos_sine(data, period, colnamePrefix = NULL)
 \item{data}{input data}
 
 \item{period}{A numeric. The length of a period, in the same format as the \code{time} parameter.}
+
+\item{colnamePrefix}{A character string. Typically the name of the "Time" variable.}
 }
 \description{
 Based on cosinor and limorhyde packages

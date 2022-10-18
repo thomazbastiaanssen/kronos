@@ -4,7 +4,11 @@ Version: 0.1.0.0
 Authors@R: person("Thomaz", "Bastiaanssen", email = "thomaz.bastiaanssen@ucc.ie", role = c("aut", "cre"))
 Description: Microbiome Oriented Circadian Rhythm Analysis Toolkit made at the APC microbiome in Ireland. 
 Depends: R (>= 3.4.4)
-License: GPLv3
+Imports:
+    stats, 
+    methods,
+    ggplot2
+License: GPL (>= 3) | BSD_3_clause + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.0

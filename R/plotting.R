@@ -1,9 +1,13 @@
 #' A plotting method for circadian plots using ggplot. 
 #' @description Wrapper around ggplot to make figures with a sinusoid trace. 
-#' @importFrom ggplot2 ggplot
+#' @param kronosOut an output file from the main kronos() function. 
+#' @param fill The name of the variable that should be used to mark different groups. In the case of a single group, leave empty. 
+#' @import ggplot2
 #' @export
 #' 
 gg_kronos_sinusoid <- function(kronosOut, fill = NULL){
+  
+  requireNamespace("ggplot2")
   
   d = merge(kronosOut@input, kronosOut@to_plot, by="row.names", all=TRUE)[,-1]
   x_obs  = paste0(kronosOut@plot_info$time, ".x")
@@ -45,22 +49,31 @@ gg_kronos_sinusoid <- function(kronosOut, fill = NULL){
 }
 
 #' A plotting method for circadian plots using ggplot. 
-#' @description Wrapper around ggplot to make figures with a sinusoid trace. 
-#' @importFrom ggplot2 ggplot
+#' @description Wrapper around ggplot to make circadian circleplots. 
+#' @param kronosOut an output file from the main kronos() function. 
+#' @import ggplot2
 #' @export
 #' 
 gg_kronos_circle <- function(kronosOut){
   
+  requireNamespace("ggplot2")
+  
   d = kronosOut@ind_fit
   d$amp_scale = d$amplitude / max(d$amplitude)
+  
+  #Declare variables for check
   period = kronosOut@plot_info$period
+  acro = "acro"
+  amp_scale = "amp_scale"
+  p.val = "p.val"
+  unique_group = "unique_group"
   
   ggplot(d) +
-    aes(x = acro, y = amp_scale) +
+    aes_string(x = acro, y = amp_scale) +
     
-    geom_segment(aes(x = acro, xend = acro, y = 0, yend = amp_scale, linetype = p.val < 0.05)) +
+    geom_segment(aes_string(x = acro, xend = acro, y = 0, yend = amp_scale, linetype = p.val < 0.05)) +
     
-    geom_point(shape = 21, size = 3, aes(fill = unique_group)) +
+    geom_point(shape = 21, size = 3, aes_string(fill = unique_group)) +
 
     coord_polar(theta = "x") +
     scale_linetype_manual(values = c("TRUE" = "solid", "FALSE" = "dashed")) +

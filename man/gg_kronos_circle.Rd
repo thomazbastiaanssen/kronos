@@ -6,6 +6,9 @@
 \usage{
 gg_kronos_circle(kronosOut)
 }
+\arguments{
+\item{kronosOut}{an output file from the main kronos() function.}
+}
 \description{
-Wrapper around ggplot to make figures with a sinusoid trace.
+Wrapper around ggplot to make circadian circleplots.
 }

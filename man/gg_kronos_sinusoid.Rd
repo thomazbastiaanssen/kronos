@@ -6,6 +6,11 @@
 \usage{
 gg_kronos_sinusoid(kronosOut, fill = NULL)
 }
+\arguments{
+\item{kronosOut}{an output file from the main kronos() function.}
+
+\item{fill}{The name of the variable that should be used to mark different groups. In the case of a single group, leave empty.}
+}
 \description{
 Wrapper around ggplot to make figures with a sinusoid trace.
 }

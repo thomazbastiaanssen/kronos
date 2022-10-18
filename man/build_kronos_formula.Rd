@@ -6,6 +6,13 @@
 \usage{
 build_kronos_formula(formula, time, verbose)
 }
+\arguments{
+\item{formula}{A formula. Use the time() function to designate which variable represents time.}
+
+\item{time}{A string. Should be the column name containing the time values.}
+
+\item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.}
+}
 \description{
-Update fronos formula.
+Update kronos formula.
 }

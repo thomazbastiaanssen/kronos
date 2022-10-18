@@ -7,6 +7,9 @@
 #' @param pairwise A boolean. Toggles whether to perform pairwise ANOVAs as a TukeyHSD-like post-hoc. 
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' @return A kronosOut S4 object containing coefficients and all operations.
+#' @importFrom methods new
+#' @importFrom stats anova as.formula coef lm pf predict terms update.formula
+#' @importFrom utils combn
 #' @export
 kronos <- function(formula, data, time = NULL, period = 24, verbose = T, pairwise = T){
   
@@ -102,6 +105,7 @@ get_time <- function(formula, time, data, verbose = T){
 #' @description Based on cosinor and limorhyde packages
 #' @param data input data
 #' @param period A numeric. The length of a period, in the same format as the \code{time} parameter.  
+#' @param colnamePrefix A character string. Typically the name of the "Time" variable. 
 #' 
 get_cos_sine <- function(data, period, colnamePrefix = NULL){
   b = cbind(cos(data/period * 2 * pi), 
@@ -137,6 +141,8 @@ fit_cosinor_model <- function(formula, data, time = NULL, verbose = T, for_pw = 
 #' Give tracing information for plotting purposes
 #' @description Generate data needed to plot cosinor trace line. 
 #' @param fit A model fit. Can be found in KronosOut@fit
+#' @param time A string. Should be the column name containing the time values.  
+#' @param period A numeric. The length of a period, in the same format as the \code{time} parameter.  
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' 
 kronos_predict = function(fit, period, time, verbose = T){
@@ -158,8 +164,14 @@ kronos_predict = function(fit, period, time, verbose = T){
 
 
 #' Fit cosinor model
-#' @description Fit cosinor model for one aspect of data
-fit_groupwise_model <- function(data, group, time = time, period = period, verbose = T){
+#' @description Fit cosinor model for one aspect of data. Called by main kronos function. 
+#' @param data input data
+#' @param group A character string. signifies which group will be assessed. 
+#' @param time A string. Should be the column name containing the time values.  
+#' @param period A numeric. The length of a period, in the same format as the \code{time} parameter.  
+#' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
+#' 
+fit_groupwise_model <- function(data, group, time, period, verbose){
   
   data = data[data[,"unique_name"] == group,]
   
@@ -209,7 +221,11 @@ fit_groupwise_model <- function(data, group, time = time, period = period, verbo
 }
 
 #' Fit pairwise cosinor models as some sort of TukeyHSD.
-#' @description Fit cosinor model for subset of data.
+#' @description Fit cosinor model for subset of data. Called by main kronos function. 
+#' @param data input data
+#' @param formula A formula. Use the time() function to designate which variable represents time. 
+#' @param time A string. Should be the column name containing the time values.  
+#' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #'
 pairwise_cosinor_model <- function(data, formula, time, verbose){
   stopifnot("You need more that two groups in order to sensibly do pairwise comparisons. " = (unique(data[,"unique_name"])) > 2)
@@ -226,18 +242,11 @@ pairwise_cosinor_model <- function(data, formula, time, verbose){
   return(pairwise_t)
 }
 
-#' Calculate standard error
-#' @description calculate standard error for plotting purposes
-#' @param x input vector
-#' @return standard error of the input vector
-#' @export
-std <- function(x, na.rm = TRUE) {
-  if (na.rm) x <- na.omit(x)
-  sqrt(var(x) / length(x))
-}
-
 #' Update kronos formula in light of sine and cosine components
-#' @description Update fronos formula.
+#' @description Update kronos formula.
+#' @param formula A formula. Use the time() function to designate which variable represents time. 
+#' @param time A string. Should be the column name containing the time values.  
+#' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #'
 build_kronos_formula <- function(formula, time, verbose){
   #Trim off the time component

@@ -9,6 +9,10 @@ kronos_predict(fit, period, time, verbose = T)
 \arguments{
 \item{fit}{A model fit. Can be found in KronosOut@fit}
 
+\item{period}{A numeric. The length of a period, in the same format as the \code{time} parameter.}
+
+\item{time}{A string. Should be the column name containing the time values.}
+
 \item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.}
 }
 \description{
