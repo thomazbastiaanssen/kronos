@@ -231,6 +231,8 @@ pairwise_cosinor_model <- function(data, formula, time, verbose){
   stopifnot("You need more that two groups in order to sensibly do pairwise comparisons. " = (unique(data[,"unique_name"])) > 2)
   combos <- combn(c(unique(data[,"unique_name"])), m = 2)
   
+  pairwise_t = list()
+  
   for(c in 1:ncol(combos)){
     group_pair = combos[,c]
     x_pair     = data[data[,"unique_name"] %in% group_pair,]
