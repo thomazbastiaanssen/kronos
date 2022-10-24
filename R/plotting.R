@@ -67,16 +67,18 @@ gg_kronos_circle <- function(kronosOut){
   amp_scale = "amp_scale"
   p.val = "p.val"
   unique_group = "unique_group"
-  
+  p.sig = "p.sig"
+  d$p.sig = d$p.val < 0.05
+  print(d)
   ggplot(d) +
     aes_string(x = acro, y = amp_scale) +
     
-    geom_segment(aes_string(x = acro, xend = acro, y = 0, yend = amp_scale, linetype = p.val < 0.05)) +
+    geom_segment(aes_string(x = acro, xend = acro, y = 0, yend = amp_scale, linetype = p.sig)) +
     
     geom_point(shape = 21, size = 3, aes_string(fill = unique_group)) +
 
     coord_polar(theta = "x") +
-    scale_linetype_manual(values = c("TRUE" = "solid", "FALSE" = "dashed")) +
+    scale_linetype_manual(values = c("FALSE" = "dashed", "TRUE" = "solid")) +
     scale_x_continuous(breaks = seq(0, period, period/6), limits = c(0, 24)) +
     scale_y_continuous(breaks = seq(0, 1, 1/3), limits = c(0, 1)) +
     
