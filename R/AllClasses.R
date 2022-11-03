@@ -14,6 +14,7 @@ setClass("kronosOut",
            to_plot    = "data.frame", 
            ind_fit    = "data.frame", 
            pairwise_t = "list", 
+           pairwise_p = "vector", 
            plot_info  = "list"
          )
 )

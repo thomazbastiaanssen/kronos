@@ -59,6 +59,10 @@ if(pairwise){
   pairwise_t = pairwise_cosinor_model(data = fit$model, formula = formula, time = time, verbose = verbose)
 }
 
+pairwise_p <- "pairwise was not activated."
+if(pairwise){  
+  pairwise_p <- kronos_anova(fit = fit, time = time)
+}
 
 #initialize output container object
 output = new("kronosOut", 
@@ -67,6 +71,7 @@ output = new("kronosOut",
              to_plot    = vals,
              ind_fit    = bygroup, 
              pairwise_t = pairwise_t, 
+             pairwise_p = pairwise_p, 
              plot_info  = list(time = time, period = period))
 
 return(output)
@@ -265,4 +270,18 @@ build_kronos_formula <- function(formula, time, verbose){
   }else{
   return(formula(paste0(temp_form, " * (", time, "_cos + ", time, "_sin)")))
     }
+}
+
+#' Extract p-value from full fit
+#' @description Compute p-values from full fit. 
+#' @param fit A lm model fit.  
+#' @param time A string. Should be the column name containing the time values.  
+#'
+kronos_anova <- function(fit, time){
+  anova.fit    <- anova(fit)
+  time_int     <- grep(row.names(anova.fit), pattern = paste0(":", time, "_sin", "|", ":", time, "_cos"))
+  pvals        <- anova.fit$`Pr(>F)`[time_int]
+  pvals        <- pmin(pmin(pvals[1:length(pvals)%%2 ==0], pvals[1:length(pvals)%%2 ==1])*2, 1)
+  names(pvals) <- unique(gsub(row.names(anova.fit), pattern = paste0(":", time, "_sin", "|", ":", time, "_cos"), replacement =  "")[time_int])
+  return(pvals)
 }
