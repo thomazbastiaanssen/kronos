@@ -8,16 +8,26 @@
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' @return A kronosOut S4 object containing coefficients and all operations.
 #' @importFrom methods new
-#' @importFrom stats anova as.formula coef lm pf predict terms update.formula
+#' @importFrom stats anova as.formula coef lm pf predict terms update.formula get_all_vars
 #' @importFrom utils combn
 #' @export
 kronos <- function(formula, data, time = NULL, period = 24, verbose = T, pairwise = T){
+#Clean and standardize input data
+data <- get_all_vars(formula = formula, data = data)
   
 #Identify time component
-time <- get_time(formula = formula, time = time, data = data, verbose = verbose)  
+var_out  <- get_vars(formula = formula, time = time, data = data, verbose = verbose)  
+time     <- var_out$time
+response <- var_out$response
 
+#convert all non-time and non-response variables to categorical data. 
+data[,!grepl(response, colnames(data)) & !grepl(time, colnames(data)) ] <- 
+  lapply(data[,!grepl(response, colnames(data)) & !grepl(time, colnames(data)) ], "as.character")
+
+data$unique_name = apply(data[,!grepl(response, colnames(data)) & !grepl(time, colnames(data)) ] , 1 , paste , collapse = "_" )
 #Set up sine and cosine component
-data <- cbind(data, get_cos_sine(data = data[,time], colnamePrefix = paste0(time, "_"), period = period))
+data <- cbind(data, 
+              get_cos_sine(data = data[,time], colnamePrefix = paste0(time, "_"), period = period))
 
 #Update formula to reflect sine and cosine component
 formula <- build_kronos_formula(formula = formula, time = time, verbose = verbose)
@@ -38,7 +48,9 @@ if(length(fit$xlevels) == 0){
 
 #In case of multiple groups
 if(length(fit$xlevels) > 0){
-fit$model$unique_name <- paste(fit$model[,names(fit$xlevels)])
+#fit$model$unique_name <- paste(fit$model[,names(fit$xlevels)])
+
+fit$model$unique_name <- apply(data[,!grepl(response, colnames(data)) & !grepl(time, colnames(data)) ] , 1 , paste , collapse = "_" )[!is.na(data[,response])]
 
 groupwise = vector(mode = "list", length = length(unique(fit$model$unique_name)))
 
@@ -84,7 +96,7 @@ return(output)
 #' @param data input data
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' 
-get_time <- function(formula, time, data, verbose = T){
+get_vars <- function(formula, time, data, verbose = T){
   #extract time from formula
   modelterms <- terms(formula, specials = "time", keep.order = T)
   
@@ -103,8 +115,38 @@ get_time <- function(formula, time, data, verbose = T){
   stopifnot("The time argument argument was not found. Use the `time = <here>` argument or assign within the formula: `y ~ x + time(<here>)" = length(time) == 1)
   stopifnot("The time argument does not match any column in the data set." = time %in% colnames(data))
   
+  model_response <-  all.vars(formula)[unlist(attr(modelterms, "response"))]
+  
+  return(list(time = time, response = model_response))
+}
+
+#' Figure out what variable represents the response variable. Called by main kronos function. 
+#' @description Extracts the response variable from the formula. 
+#' @param formula A formula. Use the time() function to designate which variable represents time. 
+#' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
+#' 
+get_response <- function(formula, verbose = T){
+  #extract time from formula
+  modelterms     <- terms(formula, keep.order = T)
+  
+  model_response <-  all.vars(formula)[unlist(attr(modelterms, "specials"))]
+  
+  #If both formula and argument specifiy time, check them out. 
+  if(!is.null(time) & !identical(model_time, character(0))){
+    stopifnot("The time argument was stated in the formula and differs from the one given as the time argument" = identical(time, model_time))
+  }
+  
+  #Preferrably use time from the formula. 
+  if(!identical(model_time, character(0))){
+    time <- model_time
+  }
+  #Check whether time argument exists in dataset
+  stopifnot("The time argument argument was not found. Use the `time = <here>` argument or assign within the formula: `y ~ x + time(<here>)" = length(time) == 1)
+  stopifnot("The time argument does not match any column in the data set." = time %in% colnames(data))
+  
   return(time)
 }
+
 
 #' Get sine and cosine components
 #' @description Based on cosinor and limorhyde packages
@@ -233,7 +275,7 @@ fit_groupwise_model <- function(data, group, time, period, verbose){
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #'
 pairwise_cosinor_model <- function(data, formula, time, verbose){
-  stopifnot("You need more that two groups in order to sensibly do pairwise comparisons. " = (unique(data[,"unique_name"])) > 2)
+  stopifnot("You need more that two groups in order to sensibly do pairwise comparisons. " = length(unique(data[,"unique_name"])) > 1)
   combos <- combn(c(unique(data[,"unique_name"])), m = 2)
   
   pairwise_t = list()
