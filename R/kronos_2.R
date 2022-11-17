@@ -22,9 +22,9 @@ response <- var_out$response
 
 #convert all non-time and non-response variables to categorical data. 
 data[,!grepl(response, colnames(data)) & !grepl(time, colnames(data)) ] <- 
-  lapply(data[,!grepl(response, colnames(data)) & !grepl(time, colnames(data)) ], "as.character")
+  sapply(data[,!grepl(response, colnames(data)) & !grepl(time, colnames(data)) ], "as.character")
 
-data$unique_name = apply(data[,!grepl(response, colnames(data)) & !grepl(time, colnames(data)) ] , 1 , paste , collapse = "_" )
+data$unique_name = sapply(data[,!grepl(response, colnames(data)) & !grepl(time, colnames(data)) ], "paste")
 #Set up sine and cosine component
 data <- cbind(data, 
               get_cos_sine(data = data[,time], colnamePrefix = paste0(time, "_"), period = period))
