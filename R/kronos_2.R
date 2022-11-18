@@ -12,6 +12,7 @@
 #' @importFrom utils combn
 #' @export
 kronos <- function(formula, data, time = NULL, period = 24, verbose = T, pairwise = T){
+  
 #Clean and standardize input data
 data <- get_all_vars(formula = formula, data = data)
   
@@ -19,15 +20,14 @@ data <- get_all_vars(formula = formula, data = data)
 var_out  <- get_vars(formula = formula, time = time, data = data, verbose = verbose)  
 time     <- var_out$time
 response <- var_out$response
+factors  <- var_out$factors 
 
 #convert all non-time and non-response variables to categorical data. 
-data[,!grepl(response, colnames(data)) & !grepl(time, colnames(data)) ] <- 
-  sapply(data[,!grepl(response, colnames(data)) & !grepl(time, colnames(data)) ], "as.character")
+data[,{{factors}}] <- sapply(data[,{{factors}}], "as.character")
 
-data$unique_name = sapply(data[,!grepl(response, colnames(data)) & !grepl(time, colnames(data)) ], "paste")
+data$unique_name = do.call(what = "paste", c(data[,{{factors}}], sep = "_"))
 #Set up sine and cosine component
-data <- cbind(data, 
-              get_cos_sine(data = data[,time], colnamePrefix = paste0(time, "_"), period = period))
+data <- cbind(data, get_cos_sine(data = data[,time], colnamePrefix = paste0(time, "_"), period = period))
 
 #Update formula to reflect sine and cosine component
 formula <- build_kronos_formula(formula = formula, time = time, verbose = verbose)
@@ -50,7 +50,7 @@ if(length(fit$xlevels) == 0){
 if(length(fit$xlevels) > 0){
 #fit$model$unique_name <- paste(fit$model[,names(fit$xlevels)])
 
-fit$model$unique_name <- apply(data[,!grepl(response, colnames(data)) & !grepl(time, colnames(data)) ] , 1 , paste , collapse = "_" )[!is.na(data[,response])]
+fit$model$unique_name <- do.call(what = "paste", c(data[,{{factors}}], sep = "_"))[!is.na(data[,response])]
 
 groupwise = vector(mode = "list", length = length(unique(fit$model$unique_name)))
 
@@ -116,8 +116,12 @@ get_vars <- function(formula, time, data, verbose = T){
   stopifnot("The time argument does not match any column in the data set." = time %in% colnames(data))
   
   model_response <-  all.vars(formula)[unlist(attr(modelterms, "response"))]
-  
-  return(list(time = time, response = model_response))
+  model_factors  <-  all.vars(formula)[-c(unlist(attr(modelterms, "response")), 
+                                          unlist(attr(modelterms, "specials")))]
+  if(identical(character(0), model_factors)){
+    model_factors <- NULL
+  }
+  return(list(time = time, response = model_response, factors = model_factors))
 }
 
 #' Figure out what variable represents the response variable. Called by main kronos function. 
