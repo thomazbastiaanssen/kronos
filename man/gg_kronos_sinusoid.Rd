@@ -4,7 +4,7 @@
 \alias{gg_kronos_sinusoid}
 \title{A plotting method for circadian plots using ggplot.}
 \usage{
-gg_kronos_sinusoid(kronosOut, fill = NULL)
+gg_kronos_sinusoid(kronosOut, fill = "unique_group")
 }
 \arguments{
 \item{kronosOut}{an output file from the main kronos() function.}

@@ -5,7 +5,7 @@
 #' @import ggplot2
 #' @export
 #' 
-gg_kronos_sinusoid <- function(kronosOut, fill = NULL){
+gg_kronos_sinusoid <- function(kronosOut, fill = "unique_group"){
   
   requireNamespace("ggplot2")
   
@@ -40,8 +40,7 @@ gg_kronos_sinusoid <- function(kronosOut, fill = NULL){
     scale_x_continuous(breaks = seq(0, period, period/4), expand = c(0, 0)) +
     
     theme_bw() +
-    
-    guides(fill = guide_legend(title=fill), colour = guide_none()) +
+    guides(fill = guide_legend("Legend"), colour = guide_none()) +
     
     xlab("Time (h)") +
     

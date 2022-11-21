@@ -9,13 +9,13 @@
 #'
 setClass("kronosOut",
          slots = c(
-           input      = "data.frame",
-           fit        = "lm",
-           to_plot    = "data.frame", 
-           ind_fit    = "data.frame", 
-           pairwise_t = "list", 
-           pairwise_p = "vector", 
-           plot_info  = "list"
+           input           = "data.frame",
+           fit             = "lm",
+           to_plot         = "data.frame", 
+           ind_fit         = "data.frame", 
+           pairwise_models = "list", 
+           pairwise_p_vals = "vector", 
+           plot_info       = "list"
          )
 )
 

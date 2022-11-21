@@ -25,14 +25,14 @@ factors  <- var_out$factors
 #convert all non-time and non-response variables to categorical data. 
 data[,{{factors}}] <- sapply(data[,{{factors}}], "as.character")
 
-if(is.null(factors)){data$unique_name <- TRUE}
+if(is.null(factors)){data$unique_group <- TRUE}
 
 if(!is.null(factors) & length(factors) == 1){
-  data$unique_name = data[,{{factors}}]
+  data$unique_group = data[,{{factors}}]
 }
 
 if(!is.null(factors) & length(factors) > 1){
-data$unique_name = do.call(what = "paste", c(data[,{{factors}}], sep = "_"))
+data$unique_group = do.call(what = "paste", c(data[,{{factors}}], sep = "_"))
 }
 #Set up sine and cosine component
 data <- cbind(data, get_cos_sine(data = data[,time], colnamePrefix = paste0(time, "_"), period = period))
@@ -44,11 +44,11 @@ formula <- build_kronos_formula(formula = formula, time = time, verbose = verbos
 fit  <- fit_cosinor_model(formula = formula, data = data, time = time, verbose = verbose, for_pw = F)
 
 #Predict values for plotting
-vals <- kronos_predict(fit = fit, period = period, time = time, verbose = verbose)
+vals <- kronos_predict(fit = fit, period = period, time = time, factors = factors, verbose = verbose)
 
 #In case of no non-time factors
 if(length(fit$xlevels) == 0){
-  fit$model$unique_name = T
+  fit$model$unique_group = T
   groupwise = vector(mode = "list", length = 1)
   groupwise[[1]] <- fit_groupwise_model(data = fit$model, group = T, 
                                              time = time, period = period, verbose = T)
@@ -56,30 +56,30 @@ if(length(fit$xlevels) == 0){
 
 #In case of multiple groups
 if(length(fit$xlevels) == 1){
-#fit$model$unique_name <- paste(fit$model[,names(fit$xlevels)])
+#fit$model$unique_group <- paste(fit$model[,names(fit$xlevels)])
 
-fit$model$unique_name <- do.call(what = "paste", list(data[,{{factors}}], sep = "_"))[!is.na(data[,response])]
+fit$model$unique_group <- do.call(what = "paste", list(data[,{{factors}}], sep = "_"))[!is.na(data[,response])]
 
-groupwise = vector(mode = "list", length = length(unique(fit$model$unique_name)))
+groupwise = vector(mode = "list", length = length(unique(fit$model$unique_group)))
 
 for(g in 1:length(groupwise)){
   groupwise[[g]] = fit_groupwise_model(data = fit$model, 
-                                       group = unique(fit$model$unique_name)[g], 
+                                       group = unique(fit$model$unique_group)[g], 
                                        time = time, period = period, verbose = T)
   }
 }
 
 #In case of multiple groups
 if(length(fit$xlevels) > 1){
-  #fit$model$unique_name <- paste(fit$model[,names(fit$xlevels)])
+  #fit$model$unique_group <- paste(fit$model[,names(fit$xlevels)])
   
-  fit$model$unique_name <- do.call(what = "paste", c(data[,{{factors}}], sep = "_"))[!is.na(data[,response])]
+  fit$model$unique_group <- do.call(what = "paste", c(data[,{{factors}}], sep = "_"))[!is.na(data[,response])]
   
-  groupwise = vector(mode = "list", length = length(unique(fit$model$unique_name)))
+  groupwise = vector(mode = "list", length = length(unique(fit$model$unique_group)))
   
   for(g in 1:length(groupwise)){
     groupwise[[g]] = fit_groupwise_model(data = fit$model, 
-                                         group = unique(fit$model$unique_name)[g], 
+                                         group = unique(fit$model$unique_group)[g], 
                                          time = time, period = period, verbose = T)
   }
 }
@@ -108,7 +108,7 @@ output = new("kronosOut",
              ind_fit    = bygroup, 
              pairwise_t = pairwise_t, 
              pairwise_p = pairwise_p, 
-             plot_info  = list(time = time, period = period))
+             plot_info  = list(time = time, response = response, period = period))
 
 return(output)
 }
@@ -217,10 +217,11 @@ fit_cosinor_model <- function(formula, data, time = NULL, verbose = T, for_pw = 
 #' @description Generate data needed to plot cosinor trace line. 
 #' @param fit A model fit. Can be found in KronosOut@fit
 #' @param time A string. Should be the column name containing the time values.  
+#' @param factors A vector. The names of the independent variables. 
 #' @param period A numeric. The length of a period, in the same format as the \code{time} parameter.  
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' 
-kronos_predict = function(fit, period, time, verbose = T){
+kronos_predict = function(fit, period, time, factors, verbose = T){
   new_data <-  fit$xlevels
   
   new_data$zt     = seq(0, period, 0.25) 
@@ -233,7 +234,19 @@ kronos_predict = function(fit, period, time, verbose = T){
   names(new_data)[names(new_data) == "zt"]     <- time
   names(new_data)[names(new_data) == "zt_cos"] <- paste0(time, "_cos")
   names(new_data)[names(new_data) == "zt_sin"] <- paste0(time, "_sin")
-  return(cbind(new_data, y_hat = predict(fit, newdata = new_data)))
+  new_data = cbind(new_data, y_hat = predict(fit, newdata = new_data))
+  
+  if(is.null(factors)){new_data$unique_group <- TRUE}
+  
+  if(!is.null(factors) & length(factors) == 1){
+    new_data$unique_group = new_data[,{{factors}}]
+  }
+  
+  if(!is.null(factors) & length(factors) > 1){
+    new_data$unique_group = do.call(what = "paste", c(new_data[,{{factors}}], sep = "_"))
+  }
+  
+  return(new_data)
 }
 
 
@@ -248,7 +261,7 @@ kronos_predict = function(fit, period, time, verbose = T){
 #' 
 fit_groupwise_model <- function(data, group, time, period, verbose){
   
-  data = data[data[,"unique_name"] == group,]
+  data = data[data[,"unique_group"] == group,]
   
   form = as.formula(paste0(colnames(data)[1], " ~ (", time, "_cos + ", time, "_sin)" ))
   
@@ -303,15 +316,15 @@ fit_groupwise_model <- function(data, group, time, period, verbose){
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #'
 pairwise_cosinor_model <- function(data, formula, time, verbose){
-  stopifnot("You need more that two groups in order to sensibly do pairwise comparisons. " = length(unique(data[,"unique_name"])) > 1)
-  combos <- combn(c(unique(data[,"unique_name"])), m = 2)
+  stopifnot("You need more that two groups in order to sensibly do pairwise comparisons. " = length(unique(data[,"unique_group"])) > 1)
+  combos <- combn(c(unique(data[,"unique_group"])), m = 2)
   
   pairwise_t = list()
   
   for(c in 1:ncol(combos)){
     group_pair = combos[,c]
-    x_pair     = data[data[,"unique_name"] %in% group_pair,]
-    formula_pair = update.formula(formula, ~ unique_name)
+    x_pair     = data[data[,"unique_group"] %in% group_pair,]
+    formula_pair = update.formula(formula, ~ unique_group)
     formula_pair = build_kronos_formula(formula = formula_pair, time = time)
     pairwise_t[[c]] <- anova(fit_cosinor_model(formula = formula_pair, data = x_pair, time = time, verbose = T, for_pw = T))
     names(pairwise_t)[c] <- paste(group_pair, collapse = " vs ")
