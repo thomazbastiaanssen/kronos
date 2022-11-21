@@ -20,12 +20,20 @@ data <- get_all_vars(formula = formula, data = data)
 var_out  <- get_vars(formula = formula, time = time, data = data, verbose = verbose)  
 time     <- var_out$time
 response <- var_out$response
-factors  <- var_out$factors 
+factors  <- var_out$factors
 
 #convert all non-time and non-response variables to categorical data. 
 data[,{{factors}}] <- sapply(data[,{{factors}}], "as.character")
 
+if(is.null(factors)){data$unique_name <- TRUE}
+
+if(!is.null(factors) & length(factors) == 1){
+  data$unique_name = data[,{{factors}}]
+}
+
+if(!is.null(factors) & length(factors) > 1){
 data$unique_name = do.call(what = "paste", c(data[,{{factors}}], sep = "_"))
+}
 #Set up sine and cosine component
 data <- cbind(data, get_cos_sine(data = data[,time], colnamePrefix = paste0(time, "_"), period = period))
 
@@ -47,10 +55,10 @@ if(length(fit$xlevels) == 0){
 }
 
 #In case of multiple groups
-if(length(fit$xlevels) > 0){
+if(length(fit$xlevels) == 1){
 #fit$model$unique_name <- paste(fit$model[,names(fit$xlevels)])
 
-fit$model$unique_name <- do.call(what = "paste", c(data[,{{factors}}], sep = "_"))[!is.na(data[,response])]
+fit$model$unique_name <- do.call(what = "paste", list(data[,{{factors}}], sep = "_"))[!is.na(data[,response])]
 
 groupwise = vector(mode = "list", length = length(unique(fit$model$unique_name)))
 
@@ -60,6 +68,22 @@ for(g in 1:length(groupwise)){
                                        time = time, period = period, verbose = T)
   }
 }
+
+#In case of multiple groups
+if(length(fit$xlevels) > 1){
+  #fit$model$unique_name <- paste(fit$model[,names(fit$xlevels)])
+  
+  fit$model$unique_name <- do.call(what = "paste", c(data[,{{factors}}], sep = "_"))[!is.na(data[,response])]
+  
+  groupwise = vector(mode = "list", length = length(unique(fit$model$unique_name)))
+  
+  for(g in 1:length(groupwise)){
+    groupwise[[g]] = fit_groupwise_model(data = fit$model, 
+                                         group = unique(fit$model$unique_name)[g], 
+                                         time = time, period = period, verbose = T)
+  }
+}
+
 
 bygroup = do.call(rbind, groupwise)
 row.names(bygroup) <- NULL
