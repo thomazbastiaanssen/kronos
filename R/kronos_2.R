@@ -88,27 +88,27 @@ if(length(fit$xlevels) > 1){
 bygroup = do.call(rbind, groupwise)
 row.names(bygroup) <- NULL
 
-pairwise_t <- list("pairwise was not activated.")
+pairwise_models <- list("pairwise was not activated.")
 if(pairwise){  
-  pairwise_t <- list()
+  pairwise_models <- list()
   if(verbose){print("Fitting pairwise models")}
-  pairwise_t = pairwise_cosinor_model(data = fit$model, formula = formula, time = time, verbose = verbose)
+  pairwise_models = pairwise_cosinor_model(data = fit$model, formula = formula, time = time, verbose = verbose)
 }
 
-pairwise_p <- "pairwise was not activated."
+pairwise_p_vals <- "pairwise was not activated."
 if(pairwise){  
-  pairwise_p <- kronos_anova(fit = fit, time = time)
+  pairwise_p_vals <- kronos_anova(fit = fit, time = time)
 }
 
 #initialize output container object
 output = new("kronosOut", 
-             input      = data,
-             fit        = fit,
-             to_plot    = vals,
-             ind_fit    = bygroup, 
-             pairwise_t = pairwise_t, 
-             pairwise_p = pairwise_p, 
-             plot_info  = list(time = time, response = response, period = period))
+             input           = data,
+             fit             = fit,
+             to_plot         = vals,
+             ind_fit         = bygroup, 
+             pairwise_models = pairwise_models, 
+             pairwise_p_vals = pairwise_p_vals, 
+             plot_info       = list(time = time, response = response, period = period))
 
 return(output)
 }
@@ -319,17 +319,17 @@ pairwise_cosinor_model <- function(data, formula, time, verbose){
   stopifnot("You need more that two groups in order to sensibly do pairwise comparisons. " = length(unique(data[,"unique_group"])) > 1)
   combos <- combn(c(unique(data[,"unique_group"])), m = 2)
   
-  pairwise_t = list()
+  pairwise_models = list()
   
   for(c in 1:ncol(combos)){
     group_pair = combos[,c]
     x_pair     = data[data[,"unique_group"] %in% group_pair,]
     formula_pair = update.formula(formula, ~ unique_group)
     formula_pair = build_kronos_formula(formula = formula_pair, time = time)
-    pairwise_t[[c]] <- anova(fit_cosinor_model(formula = formula_pair, data = x_pair, time = time, verbose = T, for_pw = T))
-    names(pairwise_t)[c] <- paste(group_pair, collapse = " vs ")
+    pairwise_models[[c]] <- anova(fit_cosinor_model(formula = formula_pair, data = x_pair, time = time, verbose = T, for_pw = T))
+    names(pairwise_models)[c] <- paste(group_pair, collapse = " vs ")
   }
-  return(pairwise_t)
+  return(pairwise_models)
 }
 
 #' Update kronos formula in light of sine and cosine components
