@@ -148,34 +148,6 @@ get_vars <- function(formula, time, data, verbose = T){
   return(list(time = time, response = model_response, factors = model_factors))
 }
 
-#' Figure out what variable represents the response variable. Called by main kronos function. 
-#' @description Extracts the response variable from the formula. 
-#' @param formula A formula. Use the time() function to designate which variable represents time. 
-#' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
-#' 
-get_response <- function(formula, verbose = T){
-  #extract time from formula
-  modelterms     <- terms(formula, keep.order = T)
-  
-  model_response <-  all.vars(formula)[unlist(attr(modelterms, "specials"))]
-  
-  #If both formula and argument specifiy time, check them out. 
-  if(!is.null(time) & !identical(model_time, character(0))){
-    stopifnot("The time argument was stated in the formula and differs from the one given as the time argument" = identical(time, model_time))
-  }
-  
-  #Preferrably use time from the formula. 
-  if(!identical(model_time, character(0))){
-    time <- model_time
-  }
-  #Check whether time argument exists in dataset
-  stopifnot("The time argument argument was not found. Use the `time = <here>` argument or assign within the formula: `y ~ x + time(<here>)" = length(time) == 1)
-  stopifnot("The time argument does not match any column in the data set." = time %in% colnames(data))
-  
-  return(time)
-}
-
-
 #' Get sine and cosine components
 #' @description Based on cosinor and limorhyde packages
 #' @param data input data

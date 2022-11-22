@@ -104,12 +104,13 @@ gg_kronos_circle <- function(kronosOut){
 #' @export
 #' 
 gg_kronos_acrogram <- function(kronosOutList){
-  
+
 d      <- do.call(rbind, lapply(kronosOutList, function(x) x@ind_fit))
+
 period <- kronosOutList[[1]]@plot_info$period
 
 ggplot(d) +
-  aes(x = acro, fill = unique_group) +
+  aes_string(x = "acro", fill = "unique_group") +
   
   geom_histogram(position = "identity", color = 'black', alpha = 3/4) + 
   
