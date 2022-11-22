@@ -22,7 +22,6 @@ gg_kronos_sinusoid <- function(kronosOut, fill = "unique_group"){
     d$unique_group.x <- ""
     d$unique_group.y <- ""
   }
-
   ggplot(d) +
     
     geom_rect(data=NULL, aes(xmin=12, xmax=Inf, ymin=-Inf, ymax=Inf), fill="lightgray") +
@@ -45,6 +44,7 @@ gg_kronos_sinusoid <- function(kronosOut, fill = "unique_group"){
     xlab("") +
     
     ylab("")
+
 }
 
 #' A plotting method for circadian plots using ggplot. 
@@ -68,6 +68,7 @@ gg_kronos_circle <- function(kronosOut){
   unique_group = "unique_group"
   p.sig = "p.sig"
   d$p.sig = d$p.val < 0.05
+
 
     ggplot(d) +
     aes_string(x = acro, y = amp_scale) +
@@ -95,6 +96,7 @@ gg_kronos_circle <- function(kronosOut){
     xlab("") +
     
     ylab("")
+
 }
 
 #' A plotting method for acrophase circleplots using ggplot. 

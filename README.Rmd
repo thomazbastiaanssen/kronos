@@ -131,12 +131,30 @@ output@ind_fit
 ```
 
 ### Figures
+```{r figures, echo=FALSE}
+
+gg_kronos_circle(output)
+
+gg_kronos_sinusoid(output)
+```
 
 ## 3. Comparing Rhythmicity for More than Two Groups
 
 Next we will demonstrate one of the unique features of the Kronos package: the ability to compare circadian rhythms between more than two groups. This is increasingly important as the use of complex experimental designs has increased in biological science. This example comprises of three independent groups and is similar in setup to a one-way ANOVA. For examples of more complex designs, see Excursion 1.
 
 ### Figures
+
+### Figures
+```{r figures_complex, echo=FALSE}
+
+output2 <- kronos(formula = Variable_1 ~ time(Timepoint), 
+                 data = data2, period = 24, 
+                 verbose = T, pairwise = F)
+
+gg_kronos_circle(output2)
+
+gg_kronos_sinusoid(output2)
+```
 
 ## 4. Omics Analysis
 

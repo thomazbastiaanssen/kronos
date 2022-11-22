@@ -163,6 +163,15 @@ interventions (explored further in Sections 3 and 4).
 
 ### Figures
 
+![](README_files/figure-gfm/figures-1.png)<!-- -->
+
+    ## Warning: Removed 66 rows containing non-finite values (`stat_summary()`).
+    ## Removed 66 rows containing non-finite values (`stat_summary()`).
+
+    ## Warning: Removed 66 rows containing missing values (`geom_point()`).
+
+![](README_files/figure-gfm/figures-2.png)<!-- -->
+
 ## 3. Comparing Rhythmicity for More than Two Groups
 
 Next we will demonstrate one of the unique features of the Kronos
@@ -173,6 +182,20 @@ comprises of three independent groups and is similar in setup to a
 one-way ANOVA. For examples of more complex designs, see Excursion 1.
 
 ### Figures
+
+### Figures
+
+    ## [1] "Using the following model: Variable_1 ~ Timepoint_cos + Timepoint_sin"
+    ## [1] "Using the following model: Variable_1 ~ (Timepoint_cos + Timepoint_sin)"
+
+![](README_files/figure-gfm/figures_complex-1.png)<!-- -->
+
+    ## Warning: Removed 3 rows containing non-finite values (`stat_summary()`).
+    ## Removed 3 rows containing non-finite values (`stat_summary()`).
+
+    ## Warning: Removed 3 rows containing missing values (`geom_point()`).
+
+![](README_files/figure-gfm/figures_complex-2.png)<!-- -->
 
 ## 4. Omics Analysis
 
