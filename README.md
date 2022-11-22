@@ -1,3 +1,5 @@
+Please note this package is under active construction.
+
 # Kronos
 
 If you use this software, please cite our work:
