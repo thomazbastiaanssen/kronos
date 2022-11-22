@@ -14,13 +14,13 @@ gg_kronos_sinusoid <- function(kronosOut, fill = "unique_group"){
   x_pred = paste0(kronosOut@plot_info$time, ".y")
   y_obs  = colnames(kronosOut@fit$model)[1]
   y_pred = "y_hat"
-  fill_obs  = paste0(fill, ".x")
-  fill_pred = paste0(fill, ".y")
+  fill_obs  = "unique_group.x"
+  fill_pred = "unique_group.y"
   period    = kronosOut@plot_info$period
   
-  if(is.null(fill)){
-    d$.x <- ""
-    d$.y <- ""
+  if(sum(grepl(pattern = "unique_group.x|unique_group.y", x = colnames(d))) == 0){
+    d$unique_group.x <- ""
+    d$unique_group.y <- ""
   }
 
   ggplot(d) +
@@ -68,8 +68,8 @@ gg_kronos_circle <- function(kronosOut){
   unique_group = "unique_group"
   p.sig = "p.sig"
   d$p.sig = d$p.val < 0.05
-  print(d)
-  ggplot(d) +
+
+    ggplot(d) +
     aes_string(x = acro, y = amp_scale) +
     
     geom_segment(aes_string(x = acro, xend = acro, y = 0, yend = amp_scale, linetype = p.sig)) +
@@ -95,4 +95,40 @@ gg_kronos_circle <- function(kronosOut){
     xlab("") +
     
     ylab("")
+}
+
+#' A plotting method for acrophase circleplots using ggplot. 
+#' @description Wrapper around ggplot to make circadian circleplots. 
+#' @param kronosOutList A list of KronosOut output files from the main kronos() function. 
+#' @import ggplot2
+#' @export
+#' 
+gg_kronos_acrogram <- function(kronosOutList){
+  
+d      <- do.call(rbind, lapply(kronosOutList, function(x) x@ind_fit))
+period <- kronosOutList[[1]]@plot_info$period
+
+ggplot(d) +
+  aes(x = acro, fill = unique_group) +
+  
+  geom_histogram(position = "identity", color = 'black', alpha = 3/4) + 
+  
+  coord_polar() +
+  
+  scale_x_continuous(breaks = seq(0, period, period/6), limits = c(0, 24)) +
+
+  theme_bw()+
+  
+  guides(fill = guide_legend("Legend"), colour = guide_none(), linetype = guide_none()) +
+  
+  theme(
+    axis.text = element_text(size = 14, colour = "black"), 
+    axis.text.y = element_blank(), 
+    axis.ticks = element_blank(), 
+    panel.grid.major.y = element_line(colour = "darkgray"), 
+    panel.border = element_blank() ) +
+  
+  xlab("") +
+  
+  ylab("")
 }
