@@ -40,11 +40,11 @@ gg_kronos_sinusoid <- function(kronosOut, fill = "unique_group"){
     scale_x_continuous(breaks = seq(0, period, period/4), expand = c(0, 0)) +
     
     theme_bw() +
-    guides(fill = guide_legend("Legend"), colour = guide_none()) +
+    guides(fill = guide_legend("Legend", override.aes = list(size = 3)), colour = guide_none()) +
     
-    xlab("Time (h)") +
+    xlab("") +
     
-    ylab("Gene expression")
+    ylab("")
 }
 
 #' A plotting method for circadian plots using ggplot. 

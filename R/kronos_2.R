@@ -12,7 +12,10 @@
 #' @importFrom utils combn
 #' @export
 kronos <- function(formula, data, time = NULL, period = 24, verbose = T, pairwise = T){
-  
+
+if(!is.null(time)){
+  formula = as.formula(paste0(Reduce(paste, deparse(formula)), " + time(", time, ")"))
+}    
 #Clean and standardize input data
 data <- get_all_vars(formula = formula, data = data)
   
