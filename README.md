@@ -51,7 +51,7 @@ library(tidyverse)
 library(ggplot2)
 
 #Load prepared data stored in Kronos library
-###Thomaz to help wrangle this
+data("kronos_demo")
 ```
 
 ### Code chunk: Load our data tables
@@ -69,7 +69,6 @@ Since we’re using prepared data, we already loaded it using
 this:
 
 ``` r
-data("kronos_demo")
 data1 <-   onevariable #One variable, one group
 data2 <-   groupdata #One variable, more than two groups
 bigdata <- bigdata #Omics dataset, more than two groups
@@ -188,8 +187,6 @@ groups. This is increasingly important as the use of complex
 experimental designs has increased in biological science. This example
 comprises of three independent groups and is similar in setup to a
 one-way ANOVA. For examples of more complex designs, see Excursion 1.
-
-### Figures
 
 ### Figures
 

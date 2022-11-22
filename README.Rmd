@@ -35,6 +35,7 @@ We will demonstrate three common examples of experimental design currently encou
 All R code used to transform, reorganise and plot the data is also shown below to hopefully provide a toolkit for aspiring and veteran bioinformaticians alike. It should be noted that the analysis performed here may not perfectly correspond to that performed in the published manuscript: some variables in the datasets provided have been manipulated to better demonstrate functions of the package.
 
 *At the end of this document, we have included a few excursions into more advanced subjects we find useful, but that did not necessarily fit in with the mainline analysis.*
+Ew
 
 ### Code chunk: Install Kronos and load our libraries
 
@@ -50,7 +51,7 @@ library(tidyverse)
 library(ggplot2)
 
 #Load prepared data stored in Kronos library
-###Thomaz to help wrangle this
+data("kronos_demo")
 
 ```
 
@@ -66,7 +67,7 @@ Since we're using prepared data, we already loaded it using 'data*(INSERT DATA N
 
 ```{r readdata, message=FALSE, cache=TRUE}
 
-data("kronos_demo")
+
 data1 <-   onevariable #One variable, one group
 data2 <-   groupdata #One variable, more than two groups
 bigdata <- bigdata #Omics dataset, more than two groups
@@ -142,7 +143,6 @@ gg_kronos_sinusoid(output)
 
 Next we will demonstrate one of the unique features of the Kronos package: the ability to compare circadian rhythms between more than two groups. This is increasingly important as the use of complex experimental designs has increased in biological science. This example comprises of three independent groups and is similar in setup to a one-way ANOVA. For examples of more complex designs, see Excursion 1.
 
-### Figures
 
 ### Figures
 ```{r figures_complex}
