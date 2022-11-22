@@ -131,7 +131,7 @@ output@ind_fit
 ```
 
 ### Figures
-```{r figures, echo=FALSE}
+```{r figures}
 
 gg_kronos_circle(output)
 
@@ -145,11 +145,11 @@ Next we will demonstrate one of the unique features of the Kronos package: the a
 ### Figures
 
 ### Figures
-```{r figures_complex, echo=FALSE}
+```{r figures_complex}
 
-output2 <- kronos(formula = Variable_1 ~ time(Timepoint), 
-                 data = data2, period = 24, 
-                 verbose = T, pairwise = F)
+output2 <- kronos(formula = Variable_1 ~ Treatment + time(Timepoint), 
+                  data = data2, period = 24, 
+                  verbose = T, pairwise = F)
 
 gg_kronos_circle(output2)
 

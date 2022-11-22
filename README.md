@@ -163,7 +163,15 @@ interventions (explored further in Sections 3 and 4).
 
 ### Figures
 
+``` r
+gg_kronos_circle(output)
+```
+
 ![](README_files/figure-gfm/figures-1.png)<!-- -->
+
+``` r
+gg_kronos_sinusoid(output)
+```
 
     ## Warning: Removed 66 rows containing non-finite values (`stat_summary()`).
     ## Removed 66 rows containing non-finite values (`stat_summary()`).
@@ -185,15 +193,31 @@ one-way ANOVA. For examples of more complex designs, see Excursion 1.
 
 ### Figures
 
-    ## [1] "Using the following model: Variable_1 ~ Timepoint_cos + Timepoint_sin"
+``` r
+output2 <- kronos(formula = Variable_1 ~ Treatment + time(Timepoint), 
+                  data = data2, period = 24, 
+                  verbose = T, pairwise = F)
+```
+
+    ## [1] "Using the following model: Variable_1 ~ Treatment + Timepoint_cos + Timepoint_sin + Treatment:Timepoint_cos +     Treatment:Timepoint_sin - 1"
     ## [1] "Using the following model: Variable_1 ~ (Timepoint_cos + Timepoint_sin)"
+    ## [1] "Using the following model: Variable_1 ~ (Timepoint_cos + Timepoint_sin)"
+    ## [1] "Using the following model: Variable_1 ~ (Timepoint_cos + Timepoint_sin)"
+
+``` r
+gg_kronos_circle(output2)
+```
 
 ![](README_files/figure-gfm/figures_complex-1.png)<!-- -->
 
-    ## Warning: Removed 3 rows containing non-finite values (`stat_summary()`).
-    ## Removed 3 rows containing non-finite values (`stat_summary()`).
+``` r
+gg_kronos_sinusoid(output2)
+```
 
-    ## Warning: Removed 3 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 197 rows containing non-finite values (`stat_summary()`).
+    ## Removed 197 rows containing non-finite values (`stat_summary()`).
+
+    ## Warning: Removed 197 rows containing missing values (`geom_point()`).
 
 ![](README_files/figure-gfm/figures_complex-2.png)<!-- -->
 
