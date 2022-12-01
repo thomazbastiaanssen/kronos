@@ -65,8 +65,7 @@ that are pre-formatted. You can rearrange your data into long form using
 pivot_longer() or gather() in tidyr.
 
 Since we’re using prepared data, we already loaded it using
-‘data*(INSERT DATA NAME HERE)*’ but typically we would do something like
-this:
+`data(kronos_demo)` but typically we would do something like this:
 
 ``` r
 data1 <-   onevariable #One variable, one group
@@ -95,7 +94,7 @@ to account for its compositional nature (see our guide
 
 ## 1. Statistical Approach
 
-*THOMAZ PLEASE WRITE SOMETHING*
+*To be completed*
 
 ## 2. Analysing Rhythmicity in a Single Group
 
@@ -134,7 +133,8 @@ the calculated cosine and sine components.
     ## 5 -0.4174538         5         TRUE      0.258819     0.9659258
     ## 6 -0.4052512         5         TRUE      0.258819     0.9659258
 
-2). The *fit* contains the key coefficients for the model.
+2). The *fit* contains the key details for the generated model that may
+be useful for prediction, modelling and other statistical applications.
 
 3). The *to_plot* contains all the data required for graphing the
 sinusoid curve, which can either be used in our custom ggplot2
@@ -155,12 +155,26 @@ with the p-value (p.val) and proportion of the variance in the data
 explained (r.sq) when we fit our sinusoid curve. Additionally we obtain
 the acrophase (acro) and amplitude of the predicted curve, which can be
 used in our graphics functions to visualise changes in curve with
-interventions (explored further in Sections 3 and 4).
+interventions (see `gg_kronos_circle`, explored further below).
 
     ##   unique_group        p.val      r.sq        avg     acro amplitude
     ## 1         TRUE 2.237134e-05 0.5345906 -0.4022588 19.97413  0.792033
 
 ### Figures
+
+The package contains custom ggplot2 figure functions, that utilise the
+kronos output to rapidly produce figures that convey important
+information for circadian rhythms:
+
+1.  `gg_kronos_circle(output)` generates a plot showing the acrophase
+    and amplitude of the predicted curve, allowing the reader to rapidly
+    access summary data regarding variables of interest, and to compare
+    the summary data between groups in more complex models.At baseline,
+    non-significant outcome measures are presented using dashed lines.
+2.  `gg_kronos_sinusoid(output)` generates a x-y plot showing the
+    outcome variable across the defined period. These graphs are useful
+    for visualising the differences between specific timepoints
+    assessed.
 
 ``` r
 gg_kronos_circle(output)
@@ -172,10 +186,10 @@ gg_kronos_circle(output)
 gg_kronos_sinusoid(output)
 ```
 
-    ## Warning: Removed 66 rows containing non-finite values (`stat_summary()`).
-    ## Removed 66 rows containing non-finite values (`stat_summary()`).
+    ## Warning: Removed 66 rows containing non-finite values (stat_summary).
+    ## Removed 66 rows containing non-finite values (stat_summary).
 
-    ## Warning: Removed 66 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 66 rows containing missing values (geom_point).
 
 ![](README_files/figure-gfm/figures-2.png)<!-- -->
 
@@ -184,22 +198,24 @@ gg_kronos_sinusoid(output)
 Next we will demonstrate one of the unique features of the Kronos
 package: the ability to compare circadian rhythms between more than two
 groups. This is increasingly important as the use of complex
-experimental designs has increased in biological science. This example
-comprises of three independent groups and is similar in setup to a
-one-way ANOVA. For examples of more complex designs, see Excursion 1.
-
-### Figures
+experimental designs grows in biological science. This example comprises
+of three independent groups and is similar in setup to a one-way ANOVA.
+For examples of more complex designs, see Excursion 1.
 
 ``` r
 output2 <- kronos(formula = Variable_1 ~ Treatment + time(Timepoint), 
                   data = data2, period = 24, 
-                  verbose = T, pairwise = F)
+                  verbose = T, pairwise = T)
 ```
 
     ## [1] "Using the following model: Variable_1 ~ Treatment + Timepoint_cos + Timepoint_sin + Treatment:Timepoint_cos +     Treatment:Timepoint_sin - 1"
     ## [1] "Using the following model: Variable_1 ~ (Timepoint_cos + Timepoint_sin)"
     ## [1] "Using the following model: Variable_1 ~ (Timepoint_cos + Timepoint_sin)"
     ## [1] "Using the following model: Variable_1 ~ (Timepoint_cos + Timepoint_sin)"
+    ## [1] "Fitting pairwise models"
+    ## [1] "Using the following model: Variable_1 ~ unique_group * (Timepoint_cos + Timepoint_sin)"
+    ## [1] "Using the following model: Variable_1 ~ unique_group * (Timepoint_cos + Timepoint_sin)"
+    ## [1] "Using the following model: Variable_1 ~ unique_group * (Timepoint_cos + Timepoint_sin)"
 
 ``` r
 gg_kronos_circle(output2)
@@ -211,12 +227,78 @@ gg_kronos_circle(output2)
 gg_kronos_sinusoid(output2)
 ```
 
-    ## Warning: Removed 197 rows containing non-finite values (`stat_summary()`).
-    ## Removed 197 rows containing non-finite values (`stat_summary()`).
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+    ## Removed 197 rows containing non-finite values (stat_summary).
 
-    ## Warning: Removed 197 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 197 rows containing missing values (geom_point).
 
 ![](README_files/figure-gfm/figures_complex-2.png)<!-- -->
+
+There are a few changes to the output generated by the kronos function:
+
+1.  The *ind_fit* list now contains a line for each of our groups.
+
+<!-- -->
+
+    ##   unique_group       p.val       r.sq      avg      acro  amplitude
+    ## 1            A 0.031490079 0.21886392 1.099699 12.681641 0.17966767
+    ## 2            B 0.002912094 0.33147505 1.246347 18.592663 0.30283851
+    ## 3            C 0.723230482 0.02287902 1.337834  3.447684 0.05150576
+
+In this example you can see that groups A and B exhibit statistically
+significant rhythms, while the model fitted to group C is
+non-significant.
+
+2.  We can now generate the *pairwise_models* list using `pairwise=T`.
+    This generates pairwise comparisons between each of the groups:
+
+<!-- -->
+
+    ## $`A vs B`
+    ## Analysis of Variance Table
+    ## 
+    ## Response: Variable_1
+    ##                            Df Sum Sq Mean Sq F value  Pr(>F)   
+    ## unique_group                1 0.3626 0.36262  4.3279 0.04200 * 
+    ## Timepoint_cos               1 0.1323 0.13228  1.5788 0.21406   
+    ## Timepoint_sin               1 0.8859 0.88585 10.5728 0.00193 **
+    ## unique_group:Timepoint_cos  1 0.4090 0.40901  4.8816 0.03118 * 
+    ## unique_group:Timepoint_sin  1 0.5492 0.54916  6.5543 0.01314 * 
+    ## Residuals                  57 4.7758 0.08379                   
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## $`A vs C`
+    ## Analysis of Variance Table
+    ## 
+    ## Response: Variable_1
+    ##                            Df Sum Sq Mean Sq F value    Pr(>F)    
+    ## unique_group                1 0.9067 0.90674 14.3827 0.0003677 ***
+    ## Timepoint_cos               1 0.1669 0.16692  2.6476 0.1093177    
+    ## Timepoint_sin               1 0.0007 0.00068  0.0108 0.9174232    
+    ## unique_group:Timepoint_cos  1 0.3425 0.34246  5.4321 0.0233965 *  
+    ## unique_group:Timepoint_sin  1 0.0390 0.03899  0.6185 0.4349195    
+    ## Residuals                  56 3.5305 0.06304                      
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## $`B vs C`
+    ## Analysis of Variance Table
+    ## 
+    ## Response: Variable_1
+    ##                            Df Sum Sq Mean Sq F value  Pr(>F)   
+    ## unique_group                1 0.1279 0.12786  1.5595 0.21685   
+    ## Timepoint_cos               1 0.0487 0.04868  0.5937 0.44417   
+    ## Timepoint_sin               1 0.5623 0.56230  6.8581 0.01129 * 
+    ## unique_group:Timepoint_cos  1 0.0025 0.00251  0.0306 0.86179   
+    ## unique_group:Timepoint_sin  1 0.8940 0.89402 10.9038 0.00166 **
+    ## Residuals                  57 4.6735 0.08199                   
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Above you can see that overall group A is significantly different
+between B and C, and that group B exhibits a significantly different
+rhythm from A and C.
 
 ## 4. Omics Analysis
 
@@ -228,4 +310,6 @@ BLEURGH
 
 BLEURGH
 
-## Excursion 1. Assessing Rhythmicity in More Complex Models
+## Excursion 1. Customising Figures
+
+## Excursion 2. Assessing Rhythmicity in More Complex Models
