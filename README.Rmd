@@ -228,7 +228,7 @@ Here the for-loop creates a list where every list object is the data for one of 
 ```{r kronos list, echo=FALSE, warning=FALSE, message=FALSE}
 
 
-out_list = lapply(X = data.list, FUN = function(y){kronos(data=y, Value ~ Group + time(Timepoint), period = 24, pairwise=T, verbose=F)})
+out_list = lapply(X = data.list, FUN = function(y){kronos(data = y, Value ~ Group + time(Timepoint), period = 24, pairwise = T, verbose = F)})
 
 ```
 ***Thomaz*** **how do we get rid of the output here?**
