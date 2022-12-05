@@ -297,7 +297,7 @@ for (i in 1:length(plot_list)) {
 dev.off()
 
 ```
-The resulting pdf can be found [here](https:://github.com/thomazbastiaanssen/kronos/tree/main/README_files/plots_circadian.pdf)
+The resulting pdf can be found [here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/plots_circadian.pdf)
 The same approach can be applied for obtaining individual circle figures.
 
 

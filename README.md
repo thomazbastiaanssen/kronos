@@ -435,7 +435,7 @@ dev.off()
     ##   2
 
 The resulting pdf can be found
-[here](https:://github.com/thomazbastiaanssen/kronos/tree/main/README_files/plots_circadian.pdf)
+[here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/plots_circadian.pdf)
 The same approach can be applied for obtaining individual circle
 figures.
 
