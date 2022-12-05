@@ -1091,14 +1091,11 @@ for(q in 1:length(out_list)){
   
 }
 
-library(patchwork)
+# library(patchwork)
+# 
+# wrap_plots(plot_list) + guide_area() + plot_layout(guides = 'collect')  #& labs(caption = '') for example to remove the stats. 
 
-wrap_plots(plot_list) + guide_area() + plot_layout(guides = 'collect')  #& labs(caption = '') for example to remove the stats. 
-```
 
-![](README_files/figure-gfm/multi-plots-1.png)<!-- -->
-
-``` r
 #to plot & save the feature graphs to a pdf:
 pdf("plots_circadian.pdf")
 for (i in 1:length(plot_list)) {

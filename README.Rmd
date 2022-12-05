@@ -273,7 +273,7 @@ We can use a similar approach to obtain other components of the kronosOut object
 
 We can also use automation to obtain individual plots for our omics dataset.  Here we will demonstrate how to obtain sinusoid curves for each outcome measure in the dataset.
 
-```{r multi-plots, warning=FALSE, message=FALSE}
+```{r multi-plots, warning=FALSE, message=FALSE, fig.show = "hide"}
 
 plot_list <- list() #make an empty list
 
@@ -284,9 +284,9 @@ for(q in 1:length(out_list)){
   
 }
 
-library(patchwork)
-
-wrap_plots(plot_list) + guide_area() + plot_layout(guides = 'collect')  #& labs(caption = '') for example to remove the stats. 
+# library(patchwork)
+# 
+# wrap_plots(plot_list) + guide_area() + plot_layout(guides = 'collect')  #& labs(caption = '') for example to remove the stats. 
 
 
 #to plot & save the feature graphs to a pdf:
