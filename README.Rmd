@@ -290,13 +290,14 @@ for(q in 1:length(out_list)){
 
 
 #to plot & save the feature graphs to a pdf:
-pdf("plots_circadian.pdf")
+pdf("README_files/plots_circadian.pdf")
 for (i in 1:length(plot_list)) {
   print(plot_list[[i]])
 }
 dev.off()
 
 ```
+The resulting pdf can be found [here](https:://github.com/thomazbastiaanssen/kronos/tree/main/README_files/plots_circadian.pdf)
 The same approach can be applied for obtaining individual circle figures.
 
 
