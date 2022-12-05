@@ -4,7 +4,7 @@
 \alias{fit_cosinor_model}
 \title{Fit cosinor model}
 \usage{
-fit_cosinor_model(formula, data, time = NULL, verbose = T, for_pw = F)
+fit_cosinor_model(formula, data, time = NULL, verbose = verbose, for_pw = F)
 }
 \arguments{
 \item{formula}{A formula. Use the time() function to designate which variable represents time.}

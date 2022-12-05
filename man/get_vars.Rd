@@ -4,7 +4,7 @@
 \alias{get_vars}
 \title{Figure out what variable represents time. Called by main kronos function.}
 \usage{
-get_vars(formula, time, data, verbose = T)
+get_vars(formula, time, data, verbose = verbose)
 }
 \arguments{
 \item{formula}{A formula. Use the time() function to designate which variable represents time.}

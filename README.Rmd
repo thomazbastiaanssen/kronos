@@ -214,9 +214,8 @@ data.list <- list() #create an empty list
 
 data_names = unique(data.long$Variables) #collect all outcome variables
 
+
 for(n in 1:length(data_names)){
-  print(data_names[n])
-  
   data.list[[n]] <- data.long %>% filter(Variables == data_names[n])
 }
 
@@ -226,7 +225,7 @@ for(n in 1:length(data_names)){
 
 Here the for-loop creates a list where every list object is the data for one of our outcome variables. Now we can analyse each outcome variable with the kronos function, using the `lapply` function, which allows us to apply a specific function to list objects and returns a list object of the same length.
 
-```{r kronos list, echo=FALSE}
+```{r kronos list, echo=FALSE, warning=FALSE, message=FALSE}
 
 
 out_list = lapply(X = data.list, FUN = function(y){kronos(data=y, Value ~ Group + time(Timepoint), period = 24, pairwise=T, verbose=F)})
@@ -236,7 +235,7 @@ out_list = lapply(X = data.list, FUN = function(y){kronos(data=y, Value ~ Group 
 
 Now we have a list of kronosOut objects, which contain all our results. While this can be accessed in R, this is unwieldy for result reporting and interpretation. Therefore, we recommend using another for-loop to extract your data of interest:
 
-```{r result list, echo=FALSE}
+```{r result list, echo=FALSE, warning=FALSE, message=FALSE}
 
 names(out_list) <- data_names
 
@@ -274,7 +273,7 @@ We can use a similar approach to obtain other components of the kronosOut object
 
 We can also use automation to obtain individual plots for our omics dataset.  Here we will demonstrate how to obtain sinusoid curves for each outcome measure in the dataset.
 
-```{r multi-plots, echo=FALSE}
+```{r multi-plots, echo=FALSE, warning=FALSE, message=FALSE}
 
 plot_list<- list() #make an empty list
 
@@ -293,10 +292,17 @@ for(q in 1:length(out_list)){
   #end of ggplot script
 }
 
+library(patchwork)
+
+wrap_plots(plot_list) + guide_area() + plot_layout(guides = 'collect')  #& labs(caption = '') for example to remove the stats. 
+
+
 #to plot & save the feature graphs to a pdf:
-for (r in 1:length(out_list)) {
-  ggsave(filename=paste0("Figure_",(names(out_list[r])),"plot.pdf"), plot=plot_list[[r]], device="pdf")
+pdf("plots_circadian.pdf")
+for (i in 1:length(plot_list)) {
+  print(plot_list[[i]])
 }
+dev.off()
 
 ```
 The same approach can be applied for obtaining individual circle figures.
