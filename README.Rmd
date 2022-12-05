@@ -293,9 +293,9 @@ The same approach can be applied for obtaining individual circle figures.
 
 Here we have presented standard data for the analysis of time-of-day. Some points to consider for your data is whether you can assume a 24-hour period, and whether your data is evenly distributed over the period. Please note that you will require a minimum of three data points over your period to make use of these functions, and indeed any function using sinusoid models. Currently the kronos package is not able to estimate period; we recommend packages _ _ _ ***Gabi/Thomaz*** for determining your period if this is necessary for your research question.
 
-This tutorial is merely a template. Depending on your experimental set-up, findings and experimental questions you may need to adjust your approach. However, as complex statistical models become more frequent in the study of circadian rhythms, we feel that functions that can incorporate more complex design than two-group comparisons are essential for advancement of the field.
+This tutorial is merely a template. Depending on your experimental set-up, findings and experimental questions you may need to adjust your approach. However, as complex statistical models become more frequent in the study of circadian rhythms,  functions that can incorporate more complex design than two-group comparisons are essential for advancement of the field.
 
-We have provided figure generation functions as we feel that clear communication of results is essential to producing good and useful science. Please see below for more details for figure customisation. We hope that both aspiring and veteran bioinformaticians and circadian rhythm biologists will find our guide helpful.
+We have provided figure generation functions as  clear communication of results is essential to producing good and useful science. Please see below for more details for figure customisation. We hope that both aspiring and veteran bioinformaticians and circadian rhythm biologists will find our guide helpful.
 
 
 ## Excursion 1. Customising Figures
