@@ -63,23 +63,11 @@ Data should be prepared in "long form" for use in Kronos; that is with values re
 
 Our package includes example datasets that we will use in this tutorial that are pre-formatted. You can rearrange your data into long form using pivot_longer() or gather() in tidyr.
 
-Since we're using prepared data, we already loaded it using `data(kronos_demo)` but typically we would do something like this:
-
-```{r readdata, message=FALSE, cache=TRUE}
-
-
-data1 <-   onevariable #One variable, one group
-data2 <-   groupdata #One variable, more than two groups
-bigdata <- bigdata #Omics dataset, more than two groups
-bigmeta <- bigmeta #Omics sample metadata
-
-```
-
-You can see how an example of how the data is prepared below:
+Since we're using prepared data, we already loaded it using `data(kronos_demo)`. You can see how an example of how the data is prepared below:
 
 ```{r showdata, echo=FALSE}
 
-head(data2)
+head(groupdata)
 
 ```
 
@@ -96,7 +84,7 @@ We will start with the most simple example: analysing circadian rhythmicity in a
 ```{r kronos1group, message=FALSE, warning=FALSE, cache=FALSE}
 
 output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-                 data = data1, period = 24, 
+                 data = onevariable, period = 24, 
                  verbose = T, pairwise = F)
 
 ```
@@ -152,7 +140,7 @@ Next we will demonstrate one of the unique features of the Kronos package: the a
 ```{r figures_complex}
 
 output2 <- kronos(formula = Variable_1 ~ Treatment + time(Timepoint), 
-                  data = data2, period = 24, 
+                  data = groupdata, period = 24, 
                   verbose = T, pairwise = T)
 
 gg_kronos_circle(output2)
