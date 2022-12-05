@@ -1124,13 +1124,961 @@ While this can be accessed in R, this is unwieldy for result reporting
 and interpretation. Therefore, we recommend using another for-loop to
 extract your data of interest:
 
-We find
+This will generate a csv containing the individual rhythmicity
+calculations for the whole dataset with an FDR correction to account for
+multiple tests.
+
+    ##              unique_group       p.val        r.sq       avg      acro
+    ## Variable_1.1            B 0.953279769 0.003294345 0.5939175 12.787074
+    ## Variable_1.2            A 0.030901063 0.219916741 0.5809418 22.474987
+    ## Variable_1.3            C 0.777155036 0.017847065 0.5868535 16.862949
+    ## Variable_2.1            B 0.929782481 0.005008424 0.7216686  8.550615
+    ## Variable_2.2            A 0.002684955 0.344832049 0.6931953  8.798428
+    ## Variable_2.3            C 0.312234641 0.079780343 0.5981656 16.245056
+    ##               amplitude      q.val
+    ## Variable_1.1 0.01475693 0.99716448
+    ## Variable_1.2 0.13583197 0.20358347
+    ## Variable_1.3 0.02294777 0.95611632
+    ## Variable_2.1 0.03722544 0.99176798
+    ## Variable_2.2 0.28394367 0.05011916
+    ## Variable_2.3 0.10185205 0.64362478
+
+We can use a similar approach to obtain other components of the
+kronosOut objects.
+
+***Everyone*** **should we include the pairwise example here? It is
+slightly more complex than extracting any of the other data**
 
 ### Figures
 
+***Gabi/Thomaz*** **please include the summary circle plot here. I would
+probably put it in first**
+
+We can also use automation to obtain individual plots for our omics
+dataset. Here we will demonstrate how to obtain sinusoid curves for each
+outcome measure in the dataset.
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+    ## Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+    ## Saving 7 x 5 in image
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 197 rows containing missing values (geom_point).
+
+The same approach can be applied for obtaining individual circle
+figures.
+
 ## 5. Discussion
 
-BLEURGH
+Here we have presented standard data for the analysis of time-of-day.
+Some points to consider for your data is whether you can assume a
+24-hour period, and whether your data is evenly distributed over the
+period. Please note that you will require a minimum of three data points
+over your period to make use of these functions, and indeed any function
+using sinusoid models. Currently the kronos package is not able to
+estimate period; we recommend packages \_ \_ \_ ***Gabi/Thomaz*** for
+determining your period if this is necessary for your research question.
+
+This tutorial is merely a template. Depending on your experimental
+set-up, findings and experimental questions you may need to adjust your
+approach. However, as complex statistical models become more frequent in
+the study of circadian rhythms, we feel that functions that can
+incorporate more complex design than two-group comparisons are essential
+for advancement of the field.
+
+We have provided figure generation functions as we feel that clear
+communication of results is essential to producing good and useful
+science. Please see below for more details for figure customisation. We
+hope that both aspiring and veteran bioinformaticians and circadian
+rhythm biologists will find our guide helpful.
 
 ## Excursion 1. Customising Figures
 
