@@ -184,13 +184,132 @@ Above you can see that overall group A is significantly different between B and 
 
 ## 4. Omics Analysis
 
-BLEURGH
+Now we will demonstrate how to adapt the package for omics analysis, where there are many outcome variables. We transform our data into lists so that we can automate the process.
+
+First we need to pivot the data into long-form and then combine the metadata and data to form a single dataframe. We can achieve this using the following code:
+
+```{r combine data, echo=FALSE}
+
+data.long <-bigdata %>%
+  pivot_longer(!Animal_ID, names_to="Variables", values_to="Value") %>%
+  as.data.frame
+
+data.long <- inner_join(data.long, bigmeta, by ="Animal_ID")
+
+```
+
+This will generate the following dataframe:
+
+```{r show data.long, echo=FALSE}
+
+head(data.long)
+
+```
+
+We then transform the dataframe into a list so that we can automate the analysis:
+
+```{r make list, echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+
+data.list <- list() #create an empty list
+
+data_names = unique(data.long$Variables) #collect all outcome variables
+
+for(n in 1:length(data_names)){
+  print(data_names[n])
+  
+  data.list[[n]] <- data.long %>% filter(Variables == data_names[n])
+}
+
+```
+
+***Thomaz*** **how do we get rid of the output here?**
+
+Here the for-loop creates a list where every list object is the data for one of our outcome variables. Now we can analyse each outcome variable with the kronos function, using the `lapply` function, which allows us to apply a specific function to list objects and returns a list object of the same length.
+
+```{r kronos list, echo=FALSE}
+
+
+out_list = lapply(X = data.list, FUN = function(y){kronos(data=y, Value ~ Group + time(Timepoint), period = 24, pairwise=T, verbose=F)})
+
+```
+***Thomaz*** **how do we get rid of the output here?**
+
+Now we have a list of kronosOut objects, which contain all our results. While this can be accessed in R, this is unwieldy for result reporting and interpretation. Therefore, we recommend using another for-loop to extract your data of interest:
+
+```{r result list, echo=FALSE}
+
+names(out_list) <- data_names
+
+fit_list = list() #create an empty list
+
+#The for-loop below generates a list containing the individual fit results
+for(m in 1:length(out_list)){
+  fit_list[[m]] <- out_list[[m]]@ind_fit
+  names(fit_list)[m] <- names(out_list)[m]
+  
+}
+
+fit_df = do.call(rbind, fit_list) #Here we collapse the list by binding the rows together
+fit_df$q.val = p.adjust(fit_df$p.val, method = "BH") #Here we perform an FDR correction on the data to account for multiple tests
+
+write.csv(fit_df, "RhythmicityResults.csv")
+
+```
+
+This will generate a csv containing the individual rhythmicity calculations for the whole dataset with an FDR correction to account for multiple tests. 
+
+```{r show fit.df, echo=FALSE}
+
+head(fit_df)
+
+```
+
+We can use a similar approach to obtain other components of the kronosOut objects.
+
+***Everyone*** **should we include the pairwise example here? It is slightly more complex than extracting any of the other data**
 
 ### Figures
 
+***Gabi/Thomaz*** **please include the summary circle plot here. I would probably put it in first**
+
+We can also use automation to obtain individual plots for our omics dataset.  Here we will demonstrate how to obtain sinusoid curves for each outcome measure in the dataset.
+
+```{r multi-plots, echo=FALSE}
+
+plot_list<- list() #make an empty list
+
+for(q in 1:length(out_list)){
+  
+  #extract plotting info within the loop
+  out = out_list[[q]]
+  
+  #save plot into relevant position in list
+  plot_list[[q]] <- out %>% {
+    
+    #your ggplot script here  
+    
+    gg_kronos_sinusoid(out)
+   }
+  #end of ggplot script
+}
+
+#to plot & save the feature graphs to a pdf:
+for (r in 1:length(out_list)) {
+  ggsave(filename=paste0("Figure_",(names(out_list[r])),"plot.pdf"), plot=plot_list[[r]], device="pdf")
+}
+
+```
+The same approach can be applied for obtaining individual circle figures.
+
+
 ## 5. Discussion
 
-BLEURGH
+Here we have presented standard data for the analysis of time-of-day. Some points to consider for your data is whether you can assume a 24-hour period, and whether your data is evenly distributed over the period. Please note that you will require a minimum of three data points over your period to make use of these functions, and indeed any function using sinusoid models. Currently the kronos package is not able to estimate period; we recommend packages _ _ _ ***Gabi/Thomaz*** for determining your period if this is necessary for your research question.
+
+This tutorial is merely a template. Depending on your experimental set-up, findings and experimental questions you may need to adjust your approach. However, as complex statistical models become more frequent in the study of circadian rhythms, we feel that functions that can incorporate more complex design than two-group comparisons are essential for advancement of the field.
+
+We have provided figure generation functions as we feel that clear communication of results is essential to producing good and useful science. Please see below for more details for figure customisation. We hope that both aspiring and veteran bioinformaticians and circadian rhythm biologists will find our guide helpful.
+
 
 ## Excursion 1. Customising Figures
 
