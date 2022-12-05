@@ -174,7 +174,7 @@ In this example you can see that groups A and B exhibit statistically significan
 
 2.  We can now generate the *pairwise_models* list using `pairwise=T`. This generates pairwise comparisons between each of the groups:
 
-```{r showpairwisemodel, echo=FALSE}
+```{r showpairwisemodel}
 
 output2@pairwise_models
 
@@ -188,7 +188,7 @@ Now we will demonstrate how to adapt the package for omics analysis, where there
 
 First we need to pivot the data into long-form and then combine the metadata and data to form a single dataframe. We can achieve this using the following code:
 
-```{r combine data, echo=FALSE}
+```{r combine data}
 
 data.long <-bigdata %>%
   pivot_longer(!Animal_ID, names_to="Variables", values_to="Value") %>%
@@ -200,7 +200,7 @@ data.long <- inner_join(data.long, bigmeta, by ="Animal_ID")
 
 This will generate the following dataframe:
 
-```{r show data.long, echo=FALSE}
+```{r show data.long}
 
 head(data.long)
 
@@ -235,7 +235,7 @@ out_list = lapply(X = data.list, FUN = function(y){kronos(data=y, Value ~ Group 
 
 Now we have a list of kronosOut objects, which contain all our results. While this can be accessed in R, this is unwieldy for result reporting and interpretation. Therefore, we recommend using another for-loop to extract your data of interest:
 
-```{r result list, echo=FALSE, warning=FALSE, message=FALSE}
+```{r result list, warning=FALSE, message=FALSE}
 
 names(out_list) <- data_names
 
@@ -257,7 +257,7 @@ write.csv(fit_df, "RhythmicityResults.csv")
 
 This will generate a csv containing the individual rhythmicity calculations for the whole dataset with an FDR correction to account for multiple tests. 
 
-```{r show fit.df, echo=FALSE}
+```{r show fit.df}
 
 head(fit_df)
 
@@ -273,23 +273,15 @@ We can use a similar approach to obtain other components of the kronosOut object
 
 We can also use automation to obtain individual plots for our omics dataset.  Here we will demonstrate how to obtain sinusoid curves for each outcome measure in the dataset.
 
-```{r multi-plots, echo=FALSE, warning=FALSE, message=FALSE}
+```{r multi-plots, warning=FALSE, message=FALSE}
 
-plot_list<- list() #make an empty list
+plot_list <- list() #make an empty list
 
 for(q in 1:length(out_list)){
   
-  #extract plotting info within the loop
-  out = out_list[[q]]
-  
   #save plot into relevant position in list
-  plot_list[[q]] <- out %>% {
-    
-    #your ggplot script here  
-    
-    gg_kronos_sinusoid(out)
-   }
-  #end of ggplot script
+  plot_list[[q]] <- gg_kronos_sinusoid(out_list[[q]]) 
+  
 }
 
 library(patchwork)

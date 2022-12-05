@@ -252,7 +252,9 @@ non-significant.
 2.  We can now generate the *pairwise_models* list using `pairwise=T`.
     This generates pairwise comparisons between each of the groups:
 
-<!-- -->
+``` r
+output2@pairwise_models
+```
 
     ## $`A vs B`
     ## Analysis of Variance Table
@@ -310,7 +312,19 @@ First we need to pivot the data into long-form and then combine the
 metadata and data to form a single dataframe. We can achieve this using
 the following code:
 
+``` r
+data.long <-bigdata %>%
+  pivot_longer(!Animal_ID, names_to="Variables", values_to="Value") %>%
+  as.data.frame
+
+data.long <- inner_join(data.long, bigmeta, by ="Animal_ID")
+```
+
 This will generate the following dataframe:
+
+``` r
+head(data.long)
+```
 
     ##   Animal_ID  Variables      Value Group Timepoint
     ## 1        49 Variable_1  0.6997887     B         5
@@ -1011,9 +1025,31 @@ While this can be accessed in R, this is unwieldy for result reporting
 and interpretation. Therefore, we recommend using another for-loop to
 extract your data of interest:
 
+``` r
+names(out_list) <- data_names
+
+fit_list = list() #create an empty list
+
+#The for-loop below generates a list containing the individual fit results
+for(m in 1:length(out_list)){
+  fit_list[[m]] <- out_list[[m]]@ind_fit
+  names(fit_list)[m] <- names(out_list)[m]
+  
+}
+
+fit_df = do.call(rbind, fit_list) #Here we collapse the list by binding the rows together
+fit_df$q.val = p.adjust(fit_df$p.val, method = "BH") #Here we perform an FDR correction on the data to account for multiple tests
+
+write.csv(fit_df, "RhythmicityResults.csv")
+```
+
 This will generate a csv containing the individual rhythmicity
 calculations for the whole dataset with an FDR correction to account for
 multiple tests.
+
+``` r
+head(fit_df)
+```
 
     ##              unique_group       p.val        r.sq       avg      acro
     ## Variable_1.1            B 0.953279769 0.003294345 0.5939175 12.787074
@@ -1045,7 +1081,31 @@ We can also use automation to obtain individual plots for our omics
 dataset. Here we will demonstrate how to obtain sinusoid curves for each
 outcome measure in the dataset.
 
+``` r
+plot_list <- list() #make an empty list
+
+for(q in 1:length(out_list)){
+  
+  #save plot into relevant position in list
+  plot_list[[q]] <- gg_kronos_sinusoid(out_list[[q]]) 
+  
+}
+
+library(patchwork)
+
+wrap_plots(plot_list) + guide_area() + plot_layout(guides = 'collect')  #& labs(caption = '') for example to remove the stats. 
+```
+
 ![](README_files/figure-gfm/multi-plots-1.png)<!-- -->
+
+``` r
+#to plot & save the feature graphs to a pdf:
+pdf("plots_circadian.pdf")
+for (i in 1:length(plot_list)) {
+  print(plot_list[[i]])
+}
+dev.off()
+```
 
     ## png 
     ##   2
