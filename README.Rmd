@@ -308,7 +308,7 @@ The two figure functions, `gg_kronos_circle()` and `gg_kronos_sinusoid()`, are d
 
 ```{r customise figure}
 
-plot <- gg_kronos_circle(output2) +
+plot <- gg_kronos_circle(output2)
 
 ```
 

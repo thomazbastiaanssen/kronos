@@ -65,16 +65,8 @@ that are pre-formatted. You can rearrange your data into long form using
 pivot_longer() or gather() in tidyr.
 
 Since we’re using prepared data, we already loaded it using
-`data(kronos_demo)` but typically we would do something like this:
-
-``` r
-data1 <-   onevariable #One variable, one group
-data2 <-   groupdata #One variable, more than two groups
-bigdata <- bigdata #Omics dataset, more than two groups
-bigmeta <- bigmeta #Omics sample metadata
-```
-
-You can see how an example of how the data is prepared below:
+`data(kronos_demo)`. You can see how an example of how the data is
+prepared below:
 
     ##   Animal_ID Timepoint Treatment Variable_1
     ## 1         6         5         A  1.2789856
@@ -104,7 +96,7 @@ interest. For this we use the kronos function:
 
 ``` r
 output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-                 data = data1, period = 24, 
+                 data = onevariable, period = 24, 
                  verbose = T, pairwise = F)
 ```
 
@@ -166,15 +158,14 @@ The package contains custom ggplot2 figure functions, that utilise the
 kronos output to rapidly produce figures that convey important
 information for circadian rhythms:
 
-1.  `gg_kronos_circle(output)` generates a plot showing the acrophase
-    and amplitude of the predicted curve, allowing the reader to rapidly
+1.  `gg_kronos_circle()` generates a plot showing the acrophase and
+    amplitude of the predicted curve, allowing the reader to rapidly
     access summary data regarding variables of interest, and to compare
     the summary data between groups in more complex models.At baseline,
     non-significant outcome measures are presented using dashed lines.
-2.  `gg_kronos_sinusoid(output)` generates a x-y plot showing the
-    outcome variable across the defined period. These graphs are useful
-    for visualising the differences between specific timepoints
-    assessed.
+2.  `gg_kronos_sinusoid()` generates a x-y plot showing the outcome
+    variable across the defined period. These graphs are useful for
+    visualising the differences between specific timepoints assessed.
 
 ``` r
 gg_kronos_circle(output)
@@ -204,7 +195,7 @@ For examples of more complex designs, see Excursion 1.
 
 ``` r
 output2 <- kronos(formula = Variable_1 ~ Treatment + time(Timepoint), 
-                  data = data2, period = 24, 
+                  data = groupdata, period = 24, 
                   verbose = T, pairwise = T)
 ```
 
@@ -337,15 +328,11 @@ head(data.long)
 We then transform the dataframe into a list so that we can automate the
 analysis:
 
-***Thomaz*** **how do we get rid of the output here?**
-
 Here the for-loop creates a list where every list object is the data for
 one of our outcome variables. Now we can analyse each outcome variable
 with the kronos function, using the `lapply` function, which allows us
 to apply a specific function to list objects and returns a list object
 of the same length.
-
-***Thomaz*** **how do we get rid of the output here?**
 
 Now we have a list of kronosOut objects, which contain all our results.
 While this can be accessed in R, this is unwieldy for result reporting
@@ -367,12 +354,15 @@ for(m in 1:length(out_list)){
 fit_df = do.call(rbind, fit_list) #Here we collapse the list by binding the rows together
 fit_df$q.val = p.adjust(fit_df$p.val, method = "BH") #Here we perform an FDR correction on the data to account for multiple tests
 
-write.csv(fit_df, "RhythmicityResults.csv")
+write.csv(fit_df, "README_files/RhythmicityResults.csv")
 ```
 
 This will generate a csv containing the individual rhythmicity
 calculations for the whole dataset with an FDR correction to account for
 multiple tests.
+
+The resulting csv can be found
+[here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/RhythmicityResults.csv)
 
 ``` r
 head(fit_df)
@@ -403,6 +393,10 @@ slightly more complex than extracting any of the other data**
 
 ***Gabi/Thomaz*** **please include the summary circle plot here. I would
 probably put it in first**
+
+``` r
+gg_kronos_acrogram(out_list)
+```
 
 We can also use automation to obtain individual plots for our omics
 dataset. Here we will demonstrate how to obtain sinusoid curves for each
@@ -453,16 +447,28 @@ determining your period if this is necessary for your research question.
 This tutorial is merely a template. Depending on your experimental
 set-up, findings and experimental questions you may need to adjust your
 approach. However, as complex statistical models become more frequent in
-the study of circadian rhythms, we feel that functions that can
-incorporate more complex design than two-group comparisons are essential
-for advancement of the field.
+the study of circadian rhythms, functions that can incorporate more
+complex design than two-group comparisons are essential for advancement
+of the field.
 
-We have provided figure generation functions as we feel that clear
-communication of results is essential to producing good and useful
-science. Please see below for more details for figure customisation. We
-hope that both aspiring and veteran bioinformaticians and circadian
-rhythm biologists will find our guide helpful.
+We have provided figure generation functions as clear communication of
+results is essential to producing good and useful science. Please see
+below for more details for figure customisation. We hope that both
+aspiring and veteran bioinformaticians and circadian rhythm biologists
+will find our guide helpful.
 
 ## Excursion 1. Customising Figures
+
+The two figure functions, `gg_kronos_circle()` and
+`gg_kronos_sinusoid()`, are designed to be fully compatible with ggplot2
+and therefore are fully customisable. We recommend packages ggpubr or
+ggprism for producing publication-grade figures (all figures produced in
+our publications with kronos have been formatted using ggprism). Below
+is an example of some of the customisation options available through
+ggplot2.
+
+``` r
+plot <- gg_kronos_circle(output2)
+```
 
 ## Excursion 2. Assessing Rhythmicity in More Complex Models
