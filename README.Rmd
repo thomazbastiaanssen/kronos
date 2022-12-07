@@ -123,8 +123,8 @@ output@ind_fit
 
 The package contains custom ggplot2 figure functions, that utilise the kronos output to rapidly produce figures that convey important information for circadian rhythms:
 
-1.  `gg_kronos_circle(output)` generates a plot showing the acrophase and amplitude of the predicted curve, allowing the reader to rapidly access summary data regarding variables of interest, and to compare the summary data between groups in more complex models.At baseline, non-significant outcome measures are presented using dashed lines.
-2.  `gg_kronos_sinusoid(output)` generates a x-y plot showing the outcome variable across the defined period. These graphs are useful for visualising the differences between specific timepoints assessed.
+1.  `gg_kronos_circle()` generates a plot showing the acrophase and amplitude of the predicted curve, allowing the reader to rapidly access summary data regarding variables of interest, and to compare the summary data between groups in more complex models.At baseline, non-significant outcome measures are presented using dashed lines.
+2.  `gg_kronos_sinusoid()` generates a x-y plot showing the outcome variable across the defined period. These graphs are useful for visualising the differences between specific timepoints assessed.
 
 ```{r figures}
 
@@ -209,8 +209,6 @@ for(n in 1:length(data_names)){
 
 ```
 
-***Thomaz*** **how do we get rid of the output here?**
-
 Here the for-loop creates a list where every list object is the data for one of our outcome variables. Now we can analyse each outcome variable with the kronos function, using the `lapply` function, which allows us to apply a specific function to list objects and returns a list object of the same length.
 
 ```{r kronos list, echo=FALSE, warning=FALSE, message=FALSE}
@@ -219,7 +217,6 @@ Here the for-loop creates a list where every list object is the data for one of 
 out_list = lapply(X = data.list, FUN = function(y){kronos(data = y, Value ~ Group + time(Timepoint), period = 24, pairwise = T, verbose = F)})
 
 ```
-***Thomaz*** **how do we get rid of the output here?**
 
 Now we have a list of kronosOut objects, which contain all our results. While this can be accessed in R, this is unwieldy for result reporting and interpretation. Therefore, we recommend using another for-loop to extract your data of interest:
 
@@ -299,5 +296,12 @@ We have provided figure generation functions as  clear communication of results 
 
 
 ## Excursion 1. Customising Figures
+The two figure functions, `gg_kronos_circle()` and `gg_kronos_sinusoid()`, are designed to be fully compatible with ggplot2 and therefore are fully customisable. We recommend packages ggpubr or ggprism for producing publication-grade figures (all figures produced in our publications with kronos have been formatted using ggprism). Below is an example of some of the customisation options available through ggplot2.
+
+```{r customise figure}
+
+plot <- gg_kronos_circle(output2) +
+
+```
 
 ## Excursion 2. Assessing Rhythmicity in More Complex Models
