@@ -256,6 +256,12 @@ We can use a similar approach to obtain other components of the kronosOut object
 
 ***Gabi/Thomaz*** **please include the summary circle plot here. I would probably put it in first**
 
+```{r acrogram, warning=FALSE, message=FALSE, fig.show = "hide"}
+
+gg_kronos_acrogram(out_list)
+
+```
+
 We can also use automation to obtain individual plots for our omics dataset.  Here we will demonstrate how to obtain sinusoid curves for each outcome measure in the dataset.
 
 ```{r multi-plots, warning=FALSE, message=FALSE, fig.show = "hide"}
