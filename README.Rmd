@@ -236,11 +236,13 @@ for(m in 1:length(out_list)){
 fit_df = do.call(rbind, fit_list) #Here we collapse the list by binding the rows together
 fit_df$q.val = p.adjust(fit_df$p.val, method = "BH") #Here we perform an FDR correction on the data to account for multiple tests
 
-write.csv(fit_df, "RhythmicityResults.csv")
+write.csv(fit_df, "README_files/RhythmicityResults.csv")
 
 ```
 
 This will generate a csv containing the individual rhythmicity calculations for the whole dataset with an FDR correction to account for multiple tests. 
+
+The resulting csv can be found [here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/RhythmicityResults.csv)
 
 ```{r show fit.df}
 
