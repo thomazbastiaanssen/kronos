@@ -240,7 +240,7 @@ write.csv(fit_df, "README_files/RhythmicityResults.csv")
 
 ```
 
-This will generate a csv containing the individual rhythmicity calculations for the whole dataset with an FDR correction to account for multiple tests. 
+This will generate a csv containing the individual rhythmicity calculations for the whole data set with an FDR correction to account for multiple tests. 
 
 The resulting csv can be found [here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/RhythmicityResults.csv)
 

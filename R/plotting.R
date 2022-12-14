@@ -117,7 +117,7 @@ period <- kronosOutList[[1]]@plot_info$period
 ggplot(d) +
   aes_string(x = "acro", fill = "unique_group") +
   
-  geom_histogram(position = "identity", color = 'black', alpha = 3/4, bins = period * 2) + 
+  geom_histogram(position = "identity", color = 'black', alpha = 3/4, bins = period * 2, boundary = 0) + 
   
   coord_polar() +
   
