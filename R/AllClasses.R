@@ -18,4 +18,3 @@ setClass("kronosOut",
            plot_info       = "list"
          )
 )
-
