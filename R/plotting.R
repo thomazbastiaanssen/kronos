@@ -26,6 +26,9 @@ gg_kronos_sinusoid <- function(kronosOut, fill = "unique_group"){
     
     geom_rect(data=NULL, aes(xmin=12, xmax=Inf, ymin=-Inf, ymax=Inf), fill="lightgray") +
     
+    # geom_text(x = -Inf, y = Inf, hjust = -1, vjust = 2, label = "🌞", size = 8) +
+    # geom_text(x = Inf,  y = Inf, hjust = 2, vjust = 2,  label = "🌙️",  size  =8 ) +
+    # 
     geom_line(aes_string(x = x_pred, y = y_pred, colour = fill_pred)) +
     
     stat_summary(fun.data = mean_se, geom = "errorbar", position = position_dodge(0.75), width = 1, 
