@@ -244,7 +244,7 @@ non-significant.
     This generates pairwise comparisons between each of the groups:
 
 ``` r
-output2@pairwise_models
+getKronos_pairwise(output2)
 ```
 
     ## $`A vs B`
@@ -304,7 +304,7 @@ metadata and data to form a single dataframe. We can achieve this using
 the following code:
 
 ``` r
-data.long <-bigdata %>%
+data.long <- bigdata %>%
   pivot_longer(!Animal_ID, names_to="Variables", values_to="Value") %>%
   as.data.frame
 
@@ -346,7 +346,7 @@ fit_list = list() #create an empty list
 
 #The for-loop below generates a list containing the individual fit results
 for(m in 1:length(out_list)){
-  fit_list[[m]] <- out_list[[m]]@ind_fit
+  fit_list[[m]] <- getKronos_groupwise(out_list[[m]])
   names(fit_list)[m] <- names(out_list)[m]
   
 }
