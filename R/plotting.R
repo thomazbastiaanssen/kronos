@@ -117,11 +117,11 @@ period <- kronosOutList[[1]]@plot_info$period
 ggplot(d) +
   aes_string(x = "acro", fill = "unique_group") +
   
-  geom_histogram(position = "identity", color = 'black', alpha = 3/4) + 
+  geom_histogram(position = "identity", color = 'black', alpha = 3/4, bins = period * 2) + 
   
   coord_polar() +
   
-  scale_x_continuous(breaks = seq(0, period, period/6), limits = c(0, 24)) +
+  scale_x_continuous(breaks = seq(0, period, period/6), limits = c(0, period)) +
 
   theme_bw()+
   
