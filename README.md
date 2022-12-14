@@ -398,6 +398,8 @@ probably put it in first**
 gg_kronos_acrogram(out_list)
 ```
 
+![](README_files/figure-gfm/acrogram-1.png)<!-- -->
+
 We can also use automation to obtain individual plots for our omics
 dataset. Here we will demonstrate how to obtain sinusoid curves for each
 outcome measure in the dataset.
@@ -468,7 +470,13 @@ is an example of some of the customisation options available through
 ggplot2.
 
 ``` r
-plot <- gg_kronos_circle(output2)
+gg_kronos_circle(output2) +
+  scale_fill_manual(values = c("A" = "#169B62",
+                               "B" = "#FFFFFF", 
+                               "C" = "#FF883E")) +
+  ggtitle("Figure title")
 ```
+
+![](README_files/figure-gfm/customise%20figure-1.png)<!-- -->
 
 ## Excursion 2. Assessing Rhythmicity in More Complex Models

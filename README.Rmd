@@ -258,7 +258,7 @@ We can use a similar approach to obtain other components of the kronosOut object
 
 ***Gabi/Thomaz*** **please include the summary circle plot here. I would probably put it in first**
 
-```{r acrogram, warning=FALSE, message=FALSE, fig.show = "hide"}
+```{r acrogram, warning=FALSE, message=FALSE}
 
 gg_kronos_acrogram(out_list)
 
@@ -308,7 +308,11 @@ The two figure functions, `gg_kronos_circle()` and `gg_kronos_sinusoid()`, are d
 
 ```{r customise figure}
 
-plot <- gg_kronos_circle(output2)
+gg_kronos_circle(output2) +
+  scale_fill_manual(values = c("A" = "#169B62",
+                               "B" = "#FFFFFF", 
+                               "C" = "#FF883E")) +
+  ggtitle("Figure title")
 
 ```
 
