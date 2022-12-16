@@ -532,10 +532,10 @@ will find our guide helpful.
 The two figure functions, `gg_kronos_circle()` and
 `gg_kronos_sinusoid()`, are designed to be fully compatible with ggplot2
 and therefore are fully customisable. We recommend packages ggpubr or
-ggprism for producing publication-grade figures (all figures produced in
-our publications with kronos have been formatted using ggprism). Below
-is an example of some of the customisation options available through
-ggplot2.
+ggprism for producing publication-grade figures (all sinusoid figures
+produced in our publications with kronos have been formatted using
+ggprism). Below is an example of some of the customisation options
+available through ggplot2.
 
 ``` r
 gg_kronos_circle(output2) +
@@ -547,4 +547,31 @@ gg_kronos_circle(output2) +
 
 ![](README_files/figure-gfm/customise%20figure-1.png)<!-- -->
 
+We encourage users to take advantage of the extensive range of online
+tutorials and add-on packages available for ggplot2.
+
 ## Excursion 2. Assessing Rhythmicity in More Complex Models
+
+One of the key features of this package is the use of a formula input,
+which allows for analysis of complex models. Below we will demonstrate
+how kronos performs when assessing data with two independent variables.
+
+``` r
+data3 <- read_csv("2waydata.csv")
+
+two.way.data.long <- data3 %>%
+  pivot_longer(cols=starts_with("Variable_"), names_to = "Variables", values_to = "Value") %>%
+  as.data.frame()
+
+two_way_data_names <- unique(two.way.data.long$Variables) #collect all outcome variables
+
+data.list <- vector(mode = "list", length = length(two_way_data_names)) #Create an empty container list of the appropriate length
+
+for(n in 1:length(two_way_data_names)){
+  data.list[[n]] <- two.way.data.long %>% filter(Variables == two_way_data_names[n])
+}
+
+two_way_out_list = lapply(X = data.list, FUN = function(y){kronos(data = y, Value ~ Factor_A*Factor_B + time(Timepoint), period = 24, pairwise = T, verbose = F)})
+
+names(two_way_out_list) <- two_way_data_names
+```
