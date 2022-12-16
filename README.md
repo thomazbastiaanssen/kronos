@@ -32,7 +32,7 @@ below to hopefully provide a toolkit for aspiring and veteran
 bioinformaticians alike. It should be noted that the analysis performed
 here may not perfectly correspond to that performed in the published
 manuscript: some variables in the datasets provided have been
-manipulated to better demonstrate functions of the package.
+manipulated to better demonstrate the functionality of this package.
 
 *At the end of this document, we have included a few excursions into
 more advanced subjects we find useful, but that did not necessarily fit
@@ -58,7 +58,7 @@ data("kronos_demo")
 
 Data should be prepared in “long form” for use in Kronos; that is with
 values repeating in the “Timepoint” column, which defines when data was
-collected in a 24-hour cycle.
+collected during the period, here a 24-hour cycle.
 
 Our package includes example datasets that we will use in this tutorial
 that are pre-formatted. You can rearrange your data into long form using
@@ -313,6 +313,22 @@ Above you can see that overall group A is significantly different
 between B and C, and that group B exhibits a significantly different
 rhythm from A and C.
 
+3.  When including independent variables, kronos will also calculate an
+    overall interaction with time which can be accessed using the code
+    below:
+
+``` r
+getKronos_pairwise_p(output2)
+```
+
+    ##           getKronos.kronosOut...kronosOut..target....pairwise_p_vals..
+    ## Treatment                                                  0.004532107
+
+This is calculated by performing a Bonferroni correction on the
+interactions between both the sine and cosine time components and the
+independent variable. The p-value reported is the lowest following
+correction.
+
 ## 4. Omics Analysis
 
 Now we will demonstrate how to adapt the package for o’mics analysis,
@@ -383,7 +399,7 @@ calculations for the whole data set with an FDR correction to account
 for multiple tests.
 
 The resulting csv can be found
-[here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/RhythmicityResults.csv)
+[here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/RhythmicityResults.csv).
 
 ``` r
 head(fit_df)
@@ -405,15 +421,46 @@ head(fit_df)
     ## Variable_2.3 0.10185205 0.64362478
 
 We can use a similar approach to obtain other components of the
-kronosOut objects.
+kronosOut objects. Below we include the code to obtain the pairwise
+comparisons as a single csv, as this is slightly more difficult.
 
-***Everyone*** **should we include the pairwise example here? It is
-slightly more complex than extracting any of the other data**
+``` r
+pairwise_list = vector(mode = "list", length = length(out_list)) #Create an empty container list of the appropriate length
+
+#The for-loop below generates a list containing the pairwise test results
+for(m in 1:length(out_list)){
+  pairwise_list[[m]] <- out_list[[m]]@pairwise_models
+  names(pairwise_list)[m] <- names(out_list)[m]
+  
+}
+
+#Generate a single bound list
+bound_list <- lapply(X = pairwise_list, FUN = function(x){do.call(rbind, x)})
+
+#collapse the bound list for each variable into a single dataframe 
+pairwise_df <- do.call(rbind, bound_list)
+
+#separate the comparison and the effects to make results more readable
+pairwise_csv = pairwise_df %>% 
+  rownames_to_column("ID") %>%
+  separate(col = ID, into = c("Feature","ID"), sep = "\\.", extra = "merge") %>%
+  separate(col = ID, into = c("Comparison","Effect"), sep = "\\.")
+  
+
+write.csv(pairwise_csv, "README_files/PairwiseResults.csv") 
+```
+
+The resulting csv can be found
+[here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/PairwiseResults.csv).
 
 ### Figures
 
-***Gabi/Thomaz*** **please include the summary circle plot here. I would
-probably put it in first**
+`gg_kronos_acrogram()` is a visualisation function we have designed
+specifically for omics datasets. This function provides a polar
+histogram of your dataset’s acrophases. This allows you to compare
+overall rhythmicity between groups. Below we can see that a large
+proportion of the variables peak between ZT20-23 in Group A, while the
+variables in Groups B and C are less synchronous.
 
 ``` r
 gg_kronos_acrogram(out_list)
@@ -452,7 +499,7 @@ dev.off()
     ##   2
 
 The resulting pdf can be found
-[here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/plots_circadian.pdf)
+[here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/plots_circadian.pdf).
 The same approach can be applied for obtaining individual circle
 figures.
 
