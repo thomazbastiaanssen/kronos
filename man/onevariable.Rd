@@ -7,6 +7,9 @@
 \format{
 A long format data.frame object with three columns, and 31 rows, samples.
 }
+\source{
+Dummy data modified from XYZ in order to demonstrate YZ
+}
 \usage{
 onevariable
 }
