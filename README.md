@@ -19,20 +19,19 @@ undergoing peer review (reference to come).
 We will demonstrate three common examples of experimental design
 currently encountered in circadian rhythms analysis:
 
-1.  Circadian rhythm analysis of 1 variable over a 24-hour period
+1.  Circadian rhythm analysis of a single variable over a 24-hour period
 
-2.  Circadian rhythm analysis of 1 variable over a 24-hour period with
-    two or more treatment groups
+2.  Circadian rhythm analysis of a single variable over a 24-hour period
+    with two or more treatment groups
 
-3.  Circadian rhythm analysis of omics data over a 24-hour period with
-    two or more treatment groups
+3.  Circadian rhythm analysis of omics (higher-dimensional) data over a
+    24-hour period with two or more treatment groups
 
 All R code used to transform, reorganise and plot the data is also shown
-below to hopefully provide a toolkit for aspiring and veteran
-bioinformaticians alike. It should be noted that the analysis performed
-here may not perfectly correspond to that performed in the published
-manuscript: some variables in the datasets provided have been
-manipulated to better demonstrate the functionality of this package.
+below to provide a toolkit for aspiring and veteran bioinformaticians
+alike. It should be noted that some variables in the demonstration data
+sets provided here have been manipulated to better demonstrate the
+functionality of this package.
 
 *At the end of this document, we have included a few excursions into
 more advanced subjects we find useful, but that did not necessarily fit
@@ -62,7 +61,7 @@ collected during the period, here a 24-hour cycle.
 
 Our package includes example datasets that we will use in this tutorial
 that are pre-formatted. You can rearrange your data into long form using
-pivot_longer() or gather() in tidyr.
+pivot_longer() or gather() from the tidyverse.
 
 Since we’re using prepared data, we already loaded it using
 `data(kronos_demo)`. You can see how an example of how the data is
@@ -76,11 +75,11 @@ prepared below:
     ## 5        10         5         A  1.4590203
     ## 6        12         5         A  0.8408964
 
-Here we have prepared the omics dataset with a separate metadata file as
-is common when working with omics datasets. A metadata file can be
+Here we have prepared the omics data set with a separate metadata file
+as is common when working with omics data sets. A metadata file can be
 generated using select() in tidyr, or metadata and data can be combined
 using inner_join if they contain an identical column (both name and
-contents). The omics dataset used here has been central-log transformed
+contents). The omics data set used here has been central-log transformed
 to account for its compositional nature (see our guide
 <https://arxiv.org/abs/2207.12475> for easy centred-log transformation).
 
@@ -104,16 +103,16 @@ output <- kronos(formula = Variable_1 ~ time(Timepoint),
     ## [1] "Using the following model: Variable_1 ~ (Timepoint_cos + Timepoint_sin)"
 
 Here we use the formula `Outcome Variable ~ time(Time Variable)`, which
-is the most simple model used by the Kronos function. We specify the
+is the most simple model used by the kronos function. We specify the
 period as 24 (this can be adjusted as appropriate for the data
 analysed). By selecting `verbose=T`, you will be able to see the models
 run by the kronos function: this becomes increasingly useful when you
 run more complex models. Finally we select `pairwise=F` here, as there
 are no groups to compare for differences in rhythms.
 
-The kronos function creates a kronosOut object, containing several
-pieces of data that can be accessed using handy getter functions, which
-we will describe below:
+The kronos function returns a kronosOut object, containing several
+pieces of data that can be accessed using handy ‘getter’ functions,
+which we will describe below:
 
 1). The *getKronos_input()* function fetches the data that the model is
 based on, as well as the calculated cosine and sine components.
@@ -142,8 +141,8 @@ getKronos_fit(output)
     ##   (Intercept)  Timepoint_cos  Timepoint_sin  
     ##       -0.4063         0.3914        -0.6886
 
-3). The *getKronos_trace()* functioncontains all the data required for
-graphing the sinusoid curve, which can either be used in our custom
+3). The *getKronos_trace()* function returns all the data required for
+graphing the sinusoid curve, which can either be used in our specialized
 ggplot2 functions, or can be used in other graphing packages. The
 *y_hat* column represents the predicted value of the outcome variable:
 this is essential for plotting the predicted sinusoid curve.
@@ -309,9 +308,9 @@ getKronos_pairwise(output2)
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Above you can see that overall group A is significantly different
-between B and C, and that group B exhibits a significantly different
-rhythm from A and C.
+Above we can see that overall group A is significantly different between
+B and C, and that group B exhibits a significantly different rhythm from
+A and C.
 
 3.  When including independent variables, kronos will also calculate an
     overall interaction with time which can be accessed using the code
@@ -329,14 +328,14 @@ interactions between both the sine and cosine time components and the
 independent variable. The p-value reported is the lowest following
 correction.
 
-## 4. O’mics Analysis
+## 4. ’Omics Analysis
 
-Now we will demonstrate how to adapt the package for o’mics analysis,
-where there are many outcome variables. We transform our data into lists
-so that we can automate the process.
+Now we will demonstrate how to adapt the kronos package for ’omics
+analysis, where there are many outcome variables. We reorganise our data
+into a list by outcome variabe so that we can automate the process.
 
 First we need to pivot the data into long-form and then combine the
-metadata and data to form a single dataframe. We can achieve this using
+metadata and data to form a single data.frame. We can achieve this using
 the following code:
 
 ``` r
@@ -344,10 +343,10 @@ data.long <- bigdata %>%
   pivot_longer(!Animal_ID, names_to = "Variables", values_to = "Value") %>%
   as.data.frame()
 
-data.long <- inner_join(data.long, bigmeta, by ="Animal_ID")
+data.long <- inner_join(data.long, bigmeta, by = "Animal_ID")
 ```
 
-This will generate the following dataframe:
+This will generate the following data.frame:
 
 ``` r
 head(data.long)
@@ -468,12 +467,13 @@ gg_kronos_acrogram(out_list)
 
 ![](README_files/figure-gfm/acrogram-1.png)<!-- -->
 
-We can also use automation to obtain individual plots for our omics
-dataset. Here we will demonstrate how to obtain sinusoid curves for each
-outcome measure in the dataset.
+We can also use automation to obtain individual plots for our omics data
+set. Here we will demonstrate how to obtain sinusoid curves for each
+outcome measure in the data set.
 
 ``` r
-plot_list <- vector(mode = "list", length = length(out_list)) #Create an empty container list of the appropriate length
+ #Create an empty container list of the appropriate length
+plot_list <- vector(mode = "list", length = length(out_list))
 
 for(q in 1:length(out_list)){
   
@@ -482,21 +482,13 @@ for(q in 1:length(out_list)){
   
 }
 
-# library(patchwork)
-# 
-# wrap_plots(plot_list) + guide_area() + plot_layout(guides = 'collect')  #& labs(caption = '') for example to remove the stats. 
-
-
 #to plot & save the feature graphs to a pdf:
 pdf("README_files/plots_circadian.pdf")
 for (i in 1:length(plot_list)) {
   print(plot_list[[i]])
 }
-dev.off()
+invisible(dev.off())
 ```
-
-    ## png 
-    ##   2
 
 The resulting pdf can be found
 [here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/plots_circadian.pdf).
