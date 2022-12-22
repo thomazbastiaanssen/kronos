@@ -195,11 +195,6 @@ gg_kronos_circle(output)
 gg_kronos_sinusoid(output)
 ```
 
-    ## Warning: Removed 66 rows containing non-finite values (`stat_summary()`).
-    ## Removed 66 rows containing non-finite values (`stat_summary()`).
-
-    ## Warning: Removed 66 rows containing missing values (`geom_point()`).
-
 ![](README_files/figure-gfm/figures-2.png)<!-- -->
 
 ## 3. Comparing Rhythmicity for More than Two Groups
@@ -235,11 +230,6 @@ gg_kronos_circle(output2)
 ``` r
 gg_kronos_sinusoid(output2)
 ```
-
-    ## Warning: Removed 197 rows containing non-finite values (`stat_summary()`).
-    ## Removed 197 rows containing non-finite values (`stat_summary()`).
-
-    ## Warning: Removed 197 rows containing missing values (`geom_point()`).
 
 ![](README_files/figure-gfm/figures_complex-2.png)<!-- -->
 
@@ -577,22 +567,11 @@ names(two_way_out_list) <- two_way_data_names
 gg_kronos_sinusoid(two_way_out_list$Variable_1)
 ```
 
-    ## Warning: Removed 241 rows containing non-finite values (`stat_summary()`).
-    ## Removed 241 rows containing non-finite values (`stat_summary()`).
-
-    ## Warning: Removed 241 rows containing missing values (`geom_point()`).
-
 ![](README_files/figure-gfm/two-way%20output-1.png)<!-- -->
 
 ``` r
 gg_kronos_sinusoid(two_way_out_list$Variable_2)
 ```
-
-    ## Warning: Removed 240 rows containing non-finite values (`stat_summary()`).
-
-    ## Warning: Removed 240 rows containing non-finite values (`stat_summary()`).
-
-    ## Warning: Removed 240 rows containing missing values (`geom_point()`).
 
 ![](README_files/figure-gfm/two-way%20output-2.png)<!-- -->
 
@@ -600,23 +579,11 @@ gg_kronos_sinusoid(two_way_out_list$Variable_2)
 gg_kronos_sinusoid(two_way_out_list$Variable_3)
 ```
 
-    ## Warning: Removed 242 rows containing non-finite values (`stat_summary()`).
-
-    ## Warning: Removed 242 rows containing non-finite values (`stat_summary()`).
-
-    ## Warning: Removed 242 rows containing missing values (`geom_point()`).
-
 ![](README_files/figure-gfm/two-way%20output-3.png)<!-- -->
 
 ``` r
 gg_kronos_sinusoid(two_way_out_list$Variable_4)
 ```
-
-    ## Warning: Removed 239 rows containing non-finite values (`stat_summary()`).
-
-    ## Warning: Removed 239 rows containing non-finite values (`stat_summary()`).
-
-    ## Warning: Removed 239 rows containing missing values (`geom_point()`).
 
 ![](README_files/figure-gfm/two-way%20output-4.png)<!-- -->
 
@@ -628,11 +595,6 @@ for more complex designs.
 ``` r
 gg_kronos_sinusoid(two_way_out_list$Variable_1)
 ```
-
-    ## Warning: Removed 241 rows containing non-finite values (`stat_summary()`).
-    ## Removed 241 rows containing non-finite values (`stat_summary()`).
-
-    ## Warning: Removed 241 rows containing missing values (`geom_point()`).
 
 ![](README_files/figure-gfm/two-way%20var1%20graphs-1.png)<!-- -->
 

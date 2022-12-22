@@ -132,7 +132,7 @@ The package contains custom ggplot2 figure functions, that utilise the kronos ou
 1.  `gg_kronos_circle()` generates a plot showing the acrophase and amplitude of the predicted curve, allowing the reader to rapidly access summary data regarding variables of interest, and to compare the summary data between groups in more complex models.At baseline, non-significant outcome measures are presented using dashed lines.
 2.  `gg_kronos_sinusoid()` generates a x-y plot showing the outcome variable across the defined period. These graphs are useful for visualising the differences between specific timepoints assessed.
 
-```{r figures}
+```{r figures, warning = FALSE, messages = FALSE}
 
 gg_kronos_circle(output)
 
@@ -143,7 +143,7 @@ gg_kronos_sinusoid(output)
 
 Next we will demonstrate one of the unique features of the Kronos package: the ability to compare circadian rhythms between more than two groups. This is increasingly important as the use of complex experimental designs grows in biological science. This example comprises of three independent groups and is similar in setup to a one-way ANOVA. For examples of more complex designs, see Excursion 1.
 
-```{r figures_complex}
+```{r figures_complex, warning = FALSE, messages = FALSE}
 
 output2 <- kronos(formula = Variable_1 ~ Treatment + time(Timepoint), 
                   data = groupdata, period = 24, 
@@ -354,7 +354,7 @@ We have provided figure generation functions as clear communication of results i
 
 The two figure functions, `gg_kronos_circle()` and `gg_kronos_sinusoid()`, are designed to be fully compatible with ggplot2 and therefore are fully customisable. We recommend packages ggpubr or ggprism for producing publication-grade figures (all sinusoid figures produced in our publications with kronos have been formatted using ggprism). Below is an example of some of the customisation options available through ggplot2.
 
-```{r customise figure}
+```{r customise figure, warning = FALSE, messages = FALSE}
 
 gg_kronos_circle(output2) +
   scale_fill_manual(values = c("A" = "#169B62",
@@ -370,7 +370,7 @@ We encourage users to take advantage of the extensive range of online tutorials 
 
 One of the key features of this package is the use of a formula input, which allows for analysis of complex models. Below we will demonstrate how kronos performs when assessing data with two independent variables.
 
-```{r two-way output}
+```{r two-way output, warning = FALSE, messages = FALSE}
 
 data3 <- twowaydata
 
@@ -402,7 +402,7 @@ gg_kronos_sinusoid(two_way_out_list$Variable_4)
 
 Here we have analysed 4 outcome variables which all show different interaction effects. Here we will go into depth examining the effects observed in Variable 1 as an example of how to interpret kronos output for more complex designs.
 
-```{r two-way var1 graphs}
+```{r two-way var1 graphs, warning = FALSE, messages = FALSE}
 
 
 
