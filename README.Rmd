@@ -276,8 +276,8 @@ head(fit_df)
 We can use a similar approach to obtain other components of the kronosOut objects. Below we include the code to obtain the pairwise comparisons as a single csv, as this is slightly more difficult.
 
 ```{r pairwise list, warning=FALSE, message=FALSE}
-
-pairwise_list = vector(mode = "list", length = length(out_list)) #Create an empty container list of the appropriate length
+#Create an empty container list of the appropriate length
+pairwise_list = vector(mode = "list", length = length(out_list)) 
 
 #The for-loop below generates a list containing the pairwise test results
 for(m in 1:length(out_list)){

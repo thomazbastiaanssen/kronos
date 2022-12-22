@@ -94,8 +94,11 @@ getKronos_pairwise <- function(kronosOut){
 #'
 #' @export
 getKronos_pairwise_p <- function(kronosOut){
+  pairwise_p <- data.frame(getKronos(kronosOut = kronosOut, target = "pairwise_p_vals"))
   
-  return(data.frame(getKronos(kronosOut = kronosOut, target = "pairwise_p_vals")))
+  #Fix colname
+  colnames(pairwise_p) <- "adj.p.val"
+  return(pairwise_p)
 }
 
 #' Get Results from KronosOut Object
