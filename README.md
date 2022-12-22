@@ -329,7 +329,7 @@ interactions between both the sine and cosine time components and the
 independent variable. The p-value reported is the lowest following
 correction.
 
-## 4. Omics Analysis
+## 4. O’mics Analysis
 
 Now we will demonstrate how to adapt the package for o’mics analysis,
 where there are many outcome variables. We transform our data into lists
@@ -511,8 +511,12 @@ Some points to consider for your data is whether you can assume a
 period. Please note that you will require a minimum of three data points
 over your period to make use of these functions, and indeed any function
 using sinusoid models. Currently the kronos package is not able to
-estimate period; we recommend packages \_ \_ \_ ***Gabi/Thomaz*** for
-determining your period if this is necessary for your research question.
+estimate period; a wide range of packages are capable of determining
+your period if this is necessary for your research question. Please note
+that period estimation requires even more temporal resolution: some
+recommend a minimum of sampling every 2 hours over a 48-hr window
+([Hughes et al.,
+2017](https://journals.sagepub.com/doi/full/10.1177/0748730417728663)).
 
 This tutorial is merely a template. Depending on your experimental
 set-up, findings and experimental questions you may need to adjust your
@@ -528,6 +532,8 @@ aspiring and veteran bioinformaticians and circadian rhythm biologists
 will find our guide helpful.
 
 ## Excursion 1. Customising Figures
+
+*To be completed*
 
 The two figure functions, `gg_kronos_circle()` and
 `gg_kronos_sinusoid()`, are designed to be fully compatible with ggplot2
@@ -558,7 +564,18 @@ how kronos performs when assessing data with two independent variables.
 
 ``` r
 data3 <- read_csv("2waydata.csv")
+```
 
+    ## Rows: 150 Columns: 9
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (3): Factor_A, Factor_B, Group
+    ## dbl (6): Animal ID, Timepoint, Variable_1, Variable_2, Variable_3, Variable_4
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
 two.way.data.long <- data3 %>%
   pivot_longer(cols=starts_with("Variable_"), names_to = "Variables", values_to = "Value") %>%
   as.data.frame()
@@ -574,4 +591,195 @@ for(n in 1:length(two_way_data_names)){
 two_way_out_list = lapply(X = data.list, FUN = function(y){kronos(data = y, Value ~ Factor_A*Factor_B + time(Timepoint), period = 24, pairwise = T, verbose = F)})
 
 names(two_way_out_list) <- two_way_data_names
+
+gg_kronos_sinusoid(two_way_out_list$Variable_1)
 ```
+
+    ## Warning: Removed 241 rows containing non-finite values (`stat_summary()`).
+    ## Removed 241 rows containing non-finite values (`stat_summary()`).
+
+    ## Warning: Removed 241 rows containing missing values (`geom_point()`).
+
+![](README_files/figure-gfm/two-way%20output-1.png)<!-- -->
+
+``` r
+gg_kronos_sinusoid(two_way_out_list$Variable_2)
+```
+
+    ## Warning: Removed 240 rows containing non-finite values (`stat_summary()`).
+
+    ## Warning: Removed 240 rows containing non-finite values (`stat_summary()`).
+
+    ## Warning: Removed 240 rows containing missing values (`geom_point()`).
+
+![](README_files/figure-gfm/two-way%20output-2.png)<!-- -->
+
+``` r
+gg_kronos_sinusoid(two_way_out_list$Variable_3)
+```
+
+    ## Warning: Removed 242 rows containing non-finite values (`stat_summary()`).
+
+    ## Warning: Removed 242 rows containing non-finite values (`stat_summary()`).
+
+    ## Warning: Removed 242 rows containing missing values (`geom_point()`).
+
+![](README_files/figure-gfm/two-way%20output-3.png)<!-- -->
+
+``` r
+gg_kronos_sinusoid(two_way_out_list$Variable_4)
+```
+
+    ## Warning: Removed 239 rows containing non-finite values (`stat_summary()`).
+
+    ## Warning: Removed 239 rows containing non-finite values (`stat_summary()`).
+
+    ## Warning: Removed 239 rows containing missing values (`geom_point()`).
+
+![](README_files/figure-gfm/two-way%20output-4.png)<!-- -->
+
+Here we have analysed 4 outcome variables which all show different
+interaction effects. Here we will go into depth examining the effects
+observed in Variable 1 as an example of how to interpret kronos output
+for more complex designs.
+
+``` r
+gg_kronos_sinusoid(two_way_out_list$Variable_1)
+```
+
+    ## Warning: Removed 241 rows containing non-finite values (`stat_summary()`).
+    ## Removed 241 rows containing non-finite values (`stat_summary()`).
+
+    ## Warning: Removed 241 rows containing missing values (`geom_point()`).
+
+![](README_files/figure-gfm/two-way%20var1%20graphs-1.png)<!-- -->
+
+``` r
+gg_kronos_circle(two_way_out_list$Variable_1)
+```
+
+![](README_files/figure-gfm/two-way%20var1%20graphs-2.png)<!-- -->
+
+1). As before, we can use the `getKronos_groupwise()` function to obtain
+individual rhythmicity for each group. Here you can see that 3/4 groups
+exhibit rhythmicity and that both conventional groups share a similar
+acrophase (which is illustrated in the figures above as well).
+
+``` r
+getKronos_groupwise(two_way_out_list$Variable_1)
+```
+
+    ##           unique_group       p.val      r.sq      avg      acro amplitude
+    ## 1   Antibiotics_Stress 0.003290904 0.2855699 4712.202 16.051311 548.95960
+    ## 2  Antibiotics_Control 0.045674193 0.1575633 2340.530  3.493713 219.93545
+    ## 3  Conventional_Stress 0.001783400 0.3267086 2329.867 18.079296 256.07917
+    ## 4 Conventional_Control 0.075062913 0.1452404 1349.590 18.002807  91.75282
+
+2). With the `getKronos_pairwise_p()` function we can assess the
+interaction of each of our experimental factors with the time component
+of the model: here you can see that both main effects and the
+interaction significantly interact with the time component.
+
+``` r
+getKronos_pairwise_p(two_way_out_list$Variable_1)
+```
+
+    ##                   getKronos.kronosOut...kronosOut..target....pairwise_p_vals..
+    ## Factor_A                                                          1.000000e+00
+    ## Factor_B                                                          3.959353e-05
+    ## Factor_A:Factor_B                                                 1.911130e-02
+
+3). Next we can use the `getKronos_pairwise()` function to obtain the
+pairwise group comparisons. This allows us to determine how each group
+differs from one another. For example, here you can see that
+Conventional+Stress and Antibiotics+Control only exhibit a significant
+group\*Timepoint_sin interaction. This is unsurprising as the groups
+have the same average value but exhibit a rhythm shifted by 12 hours.
+
+``` r
+getKronos_pairwise(two_way_out_list$Variable_1)
+```
+
+    ## $`Antibiotics_Stress vs Antibiotics_Control`
+    ## Analysis of Variance Table
+    ## 
+    ## Response: Value
+    ##                            Df    Sum Sq   Mean Sq  F value    Pr(>F)    
+    ## unique_group                1 107088781 107088781 392.5199 < 2.2e-16 ***
+    ## Timepoint_cos               1    174790    174790   0.6407 0.4261766    
+    ## Timepoint_sin               1    486557    486557   1.7834 0.1860572    
+    ## unique_group:Timepoint_cos  1   1596022   1596022   5.8500 0.0181806 *  
+    ## unique_group:Timepoint_sin  1   4198056   4198056  15.3874 0.0002021 ***
+    ## Residuals                  70  19097668    272824                       
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## $`Antibiotics_Stress vs Conventional_Stress`
+    ## Analysis of Variance Table
+    ## 
+    ## Response: Value
+    ##                            Df    Sum Sq   Mean Sq  F value    Pr(>F)    
+    ## unique_group                1 102318455 102318455 420.7923 < 2.2e-16 ***
+    ## Timepoint_cos               1    741756    741756   3.0505   0.08536 .  
+    ## Timepoint_sin               1   4761304   4761304  19.5812 3.697e-05 ***
+    ## unique_group:Timepoint_cos  1    672717    672717   2.7666   0.10099    
+    ## unique_group:Timepoint_sin  1    452020    452020   1.8590   0.17738    
+    ## Residuals                  66  16048341    243157                       
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## $`Antibiotics_Stress vs Conventional_Control`
+    ## Analysis of Variance Table
+    ## 
+    ## Response: Value
+    ##                            Df    Sum Sq   Mean Sq  F value    Pr(>F)    
+    ## unique_group                1 210361830 210361830 969.9952 < 2.2e-16 ***
+    ## Timepoint_cos               1    726171    726171   3.3484 0.0717181 .  
+    ## Timepoint_sin               1   2785092   2785092  12.8423 0.0006375 ***
+    ## unique_group:Timepoint_cos  1    669456    669456   3.0869 0.0834930 .  
+    ## unique_group:Timepoint_sin  1   1403802   1403802   6.4730 0.0132640 *  
+    ## Residuals                  67  14530220    216869                       
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## $`Antibiotics_Control vs Conventional_Stress`
+    ## Analysis of Variance Table
+    ## 
+    ## Response: Value
+    ##                            Df  Sum Sq Mean Sq F value    Pr(>F)    
+    ## unique_group                1    1922    1922  0.0163 0.8988585    
+    ## Timepoint_cos               1  168888  168888  1.4301 0.2358990    
+    ## Timepoint_sin               1   18570   18570  0.1572 0.6929452    
+    ## unique_group:Timepoint_cos  1  209481  209481  1.7739 0.1873534    
+    ## unique_group:Timepoint_sin  1 1847703 1847703 15.6460 0.0001847 ***
+    ## Residuals                  68 8030383  118094                      
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## $`Antibiotics_Control vs Conventional_Control`
+    ## Analysis of Variance Table
+    ## 
+    ## Response: Value
+    ##                            Df   Sum Sq  Mean Sq  F value    Pr(>F)    
+    ## unique_group                1 19495877 19495877 206.5666 < 2.2e-16 ***
+    ## Timepoint_cos               1   175177   175177   1.8561  0.177510    
+    ## Timepoint_sin               1   101312   101312   1.0734  0.303786    
+    ## unique_group:Timepoint_cos  1   195432   195432   2.0707  0.154676    
+    ## unique_group:Timepoint_sin  1   729445   729445   7.7288  0.006999 ** 
+    ## Residuals                  69  6512262    94381                       
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## $`Conventional_Stress vs Conventional_Control`
+    ## Analysis of Variance Table
+    ## 
+    ## Response: Value
+    ##                            Df   Sum Sq  Mean Sq  F value    Pr(>F)    
+    ## unique_group                1 18114110 18114110 340.0055 < 2.2e-16 ***
+    ## Timepoint_cos               1     1535     1535   0.0288   0.86575    
+    ## Timepoint_sin               1  1116016  1116016  20.9479 2.184e-05 ***
+    ## unique_group:Timepoint_cos  1      132      132   0.0025   0.96050    
+    ## unique_group:Timepoint_sin  1   256055   256055   4.8062   0.03194 *  
+    ## Residuals                  65  3462935    53276                       
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1

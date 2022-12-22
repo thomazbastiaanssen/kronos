@@ -186,7 +186,7 @@ getKronos_pairwise_p(output2)
 
 This is calculated by performing a Bonferroni correction on the interactions between both the sine and cosine time components and the independent variable. The p-value reported is the lowest following correction.
 
-## 4. Omics Analysis
+## 4. O'mics Analysis
 
 Now we will demonstrate how to adapt the package for o'mics analysis, where there are many outcome variables. We transform our data into lists so that we can automate the process.
 
@@ -340,13 +340,15 @@ The resulting pdf can be found [here](https://github.com/thomazbastiaanssen/kron
 
 ## 5. Discussion
 
-Here we have presented standard data for the analysis of time-of-day. Some points to consider for your data is whether you can assume a 24-hour period, and whether your data is evenly distributed over the period. Please note that you will require a minimum of three data points over your period to make use of these functions, and indeed any function using sinusoid models. Currently the kronos package is not able to estimate period; we recommend packages \_ \_ \_ ***Gabi/Thomaz*** for determining your period if this is necessary for your research question.
+Here we have presented standard data for the analysis of time-of-day. Some points to consider for your data is whether you can assume a 24-hour period, and whether your data is evenly distributed over the period. Please note that you will require a minimum of three data points over your period to make use of these functions, and indeed any function using sinusoid models. Currently the kronos package is not able to estimate period; a wide range of packages are capable of determining your period if this is necessary for your research question. Please note that period estimation requires even more temporal resolution: some recommend a minimum of sampling every 2 hours over a 48-hr window ([Hughes et al., 2017](https://journals.sagepub.com/doi/full/10.1177/0748730417728663)).
 
 This tutorial is merely a template. Depending on your experimental set-up, findings and experimental questions you may need to adjust your approach. However, as complex statistical models become more frequent in the study of circadian rhythms, functions that can incorporate more complex design than two-group comparisons are essential for advancement of the field.
 
 We have provided figure generation functions as clear communication of results is essential to producing good and useful science. Please see below for more details for figure customisation. We hope that both aspiring and veteran bioinformaticians and circadian rhythm biologists will find our guide helpful.
 
 ## Excursion 1. Customising Figures
+
+*To be completed*
 
 The two figure functions, `gg_kronos_circle()` and `gg_kronos_sinusoid()`, are designed to be fully compatible with ggplot2 and therefore are fully customisable. We recommend packages ggpubr or ggprism for producing publication-grade figures (all sinusoid figures produced in our publications with kronos have been formatted using ggprism). Below is an example of some of the customisation options available through ggplot2.
 
@@ -366,7 +368,7 @@ We encourage users to take advantage of the extensive range of online tutorials 
 
 One of the key features of this package is the use of a formula input, which allows for analysis of complex models. Below we will demonstrate how kronos performs when assessing data with two independent variables.
 
-```{r two-way output, warning=FALSE, message=FALSE}
+```{r two-way output}
 
 data3 <- read_csv("2waydata.csv")
 
@@ -385,5 +387,50 @@ for(n in 1:length(two_way_data_names)){
 two_way_out_list = lapply(X = data.list, FUN = function(y){kronos(data = y, Value ~ Factor_A*Factor_B + time(Timepoint), period = 24, pairwise = T, verbose = F)})
 
 names(two_way_out_list) <- two_way_data_names
+
+gg_kronos_sinusoid(two_way_out_list$Variable_1)
+
+gg_kronos_sinusoid(two_way_out_list$Variable_2)
+
+gg_kronos_sinusoid(two_way_out_list$Variable_3)
+
+gg_kronos_sinusoid(two_way_out_list$Variable_4)
+
+```
+
+Here we have analysed 4 outcome variables which all show different interaction effects. Here we will go into depth examining the effects observed in Variable 1 as an example of how to interpret kronos output for more complex designs.
+
+```{r two-way var1 graphs}
+
+
+
+gg_kronos_sinusoid(two_way_out_list$Variable_1)
+
+gg_kronos_circle(two_way_out_list$Variable_1)
+
+
+```
+
+1). As before, we can use the `getKronos_groupwise()` function to obtain individual rhythmicity for each group. Here you can see that 3/4 groups exhibit rhythmicity and that both conventional groups share a similar acrophase (which is illustrated in the figures above as well).
+
+```{r showgroupwise var1}
+
+getKronos_groupwise(two_way_out_list$Variable_1)
+
+```
+
+2). With the `getKronos_pairwise_p()` function we can assess the interaction of each of our experimental factors with the time component of the model: here you can see that both main effects and the interaction significantly interact with the time component.
+
+```{r showpairwisep var1}
+
+getKronos_pairwise_p(two_way_out_list$Variable_1)
+
+```
+
+3). Next we can use the `getKronos_pairwise()` function to obtain the pairwise group comparisons. This allows us to determine how each group differs from one another. For example, here you can see that Conventional+Stress and Antibiotics+Control only exhibit a significant group*Timepoint_sin interaction. This is unsurprising as the groups have the same average value but exhibit a rhythm shifted by 12 hours.
+
+```{r showpairwise var1}
+
+getKronos_pairwise(two_way_out_list$Variable_1)
 
 ```
