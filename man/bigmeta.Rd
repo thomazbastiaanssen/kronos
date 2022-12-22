@@ -7,6 +7,9 @@
 \format{
 A long format data.frame object with three 113 columns and 94 rows.
 }
+\source{
+Dummy metadata modified from untargeted hippocampal metabolomics over the day
+}
 \usage{
 bigmeta
 }

@@ -8,7 +8,7 @@
 A long format data.frame object with three columns, and 31 rows, samples.
 }
 \source{
-Dummy data modified from XYZ in order to demonstrate YZ
+Dummy data modified from metagenomic analysis of mouse caecal contents over the day to demonstrate rhythmicity within one group.
 }
 \usage{
 onevariable

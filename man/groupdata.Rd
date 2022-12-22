@@ -3,14 +3,17 @@
 \docType{data}
 \name{groupdata}
 \alias{groupdata}
-\title{Snippet of example data to demonstrate the functionality of kronos betwween and among three different groups}
+\title{Snippet of example data to demonstrate the functionality of kronos between and among three different groups}
 \format{
 A long format data.frame object with three columns, and 94 rows, samples.
+}
+\source{
+Dummy data modified from PCR analysis of mouse ileum over the day to demonstrate rhythmicity between multiple groups.
 }
 \usage{
 groupdata
 }
 \description{
-Snippet of example data to demonstrate the functionality of kronos betwween and among three different groups
+Snippet of example data to demonstrate the functionality of kronos between and among three different groups
 }
 \keyword{datasets}
