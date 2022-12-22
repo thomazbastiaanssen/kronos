@@ -320,8 +320,8 @@ A and C.
 getKronos_pairwise_p(output2)
 ```
 
-    ##           getKronos.kronosOut...kronosOut..target....pairwise_p_vals..
-    ## Treatment                                                  0.004532107
+    ##             adj.p.val
+    ## Treatment 0.004532107
 
 This is calculated by performing a Bonferroni correction on the
 interactions between both the sine and cosine time components and the
@@ -666,10 +666,10 @@ interaction significantly interact with the time component.
 getKronos_pairwise_p(two_way_out_list$Variable_1)
 ```
 
-    ##                   getKronos.kronosOut...kronosOut..target....pairwise_p_vals..
-    ## Factor_A                                                          1.000000e+00
-    ## Factor_B                                                          3.959353e-05
-    ## Factor_A:Factor_B                                                 1.911130e-02
+    ##                      adj.p.val
+    ## Factor_A          1.000000e+00
+    ## Factor_B          3.959353e-05
+    ## Factor_A:Factor_B 1.911130e-02
 
 3). Next we can use the `getKronos_pairwise()` function to obtain the
 pairwise group comparisons. This allows us to determine how each group
