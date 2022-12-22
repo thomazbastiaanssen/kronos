@@ -367,7 +367,8 @@ extract your data of interest:
 ``` r
 names(out_list) <- data_names
 
-fit_list <- vector(mode = "list", length = length(data_names)) #Create an empty container list of the appropriate length
+#Create an empty container list of the appropriate length
+fit_list <- vector(mode = "list", length = length(data_names)) 
 
 #The for-loop below generates a list containing the individual fit results
 for(m in 1:length(out_list)){
@@ -376,9 +377,11 @@ for(m in 1:length(out_list)){
   
 }
 
-fit_df = do.call(rbind, fit_list) #Here we collapse the list by binding the rows together
+#Here we collapse the list by binding the rows together
+fit_df = do.call(rbind, fit_list) 
 
-fit_df$q.val = p.adjust(fit_df$p.val, method = "BH") #Here we perform an FDR correction on the data to account for multiple tests
+#Here we perform an FDR correction on the data to account for multiple tests
+fit_df$q.val = p.adjust(fit_df$p.val, method = "BH") 
 
 write.csv(fit_df, "README_files/RhythmicityResults.csv")
 ```
@@ -552,7 +555,7 @@ two.way.data.long <- data3 %>%
 #collect all outcome variables
 two_way_data_names <- unique(two.way.data.long$Variables) 
 
-#Create an empty container list of the appropriate
+#Create an empty container list of the appropriate length
 data.list <- vector(mode = "list", length = length(two_way_data_names)) 
 
 for(n in 1:length(two_way_data_names)){
