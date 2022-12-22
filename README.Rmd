@@ -378,10 +378,11 @@ two.way.data.long <- data3 %>%
   pivot_longer(cols=starts_with("Variable_"), names_to = "Variables", values_to = "Value") %>%
   as.data.frame()
 
-two_way_data_names <- unique(two.way.data.long$Variables) #collect all outcome variables
+#collect all outcome variables
+two_way_data_names <- unique(two.way.data.long$Variables) 
 
 #Create an empty container list of the appropriate
-data.list <- vector(mode = "list", length = length(two_way_data_names))  length
+data.list <- vector(mode = "list", length = length(two_way_data_names)) 
 
 for(n in 1:length(two_way_data_names)){
   data.list[[n]] <- two.way.data.long %>% filter(Variables == two_way_data_names[n])

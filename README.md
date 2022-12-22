@@ -520,11 +520,8 @@ will find our guide helpful.
 
 The two figure functions, `gg_kronos_circle()` and
 `gg_kronos_sinusoid()`, are designed to be fully compatible with ggplot2
-and therefore are fully customisable. We recommend packages ggpubr or
-ggprism for producing publication-grade figures (all sinusoid figures
-produced in our publications with kronos have been formatted using
-ggprism). Below is an example of some of the customisation options
-available through ggplot2.
+and therefore are fully customisable. Below is an example of how one
+could customise kronos plots using ggplot2 syntax
 
 ``` r
 gg_kronos_circle(output2) +
@@ -552,17 +549,25 @@ two.way.data.long <- data3 %>%
   pivot_longer(cols=starts_with("Variable_"), names_to = "Variables", values_to = "Value") %>%
   as.data.frame()
 
-two_way_data_names <- unique(two.way.data.long$Variables) #collect all outcome variables
+#collect all outcome variables
+two_way_data_names <- unique(two.way.data.long$Variables) 
 
-data.list <- vector(mode = "list", length = length(two_way_data_names)) #Create an empty container list of the appropriate length
+#Create an empty container list of the appropriate
+data.list <- vector(mode = "list", length = length(two_way_data_names)) 
 
 for(n in 1:length(two_way_data_names)){
   data.list[[n]] <- two.way.data.long %>% filter(Variables == two_way_data_names[n])
 }
 
-two_way_out_list = lapply(X = data.list, FUN = function(y){kronos(data = y, Value ~ Factor_A*Factor_B + time(Timepoint), period = 24, pairwise = T, verbose = F)})
+two_way_out_list = lapply(X = data.list, 
+                          FUN = function(y){kronos(data = y, 
+                                                   Value ~ Factor_A*Factor_B + time(Timepoint), 
+                                                   period = 24, pairwise = T, verbose = F)
+                            }
+                          )
 
 names(two_way_out_list) <- two_way_data_names
+
 
 gg_kronos_sinusoid(two_way_out_list$Variable_1)
 ```
