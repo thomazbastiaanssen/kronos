@@ -372,7 +372,7 @@ One of the key features of this package is the use of a formula input, which all
 
 ```{r two-way output}
 
-data3 <- read_csv("2waydata.csv")
+data3 <- twowaydata
 
 two.way.data.long <- data3 %>%
   pivot_longer(cols=starts_with("Variable_"), names_to = "Variables", values_to = "Value") %>%
