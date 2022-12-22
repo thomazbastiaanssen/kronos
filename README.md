@@ -555,19 +555,8 @@ which allows for analysis of complex models. Below we will demonstrate
 how kronos performs when assessing data with two independent variables.
 
 ``` r
-data3 <- read_csv("2waydata.csv")
-```
+data3 <- twowaydata
 
-    ## Rows: 150 Columns: 9
-    ## ── Column specification ────────────────────────────────────────────────────────
-    ## Delimiter: ","
-    ## chr (3): Factor_A, Factor_B, Group
-    ## dbl (6): Animal ID, Timepoint, Variable_1, Variable_2, Variable_3, Variable_4
-    ## 
-    ## ℹ Use `spec()` to retrieve the full column specification for this data.
-    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-
-``` r
 two.way.data.long <- data3 %>%
   pivot_longer(cols=starts_with("Variable_"), names_to = "Variables", values_to = "Value") %>%
   as.data.frame()
