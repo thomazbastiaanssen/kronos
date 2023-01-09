@@ -119,18 +119,31 @@ getKronos_params <- function(kronosOut){
 #'
 #' These functions provides a unified wrapper to retrieve results
 #'  from a list of \code{kronosOut} objects.
-#' @params 
+#' @param kronos_list a list of preferrably named kronosOut objects.
+#' @param padjust a boolean. Toggles FDR using Benjamini Hochbergs procedure.
 #'
 #' @return ANOVA-like adjusted p-values for how each factor interacts with time.
 #'
 #' @export
-delistKronos_pairwise <- function(kronos_list){
+delistKronos_pairwise <- function(kronos_list, padjust = T){
   res = do.call(rbind,(lapply(kronos_list, FUN = function(x){t(getKronos_pairwise_p(x))})))
 
   row.names(res) <- NULL
   if(!is.null(names(kronos_list))){
     row.names(res) <- names(kronos_list)
   }
+  colnames(res) = paste0(colnames(res), ":Time_p.val")
+  
+  if(padjust){
+    resadj = apply(res, 
+                   MARGIN = 2, 
+                   p.adjust, method = "BH", 
+                   simplify = T)
+    colnames(resadj) = gsub(x = colnames(resadj),pattern = "p\\.val", replacement = "q\\.val")
+    
+    res = cbind(res, resadj)
+  }
+  
   return(res)
 }
 
@@ -138,25 +151,50 @@ delistKronos_pairwise <- function(kronos_list){
 #'
 #' These functions provides a unified wrapper to retrieve results
 #'  from a list of \code{kronosOut} objects.
-#' @params 
+#' @param kronos_list a list of preferrably named kronosOut objects.
+#' @param padjust a boolean. Toggles FDR using Benjamini Hochbergs procedure.
 #'
 #' @return A table with circadian output stats per group per feature.
-#'
+#' @importFrom stats p.adjust
 #' @export
-delistKronos_groupwise <- function(kronos_list){
+delistKronos_groupwise <- function(kronos_list, padjust = T){
   res = do.call(rbind,lapply(kronos_list, FUN = function(x){
     #Get table per feature
     out_table = getKronos_groupwise(x)
     #Vectorize results
     out_vec = unlist(out_table[,-1])
     #Fix colnames
-    names(out_vec) = (paste(out_table[,1],rep(colnames(out_table)[-1],each = 4 ),sep = "_"))
+    names(out_vec) = (paste(out_table[,1],rep(colnames(out_table[,-1]),each = nrow(out_table) ),sep = "_"))
     return(out_vec)}))
   
   row.names(res) <- NULL
   if(!is.null(names(kronos_list))){
     row.names(res) <- names(kronos_list)
   }
+  
+  if(padjust){
+    resadj = apply(res[,grepl(pattern = "p\\.val", x = colnames(res))], 
+                   MARGIN = 2, 
+                   p.adjust, method = "BH", 
+                   simplify = T)
+    colnames(resadj) = gsub(x = colnames(resadj),pattern = "p\\.val", replacement = "q\\.val")
+    
+    res = cbind(res, resadj)
+  }
   return(res)
 }
 
+#' Wrangle results from list of KronosOut Objects to publication ready table. 
+#'
+#' These functions provides a unified wrapper to retrieve results
+#'  from a list of \code{kronosOut} objects.
+#' @param kronos_list a list of preferrably named kronosOut objects.
+#' @param padjust a boolean. Toggles FDR using Benjamini Hochbergs procedure.
+#'
+#' @return A table with circadian output stats per group per feature.
+#' @importFrom stats p.adjust
+#' @export
+kronosListToTable <- function(kronos_list, padjust = T){
+  cbind(delistKronos_groupwise(kronos_list = kronos_list, padjust = padjust),
+        delistKronos_pairwise(kronos_list  = kronos_list, padjust = padjust))
+} 
