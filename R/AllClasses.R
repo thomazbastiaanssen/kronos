@@ -18,3 +18,19 @@ setClass("kronosOut",
            plot_info       = "list"
          )
 )
+
+#' Show method for \code{kronosOut} object.
+#' @description method to print \code{kronosOut} object by calling \code{show}.
+#' Since kronosOut objects are typically unwieldy, also gives some tips on how to handle it.
+#' @param object An \code{kronosOut} object.
+#' @importFrom utils str
+#' @importFrom methods show
+#' @export
+#'
+setMethod("show", "kronosOut", function(object){
+  str(object)
+  cat("\nThis is an kronosOut S4 object. They tend to be large so we here's a summary instead.
+      You can extract information from it using the getKronos() functions,
+      or you can manually explore it by using the @ operator. ")
+}
+)
