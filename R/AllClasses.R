@@ -29,7 +29,7 @@ setClass("kronosOut",
 #'
 setMethod("show", "kronosOut", function(object){
   str(object)
-  cat("\nThis is an kronosOut S4 object. They tend to be large so we here's a summary instead.
+  cat("\nThis is an kronosOut S4 object. They tend to be large so here's a summary instead.
       You can extract information from it using the getKronos() functions,
       or you can manually explore it by using the @ operator. ")
 }
