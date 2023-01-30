@@ -67,6 +67,10 @@ Since we’re using prepared data, we already loaded it using
 `data(kronos_demo)`. You can see how an example of how the data is
 prepared below:
 
+``` r
+head(groupdata)
+```
+
     ##   Animal_ID Timepoint Treatment Variable_1
     ## 1         6         5         A  1.2789856
     ## 2         7         5         A  1.0606877
@@ -116,6 +120,10 @@ which we will describe below:
 
 1). The *getKronos_input()* function fetches the data that the model is
 based on, as well as the calculated cosine and sine components.
+
+``` r
+head(getKronos_input(output))
+```
 
     ##   Variable_1 Timepoint unique_group Timepoint_cos Timepoint_sin
     ## 1 -0.4239923         5         TRUE      0.258819     0.9659258
@@ -376,6 +384,17 @@ one of our outcome variables. Now we can analyse each outcome variable
 with the kronos function, using the `lapply` function, which allows us
 to apply a specific function to list objects and returns a list object
 of the same length.
+
+``` r
+out_list = lapply(X = data.list, 
+                  FUN = function(y){
+                    kronos(data = y, 
+                           Value ~ Group + time(Timepoint), 
+                           period = 24, 
+                           pairwise = T, verbose = F)
+                    }
+                  )
+```
 
 Now we have a list of kronosOut objects, which contain all our results.
 While this can be accessed in R, this is unwieldy for result reporting

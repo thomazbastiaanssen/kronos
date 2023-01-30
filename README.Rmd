@@ -65,7 +65,7 @@ Our package includes example datasets that we will use in this tutorial that are
 
 Since we're using prepared data, we already loaded it using `data(kronos_demo)`. You can see how an example of how the data is prepared below:
 
-```{r showdata, echo=FALSE}
+```{r showdata}
 
 head(groupdata)
 
@@ -95,7 +95,7 @@ The kronos function returns a kronosOut object, containing several pieces of dat
 
 1). The *getKronos_input()* function fetches the data that the model is based on, as well as the calculated cosine and sine components.
 
-```{r showinput, echo=FALSE}
+```{r showinput}
 
 head(getKronos_input(output))
 ```
@@ -227,7 +227,7 @@ for(n in 1:length(data_names)){
 
 Here the for-loop creates a list where every list object is the data for one of our outcome variables. Now we can analyse each outcome variable with the kronos function, using the `lapply` function, which allows us to apply a specific function to list objects and returns a list object of the same length.
 
-```{r kronos list, echo=FALSE, warning=FALSE, message=FALSE}
+```{r kronos list, warning=FALSE, message=FALSE}
 
 out_list = lapply(X = data.list, 
                   FUN = function(y){
