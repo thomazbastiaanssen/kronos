@@ -72,7 +72,6 @@ gg_kronos_circle <- function(kronosOut){
   p.sig = "p.sig"
   d$p.sig = d$p.val < 0.05
 
-
     ggplot(d) +
     aes_string(x = acro, y = amp_scale) +
     
@@ -88,6 +87,7 @@ gg_kronos_circle <- function(kronosOut){
     theme_bw()  +
     
     guides(fill = guide_legend("Legend"), colour = guide_none(), linetype = guide_none()) +
+      
     
     theme(#panel.grid.minor = element_blank(), 
           axis.text = element_text(size = 14, colour = "black"), 

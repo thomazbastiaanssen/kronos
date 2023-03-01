@@ -73,11 +73,7 @@ head(groupdata)
 
 Here we have prepared the omics data set with a separate metadata file as is common when working with omics data sets. A metadata file can be generated using select() in tidyr, or metadata and data can be combined using inner_join if they contain an identical column (both name and contents). The omics data set used here has been central-log transformed to account for its compositional nature (see our guide <https://arxiv.org/abs/2207.12475> for easy centred-log transformation).
 
-## 1. Statistical Approach
-
-*To be completed*
-
-## 2. Analysing Rhythmicity in a Single Group
+## 1. Analysing Rhythmicity in a Single Group
 
 We will start with the most simple example: analysing circadian rhythmicity in a single experimental group for one outcome variable of interest. For this we use the kronos function:
 
@@ -139,7 +135,7 @@ gg_kronos_circle(output)
 gg_kronos_sinusoid(output)
 ```
 
-## 3. Comparing Rhythmicity for More than Two Groups
+## 2. Comparing Rhythmicity for More than Two Groups
 
 Next we will demonstrate one of the unique features of the Kronos package: the ability to compare circadian rhythms between more than two groups. This is increasingly important as the use of complex experimental designs grows in biological science. This example comprises of three independent groups and is similar in setup to a one-way ANOVA. For examples of more complex designs, see Excursion 1.
 
@@ -186,7 +182,7 @@ getKronos_pairwise_p(output2)
 
 This is calculated by performing a Bonferroni correction on the interactions between both the sine and cosine time components and the independent variable. The p-value reported is the lowest following correction.
 
-## 4. 'Omics Analysis
+## 3. 'Omics Analysis
 
 Now we will demonstrate how to adapt the kronos package for 'omics analysis, where there are many outcome variables. We reorganise our data into a list by outcome variabe so that we can automate the process.
 
@@ -240,28 +236,13 @@ out_list = lapply(X = data.list,
 
 ```
 
-Now we have a list of kronosOut objects, which contain all our results. While this can be accessed in R, this is unwieldy for result reporting and interpretation. Therefore, we recommend using another for-loop to extract your data of interest:
+Now we have a list of kronosOut objects, which contain all our results. This can be cumbersome to do manually, so we wrote the `kronosListToTable` function for this purpose:
 
 ```{r result list, warning=FALSE, message=FALSE}
 
 names(out_list) <- data_names
 
-#Create an empty container list of the appropriate length
-fit_list <- vector(mode = "list", length = length(data_names)) 
-
-#The for-loop below generates a list containing the individual fit results
-for(m in 1:length(out_list)){
-  fit_list[[m]] <- getKronos_groupwise(out_list[[m]])
-  names(fit_list)[m] <- names(out_list)[m]
-  
-}
-
-#Here we collapse the list by binding the rows together
-fit_df = do.call(rbind, fit_list) 
-
-#Here we perform an FDR correction on the data to account for multiple tests
-fit_df$q.val = p.adjust(fit_df$p.val, method = "BH") 
-
+fit_df = kronosListToTable(out_list)
 write.csv(fit_df, "README_files/RhythmicityResults.csv")
 
 ```
@@ -352,8 +333,6 @@ This tutorial is merely a template. Depending on your experimental set-up, findi
 We have provided figure generation functions as clear communication of results is essential to producing good and useful science. Please see below for more details for figure customisation. We hope that both aspiring and veteran bioinformaticians and circadian rhythm biologists will find our guide helpful.
 
 ## Excursion 1. Customising Figures
-
-*To be completed*
 
 The two figure functions, `gg_kronos_circle()` and `gg_kronos_sinusoid()`, are designed to be fully compatible with ggplot2 and therefore are fully customisable. Below is an example of how one could customise kronos plots using ggplot2 syntax
 

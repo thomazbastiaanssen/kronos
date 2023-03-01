@@ -87,11 +87,7 @@ contents). The omics data set used here has been central-log transformed
 to account for its compositional nature (see our guide
 <https://arxiv.org/abs/2207.12475> for easy centred-log transformation).
 
-## 1. Statistical Approach
-
-*To be completed*
-
-## 2. Analysing Rhythmicity in a Single Group
+## 1. Analysing Rhythmicity in a Single Group
 
 We will start with the most simple example: analysing circadian
 rhythmicity in a single experimental group for one outcome variable of
@@ -209,7 +205,7 @@ gg_kronos_sinusoid(output)
 
 ![](README_files/figure-gfm/figures-2.png)<!-- -->
 
-## 3. Comparing Rhythmicity for More than Two Groups
+## 2. Comparing Rhythmicity for More than Two Groups
 
 Next we will demonstrate one of the unique features of the Kronos
 package: the ability to compare circadian rhythms between more than two
@@ -332,7 +328,7 @@ interactions between both the sine and cosine time components and the
 independent variable. The p-value reported is the lowest following
 correction.
 
-## 4. ’Omics Analysis
+## 3. ’Omics Analysis
 
 Now we will demonstrate how to adapt the kronos package for ’omics
 analysis, where there are many outcome variables. We reorganise our data
@@ -397,29 +393,13 @@ out_list = lapply(X = data.list,
 ```
 
 Now we have a list of kronosOut objects, which contain all our results.
-While this can be accessed in R, this is unwieldy for result reporting
-and interpretation. Therefore, we recommend using another for-loop to
-extract your data of interest:
+This can be cumbersome to do manually, so we wrote the
+`kronosListToTable` function for this purpose:
 
 ``` r
 names(out_list) <- data_names
 
-#Create an empty container list of the appropriate length
-fit_list <- vector(mode = "list", length = length(data_names)) 
-
-#The for-loop below generates a list containing the individual fit results
-for(m in 1:length(out_list)){
-  fit_list[[m]] <- getKronos_groupwise(out_list[[m]])
-  names(fit_list)[m] <- names(out_list)[m]
-  
-}
-
-#Here we collapse the list by binding the rows together
-fit_df = do.call(rbind, fit_list) 
-
-#Here we perform an FDR correction on the data to account for multiple tests
-fit_df$q.val = p.adjust(fit_df$p.val, method = "BH") 
-
+fit_df = kronosListToTable(out_list)
 write.csv(fit_df, "README_files/RhythmicityResults.csv")
 ```
 
@@ -434,20 +414,34 @@ The resulting csv can be found
 head(fit_df)
 ```
 
-    ##              unique_group       p.val        r.sq       avg      acro
-    ## Variable_1.1            B 0.953279769 0.003294345 0.5939175 12.787074
-    ## Variable_1.2            A 0.030901063 0.219916741 0.5809418 22.474987
-    ## Variable_1.3            C 0.777155036 0.017847065 0.5868535 16.862949
-    ## Variable_2.1            B 0.929782481 0.005008424 0.7216686  8.550615
-    ## Variable_2.2            A 0.002684955 0.344832049 0.6931953  8.798428
-    ## Variable_2.3            C 0.312234641 0.079780343 0.5981656 16.245056
-    ##               amplitude      q.val
-    ## Variable_1.1 0.01475693 0.99716448
-    ## Variable_1.2 0.13583197 0.20358347
-    ## Variable_1.3 0.02294777 0.95611632
-    ## Variable_2.1 0.03722544 0.99176798
-    ## Variable_2.2 0.28394367 0.05011916
-    ## Variable_2.3 0.10185205 0.64362478
+    ##                 B_p.val     A_p.val   C_p.val      B_r.sq     A_r.sq
+    ## Variable_1 9.532798e-01 0.030901063 0.7771550 0.003294345 0.21991674
+    ## Variable_2 9.297825e-01 0.002684955 0.3122346 0.005008424 0.34483205
+    ## Variable_3 2.784019e-07 0.755935357 0.4488660 0.646891288 0.01978728
+    ## Variable_4 8.603783e-01 0.009861269 0.4818005 0.010317651 0.28103213
+    ## Variable_5 7.528003e-01 0.012385930 0.9204081 0.019392619 0.26923016
+    ## Variable_6 3.588405e-03 0.103475111 0.3808739 0.321777005 0.14958456
+    ##                 C_r.sq      B_avg      A_avg      C_avg    B_acro    A_acro
+    ## Variable_1 0.017847065  0.5939175  0.5809418  0.5868535 12.787074 22.474987
+    ## Variable_2 0.079780343  0.7216686  0.6931953  0.5981656  8.550615  8.798428
+    ## Variable_3 0.055610401  4.9514601  4.8769289  3.7125717  1.243837 10.316266
+    ## Variable_4 0.050822008  2.8118776  1.6005672  0.9716583 16.630514  8.855465
+    ## Variable_5 0.005906638 -2.3709104 -3.5201319 -4.0940532 17.758696  9.103868
+    ## Variable_6 0.066625775 -1.0943657 -1.2422211 -1.2090199  3.004538  3.396861
+    ##               C_acro B_amplitude A_amplitude C_amplitude      B_q.val
+    ## Variable_1 16.862949  0.01475693   0.1358320  0.02294777 9.982317e-01
+    ## Variable_2 16.245056  0.03722544   0.2839437  0.10185205 9.982317e-01
+    ## Variable_3  6.883162  1.09917381   0.1266424  0.20292811 1.559051e-05
+    ## Variable_4 21.061482  0.51111164   2.2500130  0.66328131 9.982317e-01
+    ## Variable_5 21.000586  0.68124941   2.4062525  0.23430428 9.982317e-01
+    ## Variable_6 18.143617  0.21593906   0.1178712  0.05540318 6.698355e-02
+    ##               A_q.val   C_q.val Group:Time_p.val Group:Time_q.val
+    ## Variable_1 0.11536397 0.9909656     8.892379e-02     5.241823e-01
+    ## Variable_2 0.03651062 0.7306471     6.412060e-02     4.824477e-01
+    ## Variable_3 0.77508921 0.7935538     1.141716e-06     6.393608e-05
+    ## Variable_4 0.07520935 0.7935538     1.376360e-01     5.246527e-01
+    ## Variable_5 0.07520935 0.9937105     1.494553e-01     5.246527e-01
+    ## Variable_6 0.22729268 0.7668614     3.274827e-02     4.548194e-01
 
 We can use a similar approach to obtain other components of the
 kronosOut objects. Below we include the code to obtain the pairwise
@@ -555,8 +549,6 @@ aspiring and veteran bioinformaticians and circadian rhythm biologists
 will find our guide helpful.
 
 ## Excursion 1. Customising Figures
-
-*To be completed*
 
 The two figure functions, `gg_kronos_circle()` and
 `gg_kronos_sinusoid()`, are designed to be fully compatible with ggplot2
