@@ -520,7 +520,7 @@ The resulting pdf can be found
 The same approach can be applied for obtaining individual circle
 figures.
 
-## 5. Discussion
+## 4. Discussion
 
 Here we have presented standard data for the analysis of time-of-day.
 Some points to consider for your data is whether you can assume a
