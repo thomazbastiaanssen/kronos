@@ -1,0 +1,36 @@
+---
+title: "Benchmarking Kronos and other circadian packages"
+author: "Sarah-Jane Leigh & Thomaz F.S. Bastiaanssen"
+date: "2022-10-26"
+output:
+  md_document:
+    variant: gfm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load}
+library(tidyverse)
+library(kronos)
+data("kronos_demo")
+
+```
+
+```{r load and clean}
+source("00_load_and_clean_WGS.R")
+
+```
+
+```{r run tools}
+source("01a_run_kronos.R")
+source("01b_run_jtk_cycle.R")
+res_kronos
+res_jtk
+
+plot(res_kronos$p.val, res_jtk$ADJ.P)
+hist(res_kronos$p.val, breaks = 20)
+hist(res_jtk$ADJ.P, breaks = 20)
+
+```
