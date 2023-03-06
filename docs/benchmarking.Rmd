@@ -26,11 +26,15 @@ source("00_load_and_clean_WGS.R")
 ```{r run tools}
 source("01a_run_kronos.R")
 source("01b_run_jtk_cycle.R")
-res_kronos
-res_jtk
+
+head(res_kronos)
+head(res_jtk)
 
 plot(res_kronos$p.val, res_jtk$ADJ.P)
 hist(res_kronos$p.val, breaks = 20)
 hist(res_jtk$ADJ.P, breaks = 20)
+
+plot(res_kronos$amplitude, res_jtk$AMP)
+plot(res_kronos$acro, res_jtk$LAG)
 
 ```
