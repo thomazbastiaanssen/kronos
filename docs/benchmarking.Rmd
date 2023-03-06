@@ -13,8 +13,12 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r load}
 library(tidyverse)
+
+#devtools::install_github("thomazbastiaanssen/kronos") 
 library(kronos)
-data("kronos_demo")
+
+#install.packages('limorhyde')
+library(limorhyde)
 
 ```
 
@@ -26,9 +30,11 @@ source("00_load_and_clean_WGS.R")
 ```{r run tools}
 source("01a_run_kronos.R")
 source("01b_run_jtk_cycle.R")
+source("01c_run_limorhyde.R")
 
 head(res_kronos)
 head(res_jtk)
+head(res_limo)
 
 plot(res_kronos$p.val, res_jtk$ADJ.P)
 hist(res_kronos$p.val, breaks = 20)
