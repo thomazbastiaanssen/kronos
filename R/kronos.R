@@ -348,7 +348,7 @@ kronos_anova <- function(fit, time){
 #' Fit a cosinor model and extract relevant parameters on a feature table.
 #' @description This wrapper applies kronos(), the main workhorse function in the kronos package. It manages the individual functionalities of kronos, including rhythmicity analysis and differential rhythmicity.
 #' @param x Input data. A table with rows being features and columns being samples
-#' @param formula A formula. Use the time() function to designate which variable represents time. 
+#' @param formula A formula. Use the time() function to designate which variable represents time. Leave the left-hand side of the formula empty as it will be sequentially replaced by every feature in the table.
 #' @param metadata A metadata table, with rows being samples and columns being metadata entries
 #' @param time A string. Should be the column name containing the time values.  
 #' @param period A numeric. The length of a period, in the same format as the \code{time} parameter.  

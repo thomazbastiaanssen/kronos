@@ -236,6 +236,12 @@ out_list = lapply(X = data.list,
 
 ```
 
+
+```{r fw_kronos, warning=FALSE, message=FALSE}
+
+out_list = fw_kronos(species, formula =  ~ Group + time(Timepoint), metadata = metadata, pairwise = T) 
+```
+
 Now we have a list of kronosOut objects, which contain all our results. This can be cumbersome to do manually, so we wrote the `kronosListToTable` function for this purpose:
 
 ```{r result list, warning=FALSE, message=FALSE}

@@ -2,6 +2,7 @@
 
 export(delistKronos_groupwise)
 export(delistKronos_pairwise)
+export(fw_kronos)
 export(getKronos)
 export(getKronos_fit)
 export(getKronos_groupwise)
