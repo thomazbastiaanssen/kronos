@@ -343,3 +343,30 @@ kronos_anova <- function(fit, time){
   names(pvals) <- unique(gsub(row.names(anova.fit), pattern = paste0(":", time, "_sin", "|", ":", time, "_cos"), replacement =  "")[time_int])
   return(pvals)
 }
+
+
+#' Fit a cosinor model and extract relevant parameters on a feature table.
+#' @description This wrapper applies kronos(), the main workhorse function in the kronos package. It manages the individual functionalities of kronos, including rhythmicity analysis and differential rhythmicity.
+#' @param x Input data. A table with rows being features and columns being samples
+#' @param formula A formula. Use the time() function to designate which variable represents time. 
+#' @param metadata A metadata table, with rows being samples and columns being metadata entries
+#' @param time A string. Should be the column name containing the time values.  
+#' @param period A numeric. The length of a period, in the same format as the \code{time} parameter.  
+#' @param pairwise A boolean. Toggles whether to perform pairwise ANOVAs as a TukeyHSD-like post-hoc. 
+#' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
+#' @return A list of kronosOut S4 objects containing coefficients and all operations.
+#' @importFrom methods new
+#' @importFrom stats anova as.formula coef lm pf predict terms update.formula get_all_vars
+#' @importFrom utils combn
+#' @export
+fw_kronos <- function(x, formula, metadata, time = NULL, period = 24, verbose = F, pairwise = F){
+  formula = update.formula(x_feature ~ ., formula)
+  apply(X = x, MARGIN = 1, FUN = function(y){
+    kronos(formula = formula, 
+           data = cbind("x_feature" = y, metadata),
+           time = time, period = period,  
+           verbose = verbose, 
+           pairwise = pairwise)})
+  
+}
+  
