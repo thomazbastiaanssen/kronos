@@ -366,8 +366,15 @@ head(bigmeta)
     ## 5       X25     B         5
     ## 6       X26     B         5
 
+From the user’s perspective, `fw_kronos` reads very similar to the main
+`kronos` function. The core difference is that `fw_kronos` accepts data
+and metadata as separate objects. Furthermore, `fw_kronos` doesn’t need
+a term on the left-hand side of the formula. It will automatically,
+sequentially apply the given formula with each feature in the input
+table as the response variable.
+
 ``` r
-out_list = fw_kronos(bigdata, 
+out_list = fw_kronos(x = bigdata, 
                      formula = ~ Group + time(Timepoint), 
                      metadata = bigmeta, 
                      pairwise = T) 
