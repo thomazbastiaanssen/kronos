@@ -190,7 +190,10 @@ It requires two core types of data: First, a table of data with rows as features
 
 
 ```{r check_big, warning=FALSE, message=FALSE}
-head(bigdata)
+#plot a little of how a big omics data should be formatted
+head(bigdata, n = c(5, 5))
+
+#plot a little of the metadata should be formatted
 head(bigmeta)
 ```
 
@@ -216,8 +219,8 @@ This will generate a csv containing the individual rhythmicity calculations for 
 The resulting csv can be found [here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/RhythmicityResults.csv).
 
 ```{r show fit.df}
-
-head(fit_df)
+#plot a little of fit_df
+head(fit_df, n = c(5, 5))
 
 ```
 
@@ -392,6 +395,6 @@ getKronos_pairwise(two_way_out_list$Variable_1)
 
 ## Session Info
 ```{r session.info}
-sessionInfo()
+sessioninfo::session_info()
 ```
 
