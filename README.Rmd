@@ -184,71 +184,29 @@ This is calculated by performing a Bonferroni correction on the interactions bet
 
 ## 3. 'Omics Analysis
 
-Now we will demonstrate how to adapt the kronos package for 'omics analysis, where there are many outcome variables. We reorganise our data into a list by outcome variabe so that we can automate the process.
+Now we will demonstrate how to adapt the kronos package for 'omics analysis, where there are many outcome variables. We have written the `fw_kronos` function specifically for this purpose. This function behaves very similar to the main kronos function. 
 
-First we need to pivot the data into long-form and then combine the metadata and data to form a single data.frame. We can achieve this using the following code:
+It requires two core types of data: First, a table of data with rows as features and columns as samples as input. Make sure that the feature labels are row names rather than a column. Second, a metadata table with rows as samples and metadata entries as columns. Suitable input data looks like this:
 
-```{r combine data}
 
-data.long <- bigdata %>%
-  pivot_longer(!Animal_ID, names_to = "Variables", values_to = "Value") %>%
-  as.data.frame()
-
-data.long <- inner_join(data.long, bigmeta, by = "Animal_ID")
-
+```{r check_big, warning=FALSE, message=FALSE}
+head(bigdata)
+head(bigmeta)
 ```
-
-This will generate the following data.frame:
-
-```{r show data.long}
-
-head(data.long)
-
-```
-
-We then transform the dataframe into a list so that we can automate the analysis:
-
-```{r make list, message=FALSE, warning=FALSE, cache=FALSE}
-#Collect all outcome variables
-data_names <- unique(data.long$Variables) 
-
-#Create an empty container list of the appropriate length
-data.list <- vector(mode = "list", length = length(data_names)) 
-
-for(n in 1:length(data_names)){
-  data.list[[n]] <- data.long %>% filter(Variables == data_names[n])
-}
-
-```
-
-Here the for-loop creates a list where every list object is the data for one of our outcome variables. Now we can analyse each outcome variable with the kronos function, using the `lapply` function, which allows us to apply a specific function to list objects and returns a list object of the same length.
-
-```{r kronos list, warning=FALSE, message=FALSE}
-
-out_list = lapply(X = data.list, 
-                  FUN = function(y){
-                    kronos(data = y, 
-                           Value ~ Group + time(Timepoint), 
-                           period = 24, 
-                           pairwise = T, verbose = F)
-                    }
-                  )
-
-```
-
 
 ```{r fw_kronos, warning=FALSE, message=FALSE}
-
-out_list = fw_kronos(species, formula =  ~ Group + time(Timepoint), metadata = metadata, pairwise = T) 
+out_list = fw_kronos(bigdata, 
+                     formula = ~ Group + time(Timepoint), 
+                     metadata = bigmeta, 
+                     pairwise = T) 
 ```
 
 Now we have a list of kronosOut objects, which contain all our results. This can be cumbersome to do manually, so we wrote the `kronosListToTable` function for this purpose:
 
 ```{r result list, warning=FALSE, message=FALSE}
 
-names(out_list) <- data_names
-
 fit_df = kronosListToTable(out_list)
+
 write.csv(fit_df, "README_files/RhythmicityResults.csv")
 
 ```
