@@ -95,8 +95,10 @@ interest. For this we use the kronos function:
 
 ``` r
 output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-                 data = onevariable, period = 24, 
-                 verbose = T, pairwise = F)
+                 data = onevariable, 
+                 period = 24, 
+                 verbose = T, 
+                 pairwise = F)
 ```
 
     ## [1] "Using the following model: Variable_1 ~ Timepoint_cos + Timepoint_sin"
@@ -216,8 +218,10 @@ For examples of more complex designs, see Excursion 1.
 
 ``` r
 output2 <- kronos(formula = Variable_1 ~ Treatment + time(Timepoint), 
-                  data = groupdata, period = 24, 
-                  verbose = T, pairwise = T)
+                  data = groupdata, 
+                  period = 24, 
+                  verbose = T, 
+                  pairwise = T)
 ```
 
     ## [1] "Using the following model: Variable_1 ~ Treatment + Timepoint_cos + Timepoint_sin + Treatment:Timepoint_cos +     Treatment:Timepoint_sin - 1"
@@ -377,6 +381,8 @@ table as the response variable.
 out_list = fw_kronos(x = bigdata, 
                      formula = ~ Group + time(Timepoint), 
                      metadata = bigmeta, 
+                     period = 24,
+                     verbose = F,
                      pairwise = T) 
 ```
 

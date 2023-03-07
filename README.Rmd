@@ -80,8 +80,10 @@ We will start with the most simple example: analysing circadian rhythmicity in a
 ```{r kronos1group, message=FALSE, warning=FALSE, cache=FALSE}
 
 output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-                 data = onevariable, period = 24, 
-                 verbose = T, pairwise = F)
+                 data = onevariable, 
+                 period = 24, 
+                 verbose = T, 
+                 pairwise = F)
 
 ```
 
@@ -142,8 +144,10 @@ Next we will demonstrate one of the unique features of the Kronos package: the a
 ```{r figures_complex, warning = FALSE, messages = FALSE}
 
 output2 <- kronos(formula = Variable_1 ~ Treatment + time(Timepoint), 
-                  data = groupdata, period = 24, 
-                  verbose = T, pairwise = T)
+                  data = groupdata, 
+                  period = 24, 
+                  verbose = T, 
+                  pairwise = T)
 
 gg_kronos_circle(output2)
 
@@ -182,9 +186,9 @@ getKronos_pairwise_p(output2)
 
 This is calculated by performing a Bonferroni correction on the interactions between both the sine and cosine time components and the independent variable. The p-value reported is the lowest following correction.
 
-## 3. 'Omics Analysis
+## 3. 'Omics Analysis 
 
-Now we will demonstrate how to adapt the kronos package for 'omics analysis, where there are many outcome variables. We have written the `fw_kronos` function specifically for this purpose. This function behaves very similar to the main kronos function. 
+Now we will demonstrate how to adapt the kronos package for 'omics analysis, where there are many outcome variables. We have written the `fw_kronos` (feature-wise) function specifically for this purpose. This function behaves very similar to the main kronos function. 
 
 It requires two core types of data: First, a table of data with rows as features and columns as samples as input. Make sure that the feature labels are row names rather than a column. Second, a metadata table with rows as samples and metadata entries as columns. Suitable input data looks like this:
 
@@ -203,6 +207,8 @@ From the user's perspective, `fw_kronos` reads very similar to the main `kronos`
 out_list = fw_kronos(x = bigdata, 
                      formula = ~ Group + time(Timepoint), 
                      metadata = bigmeta, 
+                     period = 24,
+                     verbose = F,
                      pairwise = T) 
 ```
 
