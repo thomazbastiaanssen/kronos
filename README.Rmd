@@ -388,3 +388,10 @@ getKronos_pairwise_p(two_way_out_list$Variable_1)
 getKronos_pairwise(two_way_out_list$Variable_1)
 
 ```
+
+
+## Session Info
+```{r session.info}
+sessionInfo()
+```
+
