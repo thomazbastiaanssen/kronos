@@ -44,6 +44,13 @@ head(res_jtk)
 head(res_limo)
 head(res_cosinor2)
 
+res_tot = do.call(cbind, list(res_kronos, res_jtk, res_limo, res_cosinor2))
+colnames(res_tot) = paste(colnames(res_tot), c(rep("kronos", ncol(res_kronos)),
+                                               rep("jtk",    ncol(res_jtk)),
+                                               rep("limo",    ncol(res_limo)),
+                                               rep("cosinor2",    ncol(res_cosinor2))), sep = "_")
+head(res_tot)
+
 plot(res_kronos$p.val, res_jtk$ADJ.P)
 hist(res_kronos$p.val, breaks = 20)
 hist(res_jtk$ADJ.P, breaks = 20)

@@ -4,6 +4,7 @@ library(kronos)
 data = species
 row.names(data) = data[, 1]
 data            = data[,-1]
+data            = data[,metadata$woltka_ID]
 
 out_list = fw_kronos(data, formula = ~ time(Timepoint), metadata = metadata, pairwise = F)
 
