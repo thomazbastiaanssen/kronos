@@ -26,5 +26,6 @@ res_limo = {
   setnames(rhyNow, 'rn', 'gene_id')
   rhyNow}
 
+res_limo = res_limo[order(match(res_limo$gene_id,row.names(y))),]
 
 rm(list=setdiff(ls(),  c("species", "metadata","res_jtk", "res_kronos", "res_limo", "res_cosinor2")))

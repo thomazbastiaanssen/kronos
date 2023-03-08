@@ -11,7 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r load}
+```{r load, message = F, warning = F}
 library(tidyverse)
 
 #devtools::install_github("thomazbastiaanssen/kronos") 
@@ -25,20 +25,24 @@ library(cosinor2)
 
 ```
 
-```{r load and clean}
+```{r load and clean, message = F, warning = F}
 source("00_load_and_clean_WGS.R")
 
 ```
 
-```{r run tools}
+```{r run tools, message = F, warning = F}
 source("01a_run_kronos.R")
 source("01b_run_jtk_cycle.R")
 source("01c_run_limorhyde.R")
 source("01d_run_cosinor2.R")
+```
+
+```{r assess tools}
 
 head(res_kronos)
 head(res_jtk)
 head(res_limo)
+head(res_cosinor2)
 
 plot(res_kronos$p.val, res_jtk$ADJ.P)
 hist(res_kronos$p.val, breaks = 20)
