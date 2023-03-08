@@ -3,8 +3,8 @@ library(cosinor)
 library(cosinor2)
 
 data = species
-row.names(data) = data[, 1]
-data            = data[,-1]
+# row.names(data) = data[, 1]
+# data            = data[,-1]
 data            = data[,metadata$woltka_ID]
 
 fw_cosinor = function (x, formula, metadata, period = 24, verbose = F, 

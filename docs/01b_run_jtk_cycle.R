@@ -3,8 +3,8 @@ source("https://raw.githubusercontent.com/mfcovington/jtk-cycle/develop/JTK_CYCL
 project <- "benchmark"
 
 data = species
-rownames(data) <- data[,1]
-data <- data[,-1]
+# rownames(data) <- data[,1]
+# data <- data[,-1]
 data <- data[,metadata$woltka_ID]
 jtkdist(4, c(8, 8, 7, 8))
 

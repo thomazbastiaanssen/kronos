@@ -13,8 +13,8 @@ qvalDrCutoff = 0.1
 metadata_limo = cbind(metadata, limorhyde(metadata$Timepoint, 'time_'))
 
 y = species
-rownames(y) <- y[,1]
-y <- y[,-1]
+# rownames(y) <- y[,1]
+# y <- y[,-1]
 y <- y[,metadata_limo$woltka_ID]
 
 
