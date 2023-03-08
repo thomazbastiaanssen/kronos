@@ -1,6 +1,6 @@
 library(deleuze)
 
-# species = read.delim("docs/wgs_species.csv")
+# species = read.delim("docs/wgs_species.csv", row.names = 1)
 # metadata = read.delim("docs/wgs_metadata.txt", sep = ",", row.names = 1)
 
 species = read.delim("wgs_species.csv", row.names = 1)

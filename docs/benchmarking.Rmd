@@ -54,18 +54,29 @@ head(res_tot)
 plot(res_kronos$p.val, res_jtk$p.val)
 hist(res_kronos$p.val, breaks = 20)
 hist(res_jtk$p.val, breaks = 20)
-hist(res_cosinor2$p, breaks = 20)
+hist(res_cosinor2$p.val, breaks = 20)
 hist(res_limo$p.val, breaks = 20)
 
-plot(res_kronos$amplitude, res_jtk$AMP)
-plot(res_kronos$acro, res_jtk$LAG)
+plot(res_kronos$amplitude, res_jtk$amplitude)
+plot(res_kronos$acro, res_jtk$acro)
 
-plot(res_kronos$acro, res_cosinor2$acrophase + 24)
+plot(res_kronos$acro, res_cosinor2$acro)
 
 
 ```
 
 ```{r plot tools}
-# res_tot %>% 
-#   dplyr::select()
+res_tot %>%
+  rownames_to_column("ID") %>% 
+  dplyr::select(!gene_id_limo) %>% 
+  pivot_longer(!ID) %>% 
+  separate(name, into = c("parameter", "program"), sep = "_") %>% 
+  filter(parameter %in% c("p.val")) %>% 
+  filter(value < 0.2) %>% 
+  ggplot() +
+  aes(x = value, y = ID) +
+  geom_point(alpha = 0.5) +
+  facet_wrap(~program, ncol = 4) +
+  theme_bw()
+  
 ```

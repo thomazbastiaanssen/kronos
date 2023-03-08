@@ -38,19 +38,19 @@ head(res_kronos)
 head(res_jtk)
 ```
 
-    ##                BH.Q     ADJ.P PER LAG        AMP
-    ## Species_2 1.0000000 0.3774844  24  18 0.26479047
-    ## Species_3 1.0000000 1.0000000  24  NA 0.04940765
-    ## Species_4 0.9651211 0.1992868  24  15 0.13129342
-    ## Species_5 1.0000000 1.0000000  24  NA 0.12170528
-    ## Species_6 1.0000000 1.0000000  24  NA 0.10195058
-    ## Species_8 1.0000000 1.0000000  24  NA 0.03600578
+    ##               q.val     p.val period acro  amplitude
+    ## Species_2 1.0000000 0.3774844     24   18 0.26479047
+    ## Species_3 1.0000000 1.0000000     24   NA 0.04940765
+    ## Species_4 0.9651211 0.1992868     24   15 0.13129342
+    ## Species_5 1.0000000 1.0000000     24   NA 0.12170528
+    ## Species_6 1.0000000 1.0000000     24   NA 0.10195058
+    ## Species_8 1.0000000 1.0000000     24   NA 0.03600578
 
 ``` r
 head(res_limo)
 ```
 
-    ##      gene_id     time_cos    time_sin     AveExpr         F   P.Value adj.P.Val
+    ##      gene_id     time_cos    time_sin         avg      acro amplitude     p.val
     ## 1: Species_2  0.246748747 -0.09039613 -0.59337082 1.2529959 0.2943813 0.8330279
     ## 2: Species_3  0.023440712 -0.13466616 -0.55802579 0.3689815 0.6932880 0.9590520
     ## 3: Species_4  0.045749257 -0.13205147  1.02585356 0.9832489 0.3811448 0.8767841
@@ -62,13 +62,13 @@ head(res_limo)
 head(res_cosinor2)
 ```
 
-    ##                   F df1 df2         p acrophase
-    ## Species_2 1.0853080   2  28 0.3515879 -5.932021
-    ## Species_3 0.3416948   2  28 0.7134866 -4.884728
-    ## Species_4 1.4594085   2  28 0.2495125 -5.045898
-    ## Species_5 1.0503309   2  28 0.3632017 -1.539592
-    ## Species_6 0.2267439   2  28 0.7985742 -3.365228
-    ## Species_8 0.9403007   2  28 0.4024962 -2.750773
+    ##                   r       r.sq      p.val      acro
+    ## Species_2 0.2682251 0.07194470 0.14458386 -5.932021
+    ## Species_3 0.1543544 0.02382527 0.40706041 -4.884728
+    ## Species_4 0.3072501 0.09440261 0.09269616 -5.045898
+    ## Species_5 0.2641740 0.06978789 0.15098209 -1.539592
+    ## Species_6 0.1262453 0.01593787 0.49857470 -3.365228
+    ## Species_8 0.2508729 0.06293720 0.17342296 -2.750773
 
 ``` r
 res_tot = do.call(cbind, list(res_kronos, res_jtk, res_limo, res_cosinor2))
@@ -86,37 +86,30 @@ head(res_tot)
     ## Species_5    0.3632017  0.06978789 -0.03594562    5.880808        0.1856407
     ## Species_6    0.7985742  0.01593787 -0.76990221   12.854223        0.1140083
     ## Species_8    0.4024962  0.06293720  0.05263352   10.507180        0.1747327
-    ##            BH.Q_jtk ADJ.P_jtk PER_jtk LAG_jtk    AMP_jtk gene_id_limo
-    ## Species_2 1.0000000 0.3774844      24      18 0.26479047    Species_2
-    ## Species_3 1.0000000 1.0000000      24      NA 0.04940765    Species_3
-    ## Species_4 0.9651211 0.1992868      24      15 0.13129342    Species_4
-    ## Species_5 1.0000000 1.0000000      24      NA 0.12170528    Species_5
-    ## Species_6 1.0000000 1.0000000      24      NA 0.10195058    Species_6
-    ## Species_8 1.0000000 1.0000000      24      NA 0.03600578    Species_8
-    ##           time_cos_limo time_sin_limo AveExpr_limo    F_limo P.Value_limo
-    ## Species_2   0.246748747   -0.09039613  -0.59337082 1.2529959    0.2943813
-    ## Species_3   0.023440712   -0.13466616  -0.55802579 0.3689815    0.6932880
-    ## Species_4   0.045749257   -0.13205147   1.02585356 0.9832489    0.3811448
-    ## Species_5   0.005791869    0.18555031  -0.03017543 1.0099758    0.3714700
-    ## Species_6  -0.111169227   -0.02528427  -0.77047212 0.2338499    0.7923334
-    ## Species_8  -0.161557335    0.06656371   0.05502427 0.9355144    0.3990815
-    ##           adj.P.Val_limo F_cosinor2 df1_cosinor2 df2_cosinor2 p_cosinor2
-    ## Species_2      0.8330279  1.0853080            2           28  0.3515879
-    ## Species_3      0.9590520  0.3416948            2           28  0.7134866
-    ## Species_4      0.8767841  1.4594085            2           28  0.2495125
-    ## Species_5      0.8707995  1.0503309            2           28  0.3632017
-    ## Species_6      0.9770689  0.2267439            2           28  0.7985742
-    ## Species_8      0.8796326  0.9403007            2           28  0.4024962
-    ##           acrophase_cosinor2
-    ## Species_2          -5.932021
-    ## Species_3          -4.884728
-    ## Species_4          -5.045898
-    ## Species_5          -1.539592
-    ## Species_6          -3.365228
-    ## Species_8          -2.750773
+    ##           q.val_jtk p.val_jtk period_jtk acro_jtk amplitude_jtk gene_id_limo
+    ## Species_2 1.0000000 0.3774844         24       18    0.26479047    Species_2
+    ## Species_3 1.0000000 1.0000000         24       NA    0.04940765    Species_3
+    ## Species_4 0.9651211 0.1992868         24       15    0.13129342    Species_4
+    ## Species_5 1.0000000 1.0000000         24       NA    0.12170528    Species_5
+    ## Species_6 1.0000000 1.0000000         24       NA    0.10195058    Species_6
+    ## Species_8 1.0000000 1.0000000         24       NA    0.03600578    Species_8
+    ##           time_cos_limo time_sin_limo    avg_limo acro_limo amplitude_limo
+    ## Species_2   0.246748747   -0.09039613 -0.59337082 1.2529959      0.2943813
+    ## Species_3   0.023440712   -0.13466616 -0.55802579 0.3689815      0.6932880
+    ## Species_4   0.045749257   -0.13205147  1.02585356 0.9832489      0.3811448
+    ## Species_5   0.005791869    0.18555031 -0.03017543 1.0099758      0.3714700
+    ## Species_6  -0.111169227   -0.02528427 -0.77047212 0.2338499      0.7923334
+    ## Species_8  -0.161557335    0.06656371  0.05502427 0.9355144      0.3990815
+    ##           p.val_limo r_cosinor2 r.sq_cosinor2 p.val_cosinor2 acro_cosinor2
+    ## Species_2  0.8330279  0.2682251    0.07194470     0.14458386     -5.932021
+    ## Species_3  0.9590520  0.1543544    0.02382527     0.40706041     -4.884728
+    ## Species_4  0.8767841  0.3072501    0.09440261     0.09269616     -5.045898
+    ## Species_5  0.8707995  0.2641740    0.06978789     0.15098209     -1.539592
+    ## Species_6  0.9770689  0.1262453    0.01593787     0.49857470     -3.365228
+    ## Species_8  0.8796326  0.2508729    0.06293720     0.17342296     -2.750773
 
 ``` r
-plot(res_kronos$p.val, res_jtk$ADJ.P)
+plot(res_kronos$p.val, res_jtk$p.val)
 ```
 
 ![](benchmarking_files/figure-gfm/assess%20tools-1.png)<!-- -->
@@ -128,37 +121,58 @@ hist(res_kronos$p.val, breaks = 20)
 ![](benchmarking_files/figure-gfm/assess%20tools-2.png)<!-- -->
 
 ``` r
-hist(res_jtk$ADJ.P, breaks = 20)
+hist(res_jtk$p.val, breaks = 20)
 ```
 
 ![](benchmarking_files/figure-gfm/assess%20tools-3.png)<!-- -->
 
 ``` r
-hist(res_cosinor2$p, breaks = 20)
+hist(res_cosinor2$p.val, breaks = 20)
 ```
 
 ![](benchmarking_files/figure-gfm/assess%20tools-4.png)<!-- -->
 
 ``` r
-hist(res_limo$P.Value, breaks = 20)
+hist(res_limo$p.val, breaks = 20)
 ```
 
 ![](benchmarking_files/figure-gfm/assess%20tools-5.png)<!-- -->
 
 ``` r
-plot(res_kronos$amplitude, res_jtk$AMP)
+plot(res_kronos$amplitude, res_jtk$amplitude)
 ```
 
 ![](benchmarking_files/figure-gfm/assess%20tools-6.png)<!-- -->
 
 ``` r
-plot(res_kronos$acro, res_jtk$LAG)
+plot(res_kronos$acro, res_jtk$acro)
 ```
 
 ![](benchmarking_files/figure-gfm/assess%20tools-7.png)<!-- -->
 
 ``` r
-plot(res_kronos$acro, res_cosinor2$acrophase + 24)
+plot(res_kronos$acro, res_cosinor2$acro)
 ```
 
 ![](benchmarking_files/figure-gfm/assess%20tools-8.png)<!-- -->
+
+``` r
+res_tot %>%
+  rownames_to_column("ID") %>% 
+  dplyr::select(!gene_id_limo) %>% 
+  pivot_longer(!ID) %>% 
+  separate(name, into = c("parameter", "program"), sep = "_") %>% 
+  filter(parameter %in% c("p.val")) %>% 
+  filter(value < 0.2) %>% 
+  ggplot() +
+  aes(x = value, y = ID) +
+  geom_point(alpha = 0.5) +
+  facet_wrap(~program, ncol = 4) +
+  theme_bw()
+```
+
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 7274 rows [11, 12,
+    ## 31, 32, 51, 52, 71, 72, 91, 92, 111, 112, 131, 132, 151, 152, 171, 172, 191,
+    ## 192, ...].
+
+![](benchmarking_files/figure-gfm/plot%20tools-1.png)<!-- -->
