@@ -23,5 +23,5 @@ jtk.init(periods,6)
   colnames(res) <- c("BH.Q","ADJ.P","PER","LAG","AMP")
   res_jtk = res
 
-rm(list=setdiff(ls(), c("species", "metadata","res_jtk", "res_kronos")))
-
+  rm(list=setdiff(ls(),  c("species", "metadata","res_jtk", "res_kronos", "res_limo", "res_cosinor2")))
+  

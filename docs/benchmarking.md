@@ -17,6 +17,9 @@ library(kronos)
 
 #install.packages('limorhyde')
 library(limorhyde)
+
+library(cosinor)
+library(cosinor2)
 ```
 
 ``` r
@@ -129,6 +132,8 @@ source("01c_run_limorhyde.R")
     ##     plotMA
 
 ``` r
+source("01d_run_cosinor2.R")
+
 head(res_kronos)
 ```
 
@@ -144,32 +149,32 @@ head(res_kronos)
 head(res_jtk)
 ```
 
-    ##           BH.Q     ADJ.P PER LAG       AMP
-    ## Species_1    1 0.7062927  24  21 0.3690645
-    ## Species_2    1 0.5045277  24  21 0.3009061
-    ## Species_3    1 1.0000000  24  NA 0.1064677
-    ## Species_4    1 0.2168050  24  18 0.1665836
-    ## Species_5    1 0.1992868  24   0 0.1001631
-    ## Species_6    1 1.0000000  24  NA 0.0365927
+    ##           BH.Q     ADJ.P PER LAG        AMP
+    ## Species_1    1 1.0000000  24  NA 0.23877198
+    ## Species_2    1 0.4066034  24  21 0.23017044
+    ## Species_3    1 1.0000000  24  NA 0.02678880
+    ## Species_4    1 0.7528835  24  15 0.13805803
+    ## Species_5    1 1.0000000  24  NA 0.01416228
+    ## Species_6    1 1.0000000  24  NA 0.01824839
 
 ``` r
 head(res_limo)
 ```
 
-    ##        gene_id   time_cos   time_sin    AveExpr         F      P.Value
-    ## 1: Species_242 -0.4854064  0.9645182  1.4533285 33.056781 1.962474e-12
-    ## 2: Species_286 -0.3284821  0.7049102  3.9795961 20.995880 1.121822e-08
-    ## 3: Species_415 -0.1662919  0.4487244  1.8714063  9.141760 1.879773e-04
-    ## 4: Species_263 -0.2576868 -0.4778930 -1.4230559  8.975189 2.177556e-04
-    ## 5: Species_452 -0.2576868 -0.4778930 -1.4230559  8.975189 2.177556e-04
-    ## 6: Species_336 -0.5691492 -0.1913979 -0.4585398  7.586936 7.510226e-04
-    ##       adj.P.Val
-    ## 1: 9.812371e-10
-    ## 2: 2.804555e-06
-    ## 3: 2.177556e-02
-    ## 4: 2.177556e-02
-    ## 5: 2.177556e-02
-    ## 6: 5.644168e-02
+    ##        gene_id    time_cos   time_sin     AveExpr        F      P.Value
+    ## 1:  Species_60  0.39280629  0.5571424 -0.81522183 8.791005 0.0002805057
+    ## 2: Species_438 -0.06437023  0.5470562 -0.59832475 5.708922 0.0043296215
+    ## 3: Species_308 -0.20113177 -0.4166051  0.39391983 5.332814 0.0061016281
+    ## 4: Species_294 -0.27599623 -0.3609774  0.46391399 5.073707 0.0077377155
+    ## 5: Species_242 -0.48138288  0.1744117  1.45332852 5.036053 0.0080101486
+    ## 6:  Species_55  0.20057632  0.4327394  0.06138333 4.933728 0.0088008640
+    ##    adj.P.Val
+    ## 1: 0.1402529
+    ## 2: 0.6114779
+    ## 3: 0.6114779
+    ## 4: 0.6114779
+    ## 5: 0.6114779
+    ## 6: 0.6114779
 
 ``` r
 plot(res_kronos$p.val, res_jtk$ADJ.P)
@@ -190,13 +195,25 @@ hist(res_jtk$ADJ.P, breaks = 20)
 ![](benchmarking_files/figure-gfm/run%20tools-3.png)<!-- -->
 
 ``` r
-plot(res_kronos$amplitude, res_jtk$AMP)
+hist(res_cosinor2$p, breaks = 20)
 ```
 
 ![](benchmarking_files/figure-gfm/run%20tools-4.png)<!-- -->
 
 ``` r
-plot(res_kronos$acro, res_jtk$LAG)
+plot(res_kronos$amplitude, res_jtk$AMP)
 ```
 
 ![](benchmarking_files/figure-gfm/run%20tools-5.png)<!-- -->
+
+``` r
+plot(res_kronos$acro, res_jtk$LAG)
+```
+
+![](benchmarking_files/figure-gfm/run%20tools-6.png)<!-- -->
+
+``` r
+plot(res_kronos$acro, res_cosinor2$acrophase + 24)
+```
+
+![](benchmarking_files/figure-gfm/run%20tools-7.png)<!-- -->

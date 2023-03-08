@@ -20,6 +20,9 @@ library(kronos)
 #install.packages('limorhyde')
 library(limorhyde)
 
+library(cosinor)
+library(cosinor2)
+
 ```
 
 ```{r load and clean}
@@ -31,6 +34,7 @@ source("00_load_and_clean_WGS.R")
 source("01a_run_kronos.R")
 source("01b_run_jtk_cycle.R")
 source("01c_run_limorhyde.R")
+source("01d_run_cosinor2.R")
 
 head(res_kronos)
 head(res_jtk)
@@ -39,8 +43,12 @@ head(res_limo)
 plot(res_kronos$p.val, res_jtk$ADJ.P)
 hist(res_kronos$p.val, breaks = 20)
 hist(res_jtk$ADJ.P, breaks = 20)
+hist(res_cosinor2$p, breaks = 20)
 
 plot(res_kronos$amplitude, res_jtk$AMP)
 plot(res_kronos$acro, res_jtk$LAG)
+
+plot(res_kronos$acro, res_cosinor2$acrophase + 24)
+
 
 ```

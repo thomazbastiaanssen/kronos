@@ -11,7 +11,7 @@ qvalRhyCutoff = 0.15
 qvalDrCutoff = 0.1
 
 metadata_limo = cbind(metadata, limorhyde(metadata$Timepoint, 'time_'))
-metadata_limo$cond = "s"
+
 y = species
 rownames(y) <- y[,1]
 y <- y[,-1]
@@ -27,4 +27,4 @@ res_limo = {
   rhyNow}
 
 
-rm(list=setdiff(ls(), c("species", "metadata","res_jtk", "res_kronos", "res_limo")))
+rm(list=setdiff(ls(),  c("species", "metadata","res_jtk", "res_kronos", "res_limo", "res_cosinor2")))
