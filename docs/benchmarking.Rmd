@@ -51,11 +51,11 @@ colnames(res_tot) = paste(colnames(res_tot), c(rep("kronos", ncol(res_kronos)),
                                                rep("cosinor2",    ncol(res_cosinor2))), sep = "_")
 head(res_tot)
 
-plot(res_kronos$p.val, res_jtk$ADJ.P)
+plot(res_kronos$p.val, res_jtk$p.val)
 hist(res_kronos$p.val, breaks = 20)
-hist(res_jtk$ADJ.P, breaks = 20)
+hist(res_jtk$p.val, breaks = 20)
 hist(res_cosinor2$p, breaks = 20)
-hist(res_limo$P.Value, breaks = 20)
+hist(res_limo$p.val, breaks = 20)
 
 plot(res_kronos$amplitude, res_jtk$AMP)
 plot(res_kronos$acro, res_jtk$LAG)
@@ -63,4 +63,9 @@ plot(res_kronos$acro, res_jtk$LAG)
 plot(res_kronos$acro, res_cosinor2$acrophase + 24)
 
 
+```
+
+```{r plot tools}
+# res_tot %>% 
+#   dplyr::select()
 ```

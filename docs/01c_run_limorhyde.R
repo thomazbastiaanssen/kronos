@@ -28,4 +28,6 @@ res_limo = {
 
 res_limo = res_limo[order(match(res_limo$gene_id,row.names(y))),]
 
+colnames(res_limo) = c( "gene_id", "time_cos" , "time_sin",   "avg", "acro", "amplitude", "p.val")
+
 rm(list=setdiff(ls(),  c("species", "metadata","res_jtk", "res_kronos", "res_limo", "res_cosinor2")))

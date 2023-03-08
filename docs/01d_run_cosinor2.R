@@ -18,11 +18,11 @@ fw_cosinor = function (x, formula, metadata, period = 24, verbose = F,
 }
 
 res_cosinor2 = data.frame(cbind(do.call(rbind, 
-                   lapply(X = fw_cosinor(x = data, formula =  ~ time(Timepoint), period = 24, metadata = metadata), FUN = cosinor2::cosinor.detect)),
+                   lapply(X = fw_cosinor(x = data, formula =  ~ time(Timepoint), period = 24, metadata = metadata), FUN = cosinor.PR)),
                  do.call(rbind, 
                          lapply(X = fw_cosinor(x = data, formula =  ~ time(Timepoint), period = 24, metadata = metadata), FUN = correct.acrophase))))
 
-colnames(res_cosinor2)[5] = "acrophase"
+colnames(res_cosinor2) = c("r", "r.sq", "p.val", "acro")
 
 rm(list=setdiff(ls(),  c("species", "metadata","res_jtk", "res_kronos", "res_limo", "res_cosinor2")))
 
