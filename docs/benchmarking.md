@@ -140,19 +140,25 @@ hist(res_cosinor2$p, breaks = 20)
 ![](benchmarking_files/figure-gfm/assess%20tools-4.png)<!-- -->
 
 ``` r
-plot(res_kronos$amplitude, res_jtk$AMP)
+hist(res_limo$P.Value, breaks = 20)
 ```
 
 ![](benchmarking_files/figure-gfm/assess%20tools-5.png)<!-- -->
 
 ``` r
-plot(res_kronos$acro, res_jtk$LAG)
+plot(res_kronos$amplitude, res_jtk$AMP)
 ```
 
 ![](benchmarking_files/figure-gfm/assess%20tools-6.png)<!-- -->
 
 ``` r
-plot(res_kronos$acro, res_cosinor2$acrophase + 24)
+plot(res_kronos$acro, res_jtk$LAG)
 ```
 
 ![](benchmarking_files/figure-gfm/assess%20tools-7.png)<!-- -->
+
+``` r
+plot(res_kronos$acro, res_cosinor2$acrophase + 24)
+```
+
+![](benchmarking_files/figure-gfm/assess%20tools-8.png)<!-- -->

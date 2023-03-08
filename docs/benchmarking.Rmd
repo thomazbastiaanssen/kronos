@@ -55,6 +55,7 @@ plot(res_kronos$p.val, res_jtk$ADJ.P)
 hist(res_kronos$p.val, breaks = 20)
 hist(res_jtk$ADJ.P, breaks = 20)
 hist(res_cosinor2$p, breaks = 20)
+hist(res_limo$P.Value, breaks = 20)
 
 plot(res_kronos$amplitude, res_jtk$AMP)
 plot(res_kronos$acro, res_jtk$LAG)
