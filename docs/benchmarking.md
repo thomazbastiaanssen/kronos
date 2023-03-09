@@ -66,7 +66,7 @@ head(res_jtk)
 head(res_limo)
 ```
 
-    ##      gene_id     time_cos    time_sin         avg      acro amplitude     p.val
+    ##      gene_id     time_cos    time_sin         avg         F     p.val     q.val
     ## 1: Species_2  0.246748747 -0.09039613 -0.59337082 1.2529959 0.2943813 0.8330279
     ## 2: Species_3  0.023440712 -0.13466616 -0.55802579 0.3689815 0.6932880 0.9590520
     ## 3: Species_4  0.045749257 -0.13205147  1.02585356 0.9832489 0.3811448 0.8767841

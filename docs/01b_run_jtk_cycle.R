@@ -23,7 +23,7 @@ jtk.init(periods,6)
   colnames(res) <- c("BH.Q","ADJ.P","PER","LAG","AMP")
   res_jtk = res
   
-  print(colnames(res_jtk) )
+  print(colnames(res_jtk))
   colnames(res_jtk) = c(  "q.val", "p.val" , "period",   "acro", "amplitude")
   rm(list=setdiff(ls(),  c("species", "metadata","res_jtk", "res_kronos", "res_limo", "res_cosinor2")))
   
