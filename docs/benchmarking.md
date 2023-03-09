@@ -127,17 +127,22 @@ res_tot %>%
 ![](benchmarking_files/figure-gfm/plot%20tools-1.png)<!-- -->
 
 ``` r
-library(ggvenn)
+list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
+     jtk_cycle = row.names(res_tot[res_tot$p.val_jtk      < 0.05,]),
+     limorhyde = row.names(res_tot[res_tot$p.val_limo     < 0.05,]),
+     cosinor2  = row.names(res_tot[res_tot$p.val_cosinor2 < 0.05,])) %>% 
+  ggvenn::ggvenn()
 ```
 
-    ## Loading required package: grid
+![](benchmarking_files/figure-gfm/plot%20tools-2.png)<!-- -->
 
 ``` r
 list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
      jtk_cycle = row.names(res_tot[res_tot$p.val_jtk      < 0.05,]),
      limorhyde = row.names(res_tot[res_tot$p.val_limo     < 0.05,]),
      cosinor2  = row.names(res_tot[res_tot$p.val_cosinor2 < 0.05,])) %>% 
-  ggvenn()
+  UpSetR::fromList() %>% 
+  UpSetR::upset(., order.by = "freq")
 ```
 
-![](benchmarking_files/figure-gfm/plot%20tools-2.png)<!-- -->
+![](benchmarking_files/figure-gfm/plot%20tools-3.png)<!-- -->

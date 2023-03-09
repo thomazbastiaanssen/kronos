@@ -80,12 +80,19 @@ res_tot %>%
   facet_wrap(~program, ncol = 4) +
   theme_bw()
   
-library(ggvenn)
+
 
 list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
      jtk_cycle = row.names(res_tot[res_tot$p.val_jtk      < 0.05,]),
      limorhyde = row.names(res_tot[res_tot$p.val_limo     < 0.05,]),
      cosinor2  = row.names(res_tot[res_tot$p.val_cosinor2 < 0.05,])) %>% 
-  ggvenn()
+  ggvenn::ggvenn()
 
+
+list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
+     jtk_cycle = row.names(res_tot[res_tot$p.val_jtk      < 0.05,]),
+     limorhyde = row.names(res_tot[res_tot$p.val_limo     < 0.05,]),
+     cosinor2  = row.names(res_tot[res_tot$p.val_cosinor2 < 0.05,])) %>% 
+  UpSetR::fromList() %>% 
+  UpSetR::upset(., order.by = "freq")
 ```
