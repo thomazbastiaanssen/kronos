@@ -125,3 +125,19 @@ res_tot %>%
     ## 192, ...].
 
 ![](benchmarking_files/figure-gfm/plot%20tools-1.png)<!-- -->
+
+``` r
+library(ggvenn)
+```
+
+    ## Loading required package: grid
+
+``` r
+list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
+     jtk_cycle = row.names(res_tot[res_tot$p.val_jtk      < 0.05,]),
+     limorhyde = row.names(res_tot[res_tot$p.val_limo     < 0.05,]),
+     cosinor2  = row.names(res_tot[res_tot$p.val_cosinor2 < 0.05,])) %>% 
+  ggvenn()
+```
+
+![](benchmarking_files/figure-gfm/plot%20tools-2.png)<!-- -->
