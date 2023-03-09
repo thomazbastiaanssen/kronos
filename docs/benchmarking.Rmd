@@ -49,18 +49,18 @@ colnames(res_tot) = paste(colnames(res_tot), c(rep("kronos", ncol(res_kronos)),
                                                rep("jtk",    ncol(res_jtk)),
                                                rep("limo",    ncol(res_limo)),
                                                rep("cosinor2",    ncol(res_cosinor2))), sep = "_")
-head(res_tot)
 
-plot(res_kronos$p.val, res_jtk$p.val)
+
+```
+
+```{r plot stats}
+
+
+par(mfcol = c(2, 2))
 hist(res_kronos$p.val, breaks = 20)
 hist(res_jtk$p.val, breaks = 20)
 hist(res_cosinor2$p.val, breaks = 20)
 hist(res_limo$p.val, breaks = 20)
-
-plot(res_kronos$amplitude, res_jtk$amplitude)
-plot(res_kronos$acro, res_jtk$acro)
-
-plot(res_kronos$acro, res_cosinor2$acro)
 
 
 ```

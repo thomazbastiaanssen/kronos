@@ -76,85 +76,17 @@ colnames(res_tot) = paste(colnames(res_tot), c(rep("kronos", ncol(res_kronos)),
                                                rep("jtk",    ncol(res_jtk)),
                                                rep("limo",    ncol(res_limo)),
                                                rep("cosinor2",    ncol(res_cosinor2))), sep = "_")
-head(res_tot)
 ```
 
-    ##           p.val_kronos r.sq_kronos  avg_kronos acro_kronos amplitude_kronos
-    ## Species_2    0.3515879  0.07194470 -0.59007048   22.658650        0.2627859
-    ## Species_3    0.7134866  0.02382527 -0.55378379   18.658285        0.1366910
-    ## Species_4    0.2495125  0.09440261  1.03005782   19.273910        0.1397519
-    ## Species_5    0.3632017  0.06978789 -0.03594562    5.880808        0.1856407
-    ## Species_6    0.7985742  0.01593787 -0.76990221   12.854223        0.1140083
-    ## Species_8    0.4024962  0.06293720  0.05263352   10.507180        0.1747327
-    ##           q.val_jtk p.val_jtk period_jtk acro_jtk amplitude_jtk gene_id_limo
-    ## Species_2 1.0000000 0.3774844         24       18    0.26479047    Species_2
-    ## Species_3 1.0000000 1.0000000         24       NA    0.04940765    Species_3
-    ## Species_4 0.9651211 0.1992868         24       15    0.13129342    Species_4
-    ## Species_5 1.0000000 1.0000000         24       NA    0.12170528    Species_5
-    ## Species_6 1.0000000 1.0000000         24       NA    0.10195058    Species_6
-    ## Species_8 1.0000000 1.0000000         24       NA    0.03600578    Species_8
-    ##           time_cos_limo time_sin_limo    avg_limo acro_limo amplitude_limo
-    ## Species_2   0.246748747   -0.09039613 -0.59337082 1.2529959      0.2943813
-    ## Species_3   0.023440712   -0.13466616 -0.55802579 0.3689815      0.6932880
-    ## Species_4   0.045749257   -0.13205147  1.02585356 0.9832489      0.3811448
-    ## Species_5   0.005791869    0.18555031 -0.03017543 1.0099758      0.3714700
-    ## Species_6  -0.111169227   -0.02528427 -0.77047212 0.2338499      0.7923334
-    ## Species_8  -0.161557335    0.06656371  0.05502427 0.9355144      0.3990815
-    ##           p.val_limo r_cosinor2 r.sq_cosinor2 p.val_cosinor2 acro_cosinor2
-    ## Species_2  0.8330279  0.2682251    0.07194470     0.14458386     -5.932021
-    ## Species_3  0.9590520  0.1543544    0.02382527     0.40706041     -4.884728
-    ## Species_4  0.8767841  0.3072501    0.09440261     0.09269616     -5.045898
-    ## Species_5  0.8707995  0.2641740    0.06978789     0.15098209     -1.539592
-    ## Species_6  0.9770689  0.1262453    0.01593787     0.49857470     -3.365228
-    ## Species_8  0.8796326  0.2508729    0.06293720     0.17342296     -2.750773
-
 ``` r
-plot(res_kronos$p.val, res_jtk$p.val)
-```
-
-![](benchmarking_files/figure-gfm/assess%20tools-1.png)<!-- -->
-
-``` r
+par(mfcol = c(2, 2))
 hist(res_kronos$p.val, breaks = 20)
-```
-
-![](benchmarking_files/figure-gfm/assess%20tools-2.png)<!-- -->
-
-``` r
 hist(res_jtk$p.val, breaks = 20)
-```
-
-![](benchmarking_files/figure-gfm/assess%20tools-3.png)<!-- -->
-
-``` r
 hist(res_cosinor2$p.val, breaks = 20)
-```
-
-![](benchmarking_files/figure-gfm/assess%20tools-4.png)<!-- -->
-
-``` r
 hist(res_limo$p.val, breaks = 20)
 ```
 
-![](benchmarking_files/figure-gfm/assess%20tools-5.png)<!-- -->
-
-``` r
-plot(res_kronos$amplitude, res_jtk$amplitude)
-```
-
-![](benchmarking_files/figure-gfm/assess%20tools-6.png)<!-- -->
-
-``` r
-plot(res_kronos$acro, res_jtk$acro)
-```
-
-![](benchmarking_files/figure-gfm/assess%20tools-7.png)<!-- -->
-
-``` r
-plot(res_kronos$acro, res_cosinor2$acro)
-```
-
-![](benchmarking_files/figure-gfm/assess%20tools-8.png)<!-- -->
+![](benchmarking_files/figure-gfm/plot%20stats-1.png)<!-- -->
 
 ``` r
 res_tot %>%
