@@ -57,10 +57,11 @@ colnames(res_tot) = paste(colnames(res_tot), c(rep("kronos", ncol(res_kronos)),
 
 
 par(mfcol = c(2, 2))
-hist(res_kronos$p.val, breaks = 20)
-hist(res_jtk$p.val, breaks = 20)
+
+hist(res_kronos$p.val,   breaks = 20)
+hist(res_jtk$p.val,      breaks = 20)
 hist(res_cosinor2$p.val, breaks = 20)
-hist(res_limo$p.val, breaks = 20)
+hist(res_limo$p.val,     breaks = 20)
 
 
 ```

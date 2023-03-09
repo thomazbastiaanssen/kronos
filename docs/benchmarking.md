@@ -18,9 +18,25 @@ source("00_load_and_clean_WGS.R")
 ``` r
 source("01a_run_kronos.R")
 source("01b_run_jtk_cycle.R")
+```
+
+    ## [1] "BH.Q"  "ADJ.P" "PER"   "LAG"   "AMP"
+
+``` r
 source("01c_run_limorhyde.R")
+```
+
+    ## [1] "gene_id"   "time_cos"  "time_sin"  "AveExpr"   "F"         "P.Value"  
+    ## [7] "adj.P.Val"
+
+``` r
 source("01d_run_cosinor2.R")
 ```
+
+    ## [1] "r"                                                                          
+    ## [2] "Percent.rhythm"                                                             
+    ## [3] "p.value"                                                                    
+    ## [4] "do.call.rbind..lapply.X...fw_cosinor.x...data..formula....time.Timepoint..."
 
 ``` r
 head(res_kronos)
@@ -80,10 +96,11 @@ colnames(res_tot) = paste(colnames(res_tot), c(rep("kronos", ncol(res_kronos)),
 
 ``` r
 par(mfcol = c(2, 2))
-hist(res_kronos$p.val, breaks = 20)
-hist(res_jtk$p.val, breaks = 20)
+
+hist(res_kronos$p.val,   breaks = 20)
+hist(res_jtk$p.val,      breaks = 20)
 hist(res_cosinor2$p.val, breaks = 20)
-hist(res_limo$p.val, breaks = 20)
+hist(res_limo$p.val,     breaks = 20)
 ```
 
 ![](benchmarking_files/figure-gfm/plot%20stats-1.png)<!-- -->
