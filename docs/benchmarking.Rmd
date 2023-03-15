@@ -60,7 +60,7 @@ hist(res_limo$p.val,     breaks = 20)
 
 ```
 
-```{r plot tools}
+```{r plot tools,fig.width=10}
 res_tot %>%
   rownames_to_column("ID") %>%
   dplyr::select(!gene_id_limo) %>% 
@@ -81,7 +81,8 @@ list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
      jtk_cycle = row.names(res_tot[res_tot$p.val_jtk      < 0.05,]),
      limorhyde = row.names(res_tot[res_tot$p.val_limo     < 0.05,]),
      cosinor2  = row.names(res_tot[res_tot$p.val_cosinor2 < 0.05,])) %>% 
-  ggvenn::ggvenn()
+  ggvenn::ggvenn() + 
+  ggtitle("Venn diagram showing agreement between features rhythmic at p < 0.05")
 
 
 list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
