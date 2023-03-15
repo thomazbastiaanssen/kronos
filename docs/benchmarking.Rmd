@@ -30,7 +30,7 @@ source("00_load_and_clean_WGS.R")
 
 ```
 
-```{r run tools, message = F, warning = F}
+```{r run tools, message = F, warning = F, cache=TRUE}
 source("01a_run_kronos.R")
 source("01b_run_jtk_cycle.R")
 source("01c_run_limorhyde.R")
@@ -50,6 +50,7 @@ colnames(res_tot) = paste(colnames(res_tot), c(rep("kronos", ncol(res_kronos)),
                                                rep("limo",    ncol(res_limo)),
                                                rep("cosinor2",    ncol(res_cosinor2))), sep = "_")
 
+colnames(res_tot)
 
 ```
 
@@ -68,18 +69,23 @@ hist(res_limo$p.val,     breaks = 20)
 
 ```{r plot tools}
 res_tot %>%
-  rownames_to_column("ID") %>% 
+  rownames_to_column("ID") %>%
   dplyr::select(!gene_id_limo) %>% 
-  pivot_longer(!ID) %>% 
-  separate(name, into = c("parameter", "program"), sep = "_") %>% 
-  filter(parameter %in% c("p.val")) %>% 
-  filter(value < 0.2) %>% 
-  ggplot() +
-  aes(x = value, y = ID) +
-  geom_point(alpha = 0.5) +
-  facet_wrap(~program, ncol = 4) +
-  theme_bw()
+  group_by(ID) %>% 
+  filter(min(p.val_kronos,p.val_limo,p.val_jtk,p.val_cosinor2) < 0.05) %>% 
+  ungroup() %>% 
+  # pivot_longer(!ID) %>% 
+  # separate(name, into = c("parameter", "program"), sep = "_")  %>% 
+  # filter(parameter %in% c("acro", "p.val")) %>% 
+  # pivot_wider(names_from = parameter, values_from = value) %>% 
   
+  ggplot() +
+  aes(x = .panel_x, y = .panel_y) +
+  geom_point(aes(x = .panel_x, y = .panel_y)) +
+  ggforce::facet_matrix(vars(acro_kronos, acro_jtk, acro_cosinor2)) +
+  theme_bw() +
+  ggtitle("Concordance in acrophase detection between Kronos, JTK_CYCLE and Cosinor2")
+
 
 
 list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),

@@ -24,6 +24,7 @@ res_cosinor2 = data.frame(cbind(do.call(rbind,
 
 print(colnames(res_cosinor2))
 colnames(res_cosinor2) = c("r", "r.sq", "p.val", "acro")
+res_cosinor2$acro =res_cosinor2$acro * -2*pi
 
 rm(list=setdiff(ls(),  c("species", "metadata","res_jtk", "res_kronos", "res_limo", "res_cosinor2")))
 
