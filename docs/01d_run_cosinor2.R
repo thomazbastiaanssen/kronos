@@ -23,7 +23,7 @@ res_cosinor2 = data.frame(cbind(do.call(rbind,
                          lapply(X = fw_cosinor(x = data, formula =  ~ time(Timepoint), period = 24, metadata = metadata), FUN = correct.acrophase))))
 
 colnames(res_cosinor2) = c("r", "r.sq", "p.val", "acro")
-res_cosinor2$acro =res_cosinor2$acro * -pi
+res_cosinor2$acro =res_cosinor2$acro * (-12/ pi)
 
 rm(list=setdiff(ls(),  c("species", "metadata","res_jtk", "res_kronos", "res_limo", "res_cosinor2")))
 
