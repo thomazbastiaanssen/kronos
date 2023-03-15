@@ -74,10 +74,6 @@ res_tot %>%
   group_by(ID) %>% 
   filter(min(p.val_kronos,p.val_limo,p.val_jtk,p.val_cosinor2) < 0.05) %>% 
   ungroup() %>% 
-  # pivot_longer(!ID) %>% 
-  # separate(name, into = c("parameter", "program"), sep = "_")  %>% 
-  # filter(parameter %in% c("acro", "p.val")) %>% 
-  # pivot_wider(names_from = parameter, values_from = value) %>% 
   
   ggplot() +
   aes(x = .panel_x, y = .panel_y) +
