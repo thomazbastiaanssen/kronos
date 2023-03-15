@@ -22,7 +22,6 @@ res_cosinor2 = data.frame(cbind(do.call(rbind,
                  do.call(rbind, 
                          lapply(X = fw_cosinor(x = data, formula =  ~ time(Timepoint), period = 24, metadata = metadata), FUN = correct.acrophase))))
 
-print(colnames(res_cosinor2))
 colnames(res_cosinor2) = c("r", "r.sq", "p.val", "acro")
 res_cosinor2$acro =res_cosinor2$acro * -2*pi
 
