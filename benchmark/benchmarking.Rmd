@@ -1,14 +1,15 @@
 ---
 title: "Benchmarking Kronos and other circadian packages"
-author: "Sarah-Jane Leigh & Thomaz F.S. Bastiaanssen"
-date: "2022-10-26"
+author: "Thomaz F.S. Bastiaanssen"
+date: "2023-3-17"
 output:
   md_document:
     variant: gfm
 ---
 
-Here, we will compare the performance of Kronos to that of three common R-based tools to assess rhythmic data. 
-First, we will load the required packages. 
+## Preparation
+
+Here, we will compare the performance of Kronos to that of three common R-based tools to assess rhythmic data. First, we will load the required packages.
 
 ```{r load, message = F, warning = F}
 #Wrangling
@@ -27,14 +28,15 @@ library(cosinor2)
 
 ```
 
-Now we will load and prepare our high dimensional microbiome data for assessment. 
+Now we will load and prepare our high dimensional microbiome data for assessment.
+
 ```{r load and clean, message = F, warning = F}
 source("00_load_and_clean_WGS.R")
 
 ```
 
-Next, we apply the four packages to the data. 
-Code to run JTK_CYCLE, Limorhyde and Cosinor2 was adapted from their respective vignettes.  
+Next, we apply the four packages to the data. Code to run JTK_CYCLE, Limorhyde and Cosinor2 was adapted from their respective vignettes.
+
 ```{r run tools, message = F, warning = F, cache=TRUE}
 source("01a_run_kronos.R")
 source("01b_run_jtk_cycle.R")
@@ -42,7 +44,8 @@ source("01c_run_limorhyde.R")
 source("01d_run_cosinor2.R")
 ```
 
-Here, we collate all outcome parameters into a single object to compare them. 
+Here, we collate all outcome parameters into a single object to compare them.
+
 ```{r assess tools}
 
 res_tot = do.call(cbind, list(res_kronos, res_jtk, res_limo, res_cosinor2))
@@ -54,27 +57,27 @@ colnames(res_tot) = paste(colnames(res_tot), c(rep("kronos", ncol(res_kronos)),
 
 ```
 
-#Comparing p-value distributions between programs
+## Comparing p-value distributions between programs
 
-Theoretically, we expect a uniform distribution between 0-1 (for the cases where H_0 is true) as well as an inflation of low p-values (for the cases where H_1 is true). 
+Theoretically, we expect a uniform distribution between 0-1 (for the cases where H_0 is true) as well as an inflation of low p-values (for the cases where H_1 is true).
 
 ```{r plot stats}
 
 par(mfcol = c(2, 2))
-plot.new()
-text(0.5,0.5,"P-value histograms",cex=2,font=2)
+
 hist(res_kronos$p.val,   breaks = 20)
 hist(res_jtk$p.val,      breaks = 20)
 hist(res_cosinor2$p.val, breaks = 20)
 hist(res_limo$p.val,     breaks = 20)
+mtext("P-value histograms", side = 3, line = -1, outer = TRUE)
 
 
 ```
-Both Limorhyde and Kronos show a desirable distribution of p-values, whereas JTK_CYCLE has an inflation on the higher end and Cosinor2 has a skewed, non-uniform distribution in the H_0 region.  
 
-#Comparing hits between programs
+Both Limorhyde and Kronos show a desirable distribution of p-values, whereas JTK_CYCLE has an inflation on the higher end and Cosinor2 has a skewed, non-uniform distribution in the H_0 region.
 
-```{r plot tools,fig.width=10}
+## Comparing acrophases between programs
+```{r plot acrophases,fig.width=10}
 res_tot %>%
   rownames_to_column("ID") %>%
   dplyr::select(!gene_id_limo) %>% 
@@ -89,6 +92,14 @@ res_tot %>%
   theme_bw() +
   ggtitle("Concordance in acrophase detection between Kronos, JTK_CYCLE and Cosinor2")
 
+```
+All three programs that produce acrophases are in agreement as to where the acrophases of features foudn to be rhythmic at p < 0.05 at least once are. Limorhyde does not have a clear method to return acrophases. 
+
+
+## Plot agreement in hits between programs
+In the venn diagram we see how many features are considered hits (p< 0.05) by the respective programs
+Alternatively, the UpSetR plot below shows the same.
+```{r plot hist,fig.width=10}
 
 
 list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
@@ -107,4 +118,10 @@ list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
   UpSetR::upset(., order.by = "freq", 
                 mainbar.y.label = "Number of p-values < 0.05\n per intersection", 
                 sets.x.label = "Number of p-values < 0.05\n per program")
+```
+From this, we can conclude that Kronos performs as well as (or better than) the best comparable program in each category. Furthermore, Kronos allows for convenient testing of arbitrarily complex models and comes with pre-designed ggplot-compatible plotting functions. 
+
+## Session Info
+```{r session.info}
+sessioninfo::session_info()
 ```
