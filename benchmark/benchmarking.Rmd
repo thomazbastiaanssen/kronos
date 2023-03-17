@@ -1,7 +1,6 @@
 ---
-title: "Benchmarking Kronos and other circadian packages"
+title: "Supplementary Materials: Benchmarking Kronos and other circadian packages"
 author: "Thomaz F.S. Bastiaanssen"
-date: "2023-3-17"
 output:
   md_document:
     variant: gfm
@@ -9,7 +8,10 @@ output:
 
 ## Preparation
 
-Here, we will compare the performance of Kronos to that of three common R-based tools to assess rhythmic data. First, we will load the required packages. All code available at https://github.com/thomazbastiaanssen/kronos/blob/main/benchmark/
+Here, we will compare the performance of Kronos to that of three common R-based tools to assess rhythmic data. 
+All code available at https://github.com/thomazbastiaanssen/kronos/blob/main/benchmark/
+
+First, we will load the required packages. 
 
 ```{r load, message = F, warning = F}
 #Wrangling
@@ -49,10 +51,12 @@ Here, we collate all outcome parameters into a single object to compare them.
 ```{r assess tools}
 
 res_tot = do.call(cbind, list(res_kronos, res_jtk, res_limo, res_cosinor2))
+
 colnames(res_tot) = paste(colnames(res_tot), c(rep("kronos", ncol(res_kronos)),
                                                rep("jtk",    ncol(res_jtk)),
                                                rep("limo",    ncol(res_limo)),
-                                               rep("cosinor2",    ncol(res_cosinor2))), sep = "_")
+                                               rep("cosinor2",    ncol(res_cosinor2))),
+                          sep = "_")
 
 
 ```
@@ -77,7 +81,7 @@ mtext("P-value histograms", side = 3, line = -1, outer = TRUE)
 Both Limorhyde and Kronos show a desirable distribution of p-values, whereas JTK_CYCLE has an inflation on the higher end and Cosinor2 has a skewed, non-uniform distribution in the H~0~ region.
 
 ## Comparing acrophases between programs
-```{r plot acrophases,fig.width=10}
+```{r plot acrophases, fig.width=10}
 res_tot %>%
   rownames_to_column("ID") %>%
   dplyr::select(!gene_id_limo) %>% 
@@ -103,13 +107,15 @@ Alternatively, the UpSetR plot below shows the same.
 ```{r plot hist,fig.width=10}
 
 
-list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
+venn_plot <- list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
      jtk_cycle = row.names(res_tot[res_tot$p.val_jtk      < 0.05,]),
      limorhyde = row.names(res_tot[res_tot$p.val_limo     < 0.05,]),
      cosinor2  = row.names(res_tot[res_tot$p.val_cosinor2 < 0.05,])) %>% 
-  ggvenn::ggvenn() + 
-  ggtitle("Venn diagram showing agreement between features rhythmic at p < 0.05")
+  ggvenn::ggvenn(text_size = 2.5) + 
+  ggtitle("Venn diagram showing agreement between\nfeatures rhythmic at p < 0.05")
 
+venn_plot$layers[[3]]$data$x <- c(-1, -0.8, 0.8, 1) #adjust margins
+venn_plot
 
 list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
      jtk_cycle = row.names(res_tot[res_tot$p.val_jtk      < 0.05,]),

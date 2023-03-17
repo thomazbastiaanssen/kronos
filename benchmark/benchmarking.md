@@ -1,9 +1,10 @@
 ## Preparation
 
 Here, we will compare the performance of Kronos to that of three common
-R-based tools to assess rhythmic data. First, we will load the required
-packages. All code available at
+R-based tools to assess rhythmic data. All code available at
 <https://github.com/thomazbastiaanssen/kronos/blob/main/benchmark/>
+
+First, we will load the required packages.
 
 ``` r
 #Wrangling
@@ -43,10 +44,12 @@ them.
 
 ``` r
 res_tot = do.call(cbind, list(res_kronos, res_jtk, res_limo, res_cosinor2))
+
 colnames(res_tot) = paste(colnames(res_tot), c(rep("kronos", ncol(res_kronos)),
                                                rep("jtk",    ncol(res_jtk)),
                                                rep("limo",    ncol(res_limo)),
-                                               rep("cosinor2",    ncol(res_cosinor2))), sep = "_")
+                                               rep("cosinor2",    ncol(res_cosinor2))),
+                          sep = "_")
 ```
 
 ## Comparing p-value distributions between programs
@@ -102,12 +105,15 @@ In the venn diagram we see how many features are considered hits (p \<
 shows the same.
 
 ``` r
-list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
+venn_plot <- list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
      jtk_cycle = row.names(res_tot[res_tot$p.val_jtk      < 0.05,]),
      limorhyde = row.names(res_tot[res_tot$p.val_limo     < 0.05,]),
      cosinor2  = row.names(res_tot[res_tot$p.val_cosinor2 < 0.05,])) %>% 
-  ggvenn::ggvenn() + 
-  ggtitle("Venn diagram showing agreement between features rhythmic at p < 0.05")
+  ggvenn::ggvenn(text_size = 2.5) + 
+  ggtitle("Venn diagram showing agreement between\nfeatures rhythmic at p < 0.05")
+
+venn_plot$layers[[3]]$data$x <- c(-1, -0.8, 0.8, 1) #adjust margins
+venn_plot
 ```
 
 ![](benchmarking_files/figure-gfm/plot%20hist-1.png)<!-- -->
