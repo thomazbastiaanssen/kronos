@@ -125,6 +125,12 @@ list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
 
 ![](benchmarking_files/figure-gfm/plot%20hist-2.png)<!-- -->
 
+We can see that Kronos never reports a significntly rhythmic feature
+that at least one other program doesn’t also see. Furthermore, Kronos
+finds the second highest total number of rhythmic features at p \< 0.05.
+Only Cosinor2 finds more hits that Kronos, but 303 of those are not
+corroborated by any other tool and thus may be spurious.
+
 From this, we can conclude that Kronos performs as well as (or better
 than) the best comparable program in each category. Furthermore, Kronos
 allows for convenient testing of arbitrarily complex models and comes
