@@ -52,8 +52,8 @@ colnames(res_tot) = paste(colnames(res_tot), c(rep("kronos", ncol(res_kronos)),
 ## Comparing p-value distributions between programs
 
 Theoretically, we expect a uniform distribution between 0-1 (for the
-cases where H_0 is true) as well as an inflation of low p-values (for
-the cases where H_1 is true).
+cases where H<sub>0</sub> is true) as well as an inflation of low
+p-values (for the cases where H<sub>1</sub> is true).
 
 ``` r
 par(mfcol = c(2, 2))
@@ -69,7 +69,7 @@ mtext("P-value histograms", side = 3, line = -1, outer = TRUE)
 
 Both Limorhyde and Kronos show a desirable distribution of p-values,
 whereas JTK_CYCLE has an inflation on the higher end and Cosinor2 has a
-skewed, non-uniform distribution in the H_0 region.
+skewed, non-uniform distribution in the H<sub>0</sub> region.
 
 ## Comparing acrophases between programs
 
@@ -97,7 +97,7 @@ once are. Limorhyde does not have a clear method to return acrophases.
 
 ## Plot agreement in hits between programs
 
-In the venn diagram we see how many features are considered hits (p\<
+In the venn diagram we see how many features are considered hits (p \<
 0.05) by the respective programs Alternatively, the UpSetR plot below
 shows the same.
 
