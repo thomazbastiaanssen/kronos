@@ -1,66 +1,80 @@
----
-title: "Benchmarking Kronos and other circadian packages"
-author: "Sarah-Jane Leigh & Thomaz F.S. Bastiaanssen"
-date: "2022-10-26"
-output:
-  md_document:
-    variant: gfm
----
+Here, we will compare the performance of Kronos to that of three common
+R-based tools to assess rhythmic data. First, we will load the required
+packages.
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-```{r load, message = F, warning = F}
+``` r
+#Wrangling
 library(tidyverse)
 
-#devtools::install_github("thomazbastiaanssen/kronos") 
-library(kronos)
+#Plotting
+library(ggforce)
+library(ggvenn)
+library(UpSetR)
 
-#install.packages('limorhyde')
+#Load circadian rhythm packages
+library(kronos) #devtools::install_github("thomazbastiaanssen/kronos") 
 library(limorhyde)
-
 library(cosinor)
 library(cosinor2)
-
 ```
 
-```{r load and clean, message = F, warning = F}
+Now we will load and prepare our high dimensional microbiome data for
+assessment.
+
+``` r
 source("00_load_and_clean_WGS.R")
-
 ```
 
-```{r run tools, message = F, warning = F, cache=TRUE}
+Next, we apply the four packages to the data. Code to run JTK_CYCLE,
+Limorhyde and Cosinor2 was adapted from their respective vignettes.
+
+``` r
 source("01a_run_kronos.R")
 source("01b_run_jtk_cycle.R")
 source("01c_run_limorhyde.R")
 source("01d_run_cosinor2.R")
 ```
 
-```{r assess tools}
+Here, we collate all outcome parameters into a single object to compare
+them.
 
+``` r
 res_tot = do.call(cbind, list(res_kronos, res_jtk, res_limo, res_cosinor2))
 colnames(res_tot) = paste(colnames(res_tot), c(rep("kronos", ncol(res_kronos)),
                                                rep("jtk",    ncol(res_jtk)),
                                                rep("limo",    ncol(res_limo)),
                                                rep("cosinor2",    ncol(res_cosinor2))), sep = "_")
-
-
 ```
 
-```{r plot stats}
+\#Comparing p-value distributions between programs
 
+Theoretically, we expect a uniform distribution between 0-1 (for the
+cases where H_0 is true) as well as an inflation of low p-values (for
+the cases where H_1 is true).
 
+``` r
 par(mfcol = c(2, 2))
-
+plot.new()
+text(0.5,0.5,"P-value histograms",cex=2,font=2)
 hist(res_kronos$p.val,   breaks = 20)
 hist(res_jtk$p.val,      breaks = 20)
 hist(res_cosinor2$p.val, breaks = 20)
-hist(res_limo$p.val,     breaks = 20)
-
 ```
 
-```{r plot tools,fig.width=10}
+![](benchmarking_files/figure-gfm/plot%20stats-1.png)<!-- -->
+
+``` r
+hist(res_limo$p.val,     breaks = 20)
+```
+
+![](benchmarking_files/figure-gfm/plot%20stats-2.png)<!-- --> Both
+Limorhyde and Kronos show a desirable distribution of p-values, whereas
+JTK_CYCLE has an inflation on the higher end and Cosinor2 has a skewed,
+non-uniform distribution in the H_0 region.
+
+\#Comparing hits between programs
+
+``` r
 res_tot %>%
   rownames_to_column("ID") %>%
   dplyr::select(!gene_id_limo) %>% 
@@ -74,17 +88,22 @@ res_tot %>%
   ggforce::facet_matrix(vars(acro_kronos, acro_jtk, acro_cosinor2)) +
   theme_bw() +
   ggtitle("Concordance in acrophase detection between Kronos, JTK_CYCLE and Cosinor2")
+```
 
+![](benchmarking_files/figure-gfm/plot%20tools-1.png)<!-- -->
 
-
+``` r
 list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
      jtk_cycle = row.names(res_tot[res_tot$p.val_jtk      < 0.05,]),
      limorhyde = row.names(res_tot[res_tot$p.val_limo     < 0.05,]),
      cosinor2  = row.names(res_tot[res_tot$p.val_cosinor2 < 0.05,])) %>% 
   ggvenn::ggvenn() + 
   ggtitle("Venn diagram showing agreement between features rhythmic at p < 0.05")
+```
 
+![](benchmarking_files/figure-gfm/plot%20tools-2.png)<!-- -->
 
+``` r
 list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
      jtk_cycle = row.names(res_tot[res_tot$p.val_jtk      < 0.05,]),
      limorhyde = row.names(res_tot[res_tot$p.val_limo     < 0.05,]),
@@ -94,3 +113,5 @@ list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
                 mainbar.y.label = "Number of p-values < 0.05\n per intersection", 
                 sets.x.label = "Number of p-values < 0.05\n per program")
 ```
+
+![](benchmarking_files/figure-gfm/plot%20tools-3.png)<!-- -->
