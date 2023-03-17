@@ -2,7 +2,8 @@
 
 Here, we will compare the performance of Kronos to that of three common
 R-based tools to assess rhythmic data. First, we will load the required
-packages.
+packages. All code available at
+<https://github.com/thomazbastiaanssen/kronos/blob/main/benchmark/>
 
 ``` r
 #Wrangling
@@ -88,10 +89,11 @@ res_tot %>%
   ggtitle("Concordance in acrophase detection between Kronos, JTK_CYCLE and Cosinor2")
 ```
 
-![](benchmarking_files/figure-gfm/plot%20acrophases-1.png)<!-- --> All
-three programs that produce acrophases are in agreement as to where the
-acrophases of features foudn to be rhythmic at p \< 0.05 at least once
-are. Limorhyde does not have a clear method to return acrophases.
+![](benchmarking_files/figure-gfm/plot%20acrophases-1.png)<!-- -->
+
+All three programs that produce acrophases are in agreement as to where
+the acrophases of features foudn to be rhythmic at p \< 0.05 at least
+once are. Limorhyde does not have a clear method to return acrophases.
 
 ## Plot agreement in hits between programs
 
@@ -121,11 +123,12 @@ list(kronos    = row.names(res_tot[res_tot$p.val_kronos   < 0.05,]),
                 sets.x.label = "Number of p-values < 0.05\n per program")
 ```
 
-![](benchmarking_files/figure-gfm/plot%20hist-2.png)<!-- --> From this,
-we can conclude that Kronos performs as well as (or better than) the
-best comparable program in each category. Furthermore, Kronos allows for
-convenient testing of arbitrarily complex models and comes with
-pre-designed ggplot-compatible plotting functions.
+![](benchmarking_files/figure-gfm/plot%20hist-2.png)<!-- -->
+
+From this, we can conclude that Kronos performs as well as (or better
+than) the best comparable program in each category. Furthermore, Kronos
+allows for convenient testing of arbitrarily complex models and comes
+with pre-designed ggplot-compatible plotting functions.
 
 ## Session Info
 
