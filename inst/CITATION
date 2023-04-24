@@ -13,7 +13,7 @@ citEntry(entry = "Article",
 
          textVersion  =
            paste("Bastiaanssen TFS, Leigh S, Tofani GSS, Gheorghe CE, Clarke G, Cryan JF (2023)",
-                 "Kronos: A computational tool to facilitate biological rhythmicity analysis",
+                 "Kronos: A computational tool to facilitate biological rhythmicity analysis.",
                  "bioRxiv. doi: https://doi.org/10.1101/2023.04.21.537503")
 )
 
