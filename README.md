@@ -6,23 +6,21 @@ If you use this software, please cite our work:
 citation("kronos")
 ```
 
-    ## Warning in citation("kronos"): no date field in DESCRIPTION file of package
-    ## 'kronos'
-
     ## 
-    ## To cite package 'kronos' in publications use:
+    ## To cite kronos in publications use:
     ## 
-    ##   Thomaz Bastiaanssen and Sarah-Jane Leigh (2023). kronos: Microbiome
-    ##   Oriented Circadian Rhythm Analysis Toolkit. R package version
-    ##   0.1.0.0.
+    ##   Bastiaanssen TFS, Leigh S, Tofani GSS, Gheorghe CE, Clarke G, Cryan
+    ##   JF (2023) Kronos: A computational tool to facilitate biological
+    ##   rhythmicity analysis. bioRxiv. doi:
+    ##   https://doi.org/10.1101/2023.04.21.537503
     ## 
     ## A BibTeX entry for LaTeX users is
     ## 
-    ##   @Manual{,
-    ##     title = {kronos: Microbiome Oriented Circadian Rhythm Analysis Toolkit},
-    ##     author = {Thomaz Bastiaanssen and Sarah-Jane Leigh},
+    ##   @Article{,
+    ##     title = {Kronos: A computational tool to facilitate biological rhythmicity analysis},
+    ##     author = {Thomaz F S Bastiaanssen and Sarah-Jane Leigh and Gabriel S S Tofani and Cassandra E Gheorghe and Gerard Clarke and John F Cryan},
+    ##     journal = {bioRxiv},
     ##     year = {2023},
-    ##     note = {R package version 0.1.0.0},
     ##   }
 
 The following document is adapted from the supplementary materials for
@@ -811,7 +809,7 @@ sessioninfo::session_info()
     ##  httr          1.4.3   2022-05-04 [1] CRAN (R 4.1.2)
     ##  jsonlite      1.8.0   2022-02-22 [1] CRAN (R 4.1.2)
     ##  knitr         1.39    2022-04-26 [1] CRAN (R 4.1.2)
-    ##  kronos      * 0.1.0.0 2023-03-07 [1] Github (thomazbastiaanssen/kronos@540e437)
+    ##  kronos      * 0.1.0.0 2023-04-24 [1] Github (thomazbastiaanssen/kronos@d9284a9)
     ##  labeling      0.4.2   2020-10-20 [1] CRAN (R 4.1.2)
     ##  lifecycle     1.0.1   2021-09-24 [1] CRAN (R 4.1.2)
     ##  lubridate     1.8.0   2021-10-07 [1] CRAN (R 4.1.2)
