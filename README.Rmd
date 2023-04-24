@@ -11,13 +11,13 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Please note this package is under active construction.
-
 # Kronos
 
 If you use this software, please cite our work:
 
-*#include citation here with DOI*
+```{r}
+citation("kronos")
+```
 
 The following document is adapted from the supplementary materials for this manuscript.
 

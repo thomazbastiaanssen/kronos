@@ -1,10 +1,29 @@
-Please note this package is under active construction.
-
 # Kronos
 
 If you use this software, please cite our work:
 
-*\#include citation here with DOI*
+``` r
+citation("kronos")
+```
+
+    ## Warning in citation("kronos"): no date field in DESCRIPTION file of package
+    ## 'kronos'
+
+    ## 
+    ## To cite package 'kronos' in publications use:
+    ## 
+    ##   Thomaz Bastiaanssen and Sarah-Jane Leigh (2023). kronos: Microbiome
+    ##   Oriented Circadian Rhythm Analysis Toolkit. R package version
+    ##   0.1.0.0.
+    ## 
+    ## A BibTeX entry for LaTeX users is
+    ## 
+    ##   @Manual{,
+    ##     title = {kronos: Microbiome Oriented Circadian Rhythm Analysis Toolkit},
+    ##     author = {Thomaz Bastiaanssen and Sarah-Jane Leigh},
+    ##     year = {2023},
+    ##     note = {R package version 0.1.0.0},
+    ##   }
 
 The following document is adapted from the supplementary materials for
 this manuscript.
@@ -336,8 +355,8 @@ correction.
 
 Now we will demonstrate how to adapt the kronos package for ’omics
 analysis, where there are many outcome variables. We have written the
-`fw_kronos` function specifically for this purpose. This function
-behaves very similar to the main kronos function.
+`fw_kronos` (feature-wise) function specifically for this purpose. This
+function behaves very similar to the main kronos function.
 
 It requires two core types of data: First, a table of data with rows as
 features and columns as samples as input. Make sure that the feature
@@ -753,7 +772,7 @@ sessioninfo::session_info()
     ##  collate  en_GB.UTF-8
     ##  ctype    en_GB.UTF-8
     ##  tz       Europe/Dublin
-    ##  date     2023-03-07
+    ##  date     2023-04-24
     ##  pandoc   2.19.2 @ /usr/lib/rstudio/bin/quarto/bin/tools/ (via rmarkdown)
     ## 
     ## ─ Packages ───────────────────────────────────────────────────────────────────
