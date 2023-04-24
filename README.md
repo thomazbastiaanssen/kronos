@@ -521,8 +521,7 @@ estimate period; a wide range of packages are capable of determining
 your period if this is necessary for your research question. Please note
 that period estimation requires even more temporal resolution: some
 recommend a minimum of sampling every 2 hours over a 48-hr window
-([Hughes et al.,
-2017](https://journals.sagepub.com/doi/full/10.1177/0748730417728663)).
+(Hughes et al., 2017, doi: 10.1177/0748730417728663).
 
 This tutorial is merely a template. Depending on your experimental
 set-up, findings and experimental questions you may need to adjust your
