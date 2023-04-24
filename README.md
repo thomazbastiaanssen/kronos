@@ -9,7 +9,7 @@ citation("kronos")
     ## 
     ## To cite kronos in publications use:
     ## 
-    ##   Bastiaanssen TFS, Leigh S, Tofani GSS, Gheorghe CE, Clarke G, Cryan
+    ##   Bastiaanssen TFS, Leigh SJ, Tofani GSS, Gheorghe CE, Clarke G, Cryan
     ##   JF (2023) Kronos: A computational tool to facilitate biological
     ##   rhythmicity analysis. bioRxiv. doi:
     ##   https://doi.org/10.1101/2023.04.21.537503
@@ -809,7 +809,7 @@ sessioninfo::session_info()
     ##  httr          1.4.3   2022-05-04 [1] CRAN (R 4.1.2)
     ##  jsonlite      1.8.0   2022-02-22 [1] CRAN (R 4.1.2)
     ##  knitr         1.39    2022-04-26 [1] CRAN (R 4.1.2)
-    ##  kronos      * 0.1.0.0 2023-04-24 [1] Github (thomazbastiaanssen/kronos@d9284a9)
+    ##  kronos      * 0.1.0.0 2023-04-24 [1] Github (thomazbastiaanssen/kronos@2208d0a)
     ##  labeling      0.4.2   2020-10-20 [1] CRAN (R 4.1.2)
     ##  lifecycle     1.0.1   2021-09-24 [1] CRAN (R 4.1.2)
     ##  lubridate     1.8.0   2021-10-07 [1] CRAN (R 4.1.2)
@@ -830,7 +830,7 @@ sessioninfo::session_info()
     ##  readxl        1.4.0   2022-03-28 [1] CRAN (R 4.1.2)
     ##  remotes       2.4.2   2021-11-30 [1] CRAN (R 4.1.2)
     ##  reprex        2.0.1   2021-08-05 [1] CRAN (R 4.1.2)
-    ##  rlang         1.0.4   2022-07-12 [1] CRAN (R 4.1.2)
+    ##  rlang         1.1.0   2023-03-14 [1] CRAN (R 4.1.2)
     ##  rmarkdown     2.14    2022-04-25 [1] CRAN (R 4.1.2)
     ##  rprojroot     2.0.3   2022-04-02 [1] CRAN (R 4.1.2)
     ##  rstudioapi    0.13    2020-11-12 [1] CRAN (R 4.1.2)
