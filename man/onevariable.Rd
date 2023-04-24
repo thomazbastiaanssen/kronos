@@ -3,7 +3,7 @@
 \docType{data}
 \name{onevariable}
 \alias{onevariable}
-\title{Snippet of example data to demonstrate the functionality of kronos in the most simple scenario.}
+\title{Snippet of example data to demonstrate the functionality of 'kronos' in the most simple scenario.}
 \format{
 A long format data.frame object with three columns, and 31 rows, samples.
 }
@@ -14,6 +14,6 @@ Dummy data modified from metagenomic analysis of mouse caecal contents over the 
 onevariable
 }
 \description{
-Snippet of example data to demonstrate the functionality of kronos in the most simple scenario.
+Snippet of example data to demonstrate the functionality of 'kronos' in the most simple scenario.
 }
 \keyword{datasets}

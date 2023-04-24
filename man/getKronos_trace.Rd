@@ -2,7 +2,7 @@
 % Please edit documentation in R/get.R
 \name{getKronos_trace}
 \alias{getKronos_trace}
-\title{Get Results from KronosOut Object}
+\title{Get Results from \code{KronosOut} Object}
 \usage{
 getKronos_trace(kronosOut)
 }
@@ -17,11 +17,9 @@ These functions provides a unified wrapper to retrieve results
  from a \code{kronosOut} object.
 }
 \examples{
-\dontrun{
-#Load prepared data stored in Kronos library
 data("kronos_demo")
 output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-data = onevariable, period = 24, verbose = T, pairwise = F)
+data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 
 #Extracting data from the output object:
 getKronos_fit(output)
@@ -32,9 +30,9 @@ getKronos_groupwise(output)
 gg_kronos_circle(output)
 gg_kronos_sinusoid(output)
 
-#For high-dimensional data, use fw_fronos:
-out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#For high-dimensional data, use fw_kronos:
+out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 
 #Extracting data from the output object: 
 kronosListToTable(out_list)
@@ -42,5 +40,5 @@ kronosListToTable(out_list)
 
 #Plotting:
 gg_kronos_acrogram(out_list)
-}
+
 }

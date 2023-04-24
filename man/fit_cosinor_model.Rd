@@ -4,12 +4,18 @@
 \alias{fit_cosinor_model}
 \title{Fit cosinor model}
 \usage{
-fit_cosinor_model(formula, data, time = NULL, verbose = verbose, for_pw = F)
+fit_cosinor_model(
+  formula,
+  data,
+  time = NULL,
+  verbose = verbose,
+  for_pw = FALSE
+)
 }
 \arguments{
-\item{formula}{A formula. Use the time() function to designate which variable represents time.}
+\item{formula}{A formula. Use the \code{time} function to designate which variable represents time.}
 
-\item{data}{input data}
+\item{data}{Input data}
 
 \item{time}{A string. Should be the column name containing the time values.}
 

@@ -3,9 +3,9 @@
 \docType{class}
 \name{kronosOut-class}
 \alias{kronosOut-class}
-\title{An S4 class to contain all output parameters and plotting information from the kronos main pipeline}
+\title{An S4 class to contain all output parameters and plotting information from the 'kronos' main pipeline}
 \description{
-kronosOut is the main output container of the kronos function.
+kronosOut is the main output container of the main 'kronos' functions.
 }
 \section{Slots}{
 

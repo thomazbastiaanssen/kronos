@@ -1,15 +1,14 @@
-#' A plotting method for circadian plots using ggplot. 
-#' @description Wrapper around ggplot to make figures with a sinusoid trace. 
-#' @param kronosOut an output file from the main kronos() function. 
+#' A plotting method for circadian plots using 'ggplot2'. 
+#' @description Wrapper around 'ggplot2' to make figures with a sinusoid trace. 
+#' @param kronosOut an output object from the main \code{kronos} function. 
 #' @param fill The name of the variable that should be used to mark different groups. In the case of a single group, leave empty. 
-#' @return a ggplot2 compatible object. 
+#' @return a 'ggplot2' compatible object. 
 #' @import ggplot2
 #' @examples
-#' \dontrun{
 #' #Load prepared data stored in Kronos library
 #' data("kronos_demo")
 #' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 #' 
 #' #Extracting data from the output object:
 #' getKronos_fit(output)
@@ -20,9 +19,9 @@
 #' gg_kronos_circle(output)
 #' gg_kronos_sinusoid(output)
 #' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#' #For high-dimensional data, use fw_kronos:
+#' out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 #'
 #' #Extracting data from the output object: 
 #' kronosListToTable(out_list)
@@ -30,7 +29,7 @@
 #' 
 #' #Plotting:
 #' gg_kronos_acrogram(out_list)
-#' }
+#' 
 #' @export
 #' 
 gg_kronos_sinusoid <- function(kronosOut, fill = "unique_group"){
@@ -78,17 +77,16 @@ gg_kronos_sinusoid <- function(kronosOut, fill = "unique_group"){
 
 }
 
-#' A plotting method for circadian plots using ggplot. 
-#' @description Wrapper around ggplot to make circadian circleplots. 
-#' @param kronosOut an output file from the main kronos() function. 
-#' @return a ggplot2 compatible object. 
+#' A plotting method for circadian plots using 'ggplot2'. 
+#' @description Wrapper around 'ggplot2' to make circadian circleplots. 
+#' @param kronosOut an output object from the main \code{kronos} function. 
+#' @return a 'ggplot2' compatible object. 
 #' @import ggplot2
 #' @examples
-#' \dontrun{
 #' #Load prepared data stored in Kronos library
 #' data("kronos_demo")
 #' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 #' 
 #' #Extracting data from the output object:
 #' getKronos_fit(output)
@@ -99,9 +97,9 @@ gg_kronos_sinusoid <- function(kronosOut, fill = "unique_group"){
 #' gg_kronos_circle(output)
 #' gg_kronos_sinusoid(output)
 #' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#' #For high-dimensional data, use fw_kronos:
+#' out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 #'
 #' #Extracting data from the output object: 
 #' kronosListToTable(out_list)
@@ -109,7 +107,6 @@ gg_kronos_sinusoid <- function(kronosOut, fill = "unique_group"){
 #' 
 #' #Plotting:
 #' gg_kronos_acrogram(out_list)
-#' }
 #' @export
 #' 
 gg_kronos_circle <- function(kronosOut){
@@ -158,17 +155,16 @@ gg_kronos_circle <- function(kronosOut){
 
 }
 
-#' A plotting method for acrophase circleplots using ggplot. 
-#' @description Wrapper around ggplot to make circadian circleplots. 
-#' @param kronosOutList A list of KronosOut output files from the main kronos() function. 
-#' @return a ggplot2 compatible object. 
+#' A plotting method for acrophase circleplots using 'ggplot2'. 
+#' @description Wrapper around 'ggplot2' to make circadian circleplots. 
+#' @param kronosOutList A list of KronosOut output objects from the main \code{kronos} function. 
+#' @return a 'ggplot2' compatible object. 
 #' @import ggplot2
 #' @examples
-#' \dontrun{
 #' #Load prepared data stored in Kronos library
 #' data("kronos_demo")
 #' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 #' 
 #' #Extracting data from the output object:
 #' getKronos_fit(output)
@@ -179,9 +175,9 @@ gg_kronos_circle <- function(kronosOut){
 #' gg_kronos_circle(output)
 #' gg_kronos_sinusoid(output)
 #' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#' #For high-dimensional data, use fw_kronos:
+#' out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 #'
 #' #Extracting data from the output object: 
 #' kronosListToTable(out_list)
@@ -189,7 +185,6 @@ gg_kronos_circle <- function(kronosOut){
 #' 
 #' #Plotting:
 #' gg_kronos_acrogram(out_list)
-#' }
 #' @export
 #' 
 gg_kronos_acrogram <- function(kronosOutList){

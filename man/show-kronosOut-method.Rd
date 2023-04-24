@@ -9,6 +9,9 @@
 \arguments{
 \item{object}{An \code{kronosOut} object.}
 }
+\value{
+Does not return anything, for efficiency reasons. The obvious side effect is output to the terminal.
+}
 \description{
 method to print \code{kronosOut} object by calling \code{show}.
 Since kronosOut objects are typically unwieldy, also gives some tips on how to handle it.

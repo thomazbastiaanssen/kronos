@@ -3,7 +3,7 @@
 \docType{data}
 \name{bigdata}
 \alias{bigdata}
-\title{Snippet of example data to demonstrate the functionality of kronos between and among three different groups}
+\title{Snippet of example data to demonstrate the functionality of 'kronos' between and among three different groups}
 \format{
 A long format data.frame object with three 113 columns, features, and 94 rows, samples.
 }
@@ -14,6 +14,6 @@ Dummy data modified from untargeted hippocampal metabolomics over the day to dem
 bigdata
 }
 \description{
-Snippet of example data to demonstrate the functionality of kronos between and among three different groups
+Snippet of example data to demonstrate the functionality of 'kronos' between and among three different groups
 }
 \keyword{datasets}

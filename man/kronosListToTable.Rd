@@ -2,14 +2,14 @@
 % Please edit documentation in R/get.R
 \name{kronosListToTable}
 \alias{kronosListToTable}
-\title{Wrangle results from list of KronosOut Objects to publication ready table.}
+\title{Wrangle results from list of \code{KronosOut} Objects to publication ready table.}
 \usage{
-kronosListToTable(kronos_list, padjust = T)
+kronosListToTable(kronos_list, padjust = TRUE)
 }
 \arguments{
-\item{kronos_list}{a list of preferrably named kronosOut objects.}
+\item{kronos_list}{a list of preferrably named \code{kronosOut} objects.}
 
-\item{padjust}{a boolean. Toggles FDR using Benjamini Hochbergs procedure.}
+\item{padjust}{a boolean. Toggles FDR using Benjamini and Hochbergs procedure.}
 }
 \value{
 A table with circadian output stats per group per feature.
@@ -19,11 +19,10 @@ These functions provides a unified wrapper to retrieve results
  from a list of \code{kronosOut} objects.
 }
 \examples{
-\dontrun{
-#Load prepared data stored in Kronos library
+#Load prepared data stored in 'kronos' library
 data("kronos_demo")
 output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-data = onevariable, period = 24, verbose = T, pairwise = F)
+data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 
 #Extracting data from the output object:
 getKronos_fit(output)
@@ -34,15 +33,14 @@ getKronos_groupwise(output)
 gg_kronos_circle(output)
 gg_kronos_sinusoid(output)
 
-#For high-dimensional data, use fw_fronos:
-out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#For high-dimensional data, use fw_kronos:
+out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 
 #Extracting data from the output object: 
 kronosListToTable(out_list)
 
-
 #Plotting:
 gg_kronos_acrogram(out_list)
-}
+
 }

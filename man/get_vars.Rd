@@ -2,18 +2,18 @@
 % Please edit documentation in R/kronos.R
 \name{get_vars}
 \alias{get_vars}
-\title{Figure out what variable represents time. Called by main kronos function.}
+\title{Figure out what variable represents time. Called by main 'kronos' function.}
 \usage{
 get_vars(formula, time, data, verbose = verbose)
 }
 \arguments{
-\item{formula}{A formula. Use the time() function to designate which variable represents time.}
+\item{formula}{A formula. Use the \code{time} function to designate which variable represents time.}
 
 \item{time}{A string. Should be the column name containing the time values.}
 
 \item{data}{input data}
 
-\item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.}
+\item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large data sets.}
 }
 \description{
 Extracts time from the formula and from the time argument. Also handles inconsistencies.

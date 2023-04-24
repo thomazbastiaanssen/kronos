@@ -1,15 +1,16 @@
 Package: kronos
 Title: Microbiome Oriented Circadian Rhythm Analysis Toolkit
 Version: 1.0.0
-Authors@R: c(person("Thomaz", "Bastiaanssen", email = "thomazbastiaanssen@gmail.com", role = c("aut", "cre", "cph")), 
+URL: https://github.com/thomazbastiaanssen/kronos
+Authors@R: c(person("Thomaz", "Bastiaanssen", email = "thomazbastiaanssen@gmail.com", role = c("aut", "cre")), 
              person("Sarah-Jane", "Leigh", email = "sjleigh@ucc.ie", role = c("aut")))
-Description: The goal of Kronos is to provide an easy-to-use framework to analyse circadian or otherwise rhythmic data using the familiar R linear modelling syntax, while taking care of the trigonometry under the hood. 
+Description: The goal of 'kronos' is to provide an easy-to-use framework to analyse circadian or otherwise rhythmic data using the familiar R linear modelling syntax, while taking care of the trigonometry under the hood. 
 Depends: R (>= 3.5.0)
 Imports:
     stats, 
     methods,
     ggplot2
-License: GPL (>= 3) | BSD_3_clause + file LICENSE
+License: GPL (>= 3) 
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3

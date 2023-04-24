@@ -9,12 +9,12 @@ pairwise_cosinor_model(data, formula, time, verbose)
 \arguments{
 \item{data}{input data}
 
-\item{formula}{A formula. Use the time() function to designate which variable represents time.}
+\item{formula}{A formula. Use the \code{time} function to designate which variable represents time.}
 
 \item{time}{A string. Should be the column name containing the time values.}
 
-\item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.}
+\item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large data sets.}
 }
 \description{
-Fit cosinor model for subset of data. Called by main kronos function.
+Fit cosinor model for subset of data. Called by main 'kronos' function.
 }

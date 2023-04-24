@@ -2,17 +2,17 @@
 % Please edit documentation in R/kronos.R
 \name{build_kronos_formula}
 \alias{build_kronos_formula}
-\title{Update kronos formula in light of sine and cosine components}
+\title{Update 'kronos' formula in light of sine and cosine components}
 \usage{
 build_kronos_formula(formula, time, verbose)
 }
 \arguments{
-\item{formula}{A formula. Use the time() function to designate which variable represents time.}
+\item{formula}{A formula. Use the \code{time} function to designate which variable represents time.}
 
 \item{time}{A string. Should be the column name containing the time values.}
 
-\item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.}
+\item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large data sets.}
 }
 \description{
-Update kronos formula.
+Update 'kronos' formula.
 }

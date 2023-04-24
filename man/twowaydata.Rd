@@ -3,7 +3,7 @@
 \docType{data}
 \name{twowaydata}
 \alias{twowaydata}
-\title{Snippet of example data to demonstrate the functionality of kronos in the two-factor design scenario.}
+\title{Snippet of example data to demonstrate the functionality of 'kronos' in the two-factor design scenario.}
 \format{
 A wide format data.frame object with nine columns, and 150 rows, samples.
 }
@@ -14,6 +14,6 @@ Dummy data modified from metagenomic analysis of mouse caecal contents over the 
 twowaydata
 }
 \description{
-Snippet of example data to demonstrate the functionality of kronos in the two-factor design scenario.
+Snippet of example data to demonstrate the functionality of 'kronos' in the two-factor design scenario.
 }
 \keyword{datasets}

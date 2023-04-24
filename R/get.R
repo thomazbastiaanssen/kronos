@@ -1,4 +1,4 @@
-#' Get Results from KronosOut Object
+#' Get Results from \code{KronosOut} Object
 #'
 #' These functions provides a unified wrapper to retrieve results
 #'  from a \code{kronosOut} object.
@@ -9,10 +9,10 @@
 #' @importFrom methods slot slotNames
 #' @examples
 #' \dontrun{
-#' #Load prepared data stored in Kronos library
+#' #Load prepared data stored in 'kronos' library
 #' data("kronos_demo")
 #' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 #' 
 #' #Extracting data from the output object:
 #' getKronos_fit(output)
@@ -23,9 +23,9 @@
 #' gg_kronos_circle(output)
 #' gg_kronos_sinusoid(output)
 #' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#' #For high-dimensional data, use fw_kronos:
+#' out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 #'
 #' #Extracting data from the output object: 
 #' kronosListToTable(out_list)
@@ -41,7 +41,7 @@ getKronos <- function(kronosOut, target){
   return(slot(object = kronosOut, name = target))
   }
 
-#' Get Results from KronosOut Object
+#' Get Results from \code{KronosOut} Object
 #'
 #' These functions provides a unified wrapper to retrieve results
 #'  from a \code{kronosOut} object.
@@ -49,11 +49,10 @@ getKronos <- function(kronosOut, target){
 #'
 #' @return The data used as input for the model.
 #' @examples
-#' \dontrun{
-#' #Load prepared data stored in Kronos library
+#' #Load prepared data stored in 'kronos' library
 #' data("kronos_demo")
 #' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 #' 
 #' #Extracting data from the output object:
 #' getKronos_fit(output)
@@ -64,9 +63,9 @@ getKronos <- function(kronosOut, target){
 #' gg_kronos_circle(output)
 #' gg_kronos_sinusoid(output)
 #' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#' #For high-dimensional data, use fw_kronos:
+#' out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 #'
 #' #Extracting data from the output object: 
 #' kronosListToTable(out_list)
@@ -74,14 +73,14 @@ getKronos <- function(kronosOut, target){
 #' 
 #' #Plotting:
 #' gg_kronos_acrogram(out_list)
-#' }
+#' 
 #' @export
 getKronos_input <- function(kronosOut){
   
   return(getKronos(kronosOut = kronosOut, target = "input"))
 }
 
-#' Get Results from KronosOut Object
+#' Get Results from \code{KronosOut} Object
 #'
 #' These functions provides a unified wrapper to retrieve results
 #'  from a \code{kronosOut} object.
@@ -89,11 +88,10 @@ getKronos_input <- function(kronosOut){
 #'
 #' @return The model fit used.
 #' @examples
-#' \dontrun{
-#' #Load prepared data stored in Kronos library
+#' #Load prepared data stored in 'kronos' library
 #' data("kronos_demo")
 #' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 #' 
 #' #Extracting data from the output object:
 #' getKronos_fit(output)
@@ -104,9 +102,9 @@ getKronos_input <- function(kronosOut){
 #' gg_kronos_circle(output)
 #' gg_kronos_sinusoid(output)
 #' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#' #For high-dimensional data, use fw_kronos:
+#' out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 #'
 #' #Extracting data from the output object: 
 #' kronosListToTable(out_list)
@@ -114,14 +112,13 @@ getKronos_input <- function(kronosOut){
 #' 
 #' #Plotting:
 #' gg_kronos_acrogram(out_list)
-#' }
 #' @export
 getKronos_fit <- function(kronosOut){
   
   return(getKronos(kronosOut = kronosOut, target = "fit"))
   }
 
-#' Get Results from KronosOut Object
+#' Get Results from \code{KronosOut} Object
 #'
 #' These functions provides a unified wrapper to retrieve results
 #'  from a \code{kronosOut} object.
@@ -129,11 +126,9 @@ getKronos_fit <- function(kronosOut){
 #'
 #' @return The traces per group for plotting.
 #' @examples
-#' \dontrun{
-#' #Load prepared data stored in Kronos library
 #' data("kronos_demo")
 #' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 #' 
 #' #Extracting data from the output object:
 #' getKronos_fit(output)
@@ -144,9 +139,9 @@ getKronos_fit <- function(kronosOut){
 #' gg_kronos_circle(output)
 #' gg_kronos_sinusoid(output)
 #' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#' #For high-dimensional data, use fw_kronos:
+#' out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 #'
 #' #Extracting data from the output object: 
 #' kronosListToTable(out_list)
@@ -154,14 +149,14 @@ getKronos_fit <- function(kronosOut){
 #' 
 #' #Plotting:
 #' gg_kronos_acrogram(out_list)
-#' }
+#' 
 #' @export
 getKronos_trace <- function(kronosOut){
   
   return(getKronos(kronosOut = kronosOut, target = "to_plot"))
   }
 
-#' Get Results from KronosOut Object
+#' Get Results from \code{KronosOut} Object
 #'
 #' These functions provides a unified wrapper to retrieve results
 #'  from a \code{kronosOut} object.
@@ -169,11 +164,10 @@ getKronos_trace <- function(kronosOut){
 #'
 #' @return Rhythmicity parameters per group.
 #' @examples
-#' \dontrun{
-#' #Load prepared data stored in Kronos library
+#' #Load prepared data stored in 'kronos' library
 #' data("kronos_demo")
 #' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 #' 
 #' #Extracting data from the output object:
 #' getKronos_fit(output)
@@ -184,9 +178,9 @@ getKronos_trace <- function(kronosOut){
 #' gg_kronos_circle(output)
 #' gg_kronos_sinusoid(output)
 #' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#' #For high-dimensional data, use fw_kronos:
+#' out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 #'
 #' #Extracting data from the output object: 
 #' kronosListToTable(out_list)
@@ -194,14 +188,14 @@ getKronos_trace <- function(kronosOut){
 #' 
 #' #Plotting:
 #' gg_kronos_acrogram(out_list)
-#' }
+#' 
 #' @export
 getKronos_groupwise <- function(kronosOut){
   
   return(getKronos(kronosOut = kronosOut, target = "ind_fit"))
   }
 
-#' Get Results from KronosOut Object
+#' Get Results from \code{KronosOut} Object
 #'
 #' These functions provides a unified wrapper to retrieve results
 #'  from a \code{kronosOut} object.
@@ -209,11 +203,11 @@ getKronos_groupwise <- function(kronosOut){
 #'
 #' @return Pairwise comparisons between groups.
 #' @examples
-#' \dontrun{
-#' #Load prepared data stored in Kronos library
+#' 
+#' #Load prepared data stored in 'kronos' library
 #' data("kronos_demo")
 #' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 #' 
 #' #Extracting data from the output object:
 #' getKronos_fit(output)
@@ -224,9 +218,9 @@ getKronos_groupwise <- function(kronosOut){
 #' gg_kronos_circle(output)
 #' gg_kronos_sinusoid(output)
 #' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#' #For high-dimensional data, use fw_kronos:
+#' out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 #'
 #' #Extracting data from the output object: 
 #' kronosListToTable(out_list)
@@ -234,14 +228,14 @@ getKronos_groupwise <- function(kronosOut){
 #' 
 #' #Plotting:
 #' gg_kronos_acrogram(out_list)
-#' }
+#' 
 #' @export
 getKronos_pairwise <- function(kronosOut){
   
   return(getKronos(kronosOut = kronosOut, target = "pairwise_models"))
   }
 
-#' Get Results from KronosOut Object
+#' Get Results from \code{KronosOut} Object
 #'
 #' These functions provides a unified wrapper to retrieve results
 #'  from a \code{kronosOut} object.
@@ -249,11 +243,11 @@ getKronos_pairwise <- function(kronosOut){
 #'
 #' @return ANOVA-like adjusted p-values for how each factor interacts with time.
 #' @examples
-#' \dontrun{
-#' #Load prepared data stored in Kronos library
+#' 
+#' #Load prepared data stored in 'kronos' library
 #' data("kronos_demo")
 #' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 #' 
 #' #Extracting data from the output object:
 #' getKronos_fit(output)
@@ -264,9 +258,9 @@ getKronos_pairwise <- function(kronosOut){
 #' gg_kronos_circle(output)
 #' gg_kronos_sinusoid(output)
 #' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#' #For high-dimensional data, use fw_kronos:
+#' out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 #'
 #' #Extracting data from the output object: 
 #' kronosListToTable(out_list)
@@ -274,7 +268,7 @@ getKronos_pairwise <- function(kronosOut){
 #' 
 #' #Plotting:
 #' gg_kronos_acrogram(out_list)
-#' }
+#' 
 #' @export
 getKronos_pairwise_p <- function(kronosOut){
   pairwise_p <- data.frame(getKronos(kronosOut = kronosOut, target = "pairwise_p_vals"))
@@ -284,7 +278,7 @@ getKronos_pairwise_p <- function(kronosOut){
   return(pairwise_p)
 }
 
-#' Get Results from KronosOut Object
+#' Get Results from \code{KronosOut} Object
 #'
 #' These functions provides a unified wrapper to retrieve results
 #'  from a \code{kronosOut} object.
@@ -292,11 +286,10 @@ getKronos_pairwise_p <- function(kronosOut){
 #'
 #' @return The names and values of additional circadian model parameters, mostly for plotting purposes.
 #' @examples
-#' \dontrun{
-#' #Load prepared data stored in Kronos library
+#' #Load prepared data stored in 'kronos' library
 #' data("kronos_demo")
 #' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 #' 
 #' #Extracting data from the output object:
 #' getKronos_fit(output)
@@ -307,9 +300,9 @@ getKronos_pairwise_p <- function(kronosOut){
 #' gg_kronos_circle(output)
 #' gg_kronos_sinusoid(output)
 #' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#' #For high-dimensional data, use fw_kronos:
+#' out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 #'
 #' #Extracting data from the output object: 
 #' kronosListToTable(out_list)
@@ -317,50 +310,23 @@ getKronos_pairwise_p <- function(kronosOut){
 #' 
 #' #Plotting:
 #' gg_kronos_acrogram(out_list)
-#' }
+#' 
 #' @export
 getKronos_params <- function(kronosOut){
   
   return(data.frame(getKronos(kronosOut = kronosOut, target = "plot_info")))
   }
 
-#' Get Results from list of KronosOut Objects
+#' Get Results from list of \code{KronosOut} Objects
 #'
 #' These functions provides a unified wrapper to retrieve results
 #'  from a list of \code{kronosOut} objects.
-#' @param kronos_list a list of preferrably named kronosOut objects.
+#' @param kronos_list a list of preferrably named \code{kronosOut} objects.
 #' @param padjust a boolean. Toggles FDR using Benjamini Hochbergs procedure.
 #'
 #' @return ANOVA-like adjusted p-values for how each factor interacts with time.
-#' @examples
-#' \dontrun{
-#' #Load prepared data stored in Kronos library
-#' data("kronos_demo")
-#' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
 #' 
-#' #Extracting data from the output object:
-#' getKronos_fit(output)
-#' getKronos_trace(output)
-#' getKronos_groupwise(output)
-#' 
-#' #Plotting:
-#' gg_kronos_circle(output)
-#' gg_kronos_sinusoid(output)
-#' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
-#'
-#' #Extracting data from the output object: 
-#' kronosListToTable(out_list)
-#' 
-#' 
-#' #Plotting:
-#' gg_kronos_acrogram(out_list)
-#' }
-#' @export
-delistKronos_pairwise <- function(kronos_list, padjust = T){
+delistKronos_pairwise <- function(kronos_list, padjust = TRUE){
   res = do.call(rbind,(lapply(kronos_list, FUN = function(x){t(getKronos_pairwise_p(x))})))
 
   row.names(res) <- NULL
@@ -373,7 +339,7 @@ delistKronos_pairwise <- function(kronos_list, padjust = T){
     resadj = apply(res, 
                    MARGIN = 2, 
                    p.adjust, method = "BH", 
-                   simplify = T)
+                   simplify = TRUE)
     colnames(resadj) = gsub(x = colnames(resadj),pattern = "p\\.val", replacement = "q\\.val")
     
     res = cbind(res, resadj)
@@ -391,35 +357,8 @@ delistKronos_pairwise <- function(kronos_list, padjust = T){
 #'
 #' @return A table with circadian output stats per group per feature.
 #' @importFrom stats p.adjust
-#' @examples
-#' \dontrun{
-#' #Load prepared data stored in Kronos library
-#' data("kronos_demo")
-#' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
 #' 
-#' #Extracting data from the output object:
-#' getKronos_fit(output)
-#' getKronos_trace(output)
-#' getKronos_groupwise(output)
-#' 
-#' #Plotting:
-#' gg_kronos_circle(output)
-#' gg_kronos_sinusoid(output)
-#' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
-#'
-#' #Extracting data from the output object: 
-#' kronosListToTable(out_list)
-#' 
-#' 
-#' #Plotting:
-#' gg_kronos_acrogram(out_list)
-#' }
-#' @export
-delistKronos_groupwise <- function(kronos_list, padjust = T){
+delistKronos_groupwise <- function(kronos_list, padjust = TRUE){
   res = do.call(rbind,lapply(kronos_list, FUN = function(x){
     #Get table per feature
     out_table = getKronos_groupwise(x)
@@ -438,7 +377,7 @@ delistKronos_groupwise <- function(kronos_list, padjust = T){
     resadj = apply(res[,grepl(pattern = "p\\.val", x = colnames(res))], 
                    MARGIN = 2, 
                    p.adjust, method = "BH", 
-                   simplify = T)
+                   simplify = TRUE)
     colnames(resadj) = gsub(x = colnames(resadj),pattern = "p\\.val", replacement = "q\\.val")
     
     res = cbind(res, resadj)
@@ -446,21 +385,20 @@ delistKronos_groupwise <- function(kronos_list, padjust = T){
   return(res)
 }
 
-#' Wrangle results from list of KronosOut Objects to publication ready table. 
+#' Wrangle results from list of \code{KronosOut} Objects to publication ready table. 
 #'
 #' These functions provides a unified wrapper to retrieve results
 #'  from a list of \code{kronosOut} objects.
-#' @param kronos_list a list of preferrably named kronosOut objects.
-#' @param padjust a boolean. Toggles FDR using Benjamini Hochbergs procedure.
+#' @param kronos_list a list of preferrably named \code{kronosOut} objects.
+#' @param padjust a boolean. Toggles FDR using Benjamini and Hochbergs procedure.
 #'
 #' @return A table with circadian output stats per group per feature.
 #' @importFrom stats p.adjust
 #' @examples
-#' \dontrun{
-#' #Load prepared data stored in Kronos library
+#' #Load prepared data stored in 'kronos' library
 #' data("kronos_demo")
 #' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 #' 
 #' #Extracting data from the output object:
 #' getKronos_fit(output)
@@ -471,19 +409,18 @@ delistKronos_groupwise <- function(kronos_list, padjust = T){
 #' gg_kronos_circle(output)
 #' gg_kronos_sinusoid(output)
 #' 
-#' #For high-dimensional data, use fw_fronos:
-#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#' #For high-dimensional data, use fw_kronos:
+#' out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 #'
 #' #Extracting data from the output object: 
 #' kronosListToTable(out_list)
 #' 
-#' 
 #' #Plotting:
 #' gg_kronos_acrogram(out_list)
-#' }
+#' 
 #' @export
-kronosListToTable <- function(kronos_list, padjust = T){
+kronosListToTable <- function(kronos_list, padjust = TRUE){
   cbind(delistKronos_groupwise(kronos_list = kronos_list, padjust = padjust),
         delistKronos_pairwise(kronos_list  = kronos_list, padjust = padjust))
 } 

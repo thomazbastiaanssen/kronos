@@ -7,7 +7,7 @@
 kronos_predict(fit, period, time, factors, verbose = verbose)
 }
 \arguments{
-\item{fit}{A model fit. Can be found in KronosOut@fit}
+\item{fit}{A model fit}
 
 \item{period}{A numeric. The length of a period, in the same format as the \code{time} parameter.}
 
@@ -15,7 +15,7 @@ kronos_predict(fit, period, time, factors, verbose = verbose)
 
 \item{factors}{A vector. The names of the independent variables.}
 
-\item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.}
+\item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large data sets.}
 }
 \description{
 Generate data needed to plot cosinor trace line.

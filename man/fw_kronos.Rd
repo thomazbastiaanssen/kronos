@@ -10,14 +10,14 @@ fw_kronos(
   metadata,
   time = NULL,
   period = 24,
-  verbose = F,
-  pairwise = F
+  verbose = FALSE,
+  pairwise = FALSE
 )
 }
 \arguments{
 \item{x}{Input data. A table with rows being features and columns being samples}
 
-\item{formula}{A formula. Use the time() function to designate which variable represents time. Leave the left-hand side of the formula empty as it will be sequentially replaced by every feature in the table.}
+\item{formula}{A formula. Use the \code{time} function to designate which variable represents time. Leave the left-hand side of the formula empty as it will be sequentially replaced by every feature in the table.}
 
 \item{metadata}{A metadata table, with rows being samples and columns being metadata entries}
 
@@ -30,17 +30,16 @@ fw_kronos(
 \item{pairwise}{A boolean. Toggles whether to perform pairwise ANOVAs as a TukeyHSD-like post-hoc.}
 }
 \value{
-A list of kronosOut S4 objects containing coefficients and all operations.
+A list of \code{kronosOut} S4 objects containing coefficients and all operations.
 }
 \description{
-This wrapper applies kronos(), the main workhorse function in the kronos package. It manages the individual functionalities of kronos, including rhythmicity analysis and differential rhythmicity.
+This wrapper applies kronos(), the main workhorse function in the 'kronos' package. It manages the individual functionalities of 'kronos', including rhythmicity analysis and differential rhythmicity.
 }
 \examples{
-\dontrun{
-#Load prepared data stored in Kronos library
+#Load prepared data stored in 'kronos' library
 data("kronos_demo")
 output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-data = onevariable, period = 24, verbose = T, pairwise = F)
+data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 
 #Extracting data from the output object:
 getKronos_fit(output)
@@ -51,9 +50,9 @@ getKronos_groupwise(output)
 gg_kronos_circle(output)
 gg_kronos_sinusoid(output)
 
-#For high-dimensional data, use fw_fronos:
-out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#For high-dimensional data, use fw_kronos:
+out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 
 #Extracting data from the output object: 
 kronosListToTable(out_list)
@@ -61,5 +60,4 @@ kronosListToTable(out_list)
 
 #Plotting:
 gg_kronos_acrogram(out_list)
-}
 }

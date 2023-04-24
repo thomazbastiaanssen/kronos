@@ -4,33 +4,39 @@
 \alias{kronos}
 \title{Fit a cosinor model and extract relevant parameters}
 \usage{
-kronos(formula, data, time = NULL, period = 24, verbose = T, pairwise = T)
+kronos(
+  formula,
+  data,
+  time = NULL,
+  period = 24,
+  verbose = TRUE,
+  pairwise = TRUE
+)
 }
 \arguments{
-\item{formula}{A formula. Use the time() function to designate which variable represents time.}
+\item{formula}{A formula. Use the \code{time} function to designate which variable represents time.}
 
 \item{data}{input data}
 
 \item{time}{A string. Should be the column name containing the time values.}
 
-\item{period}{A numeric. The length of a period, in the same format as the \code{time} parameter.}
+\item{period}{A numeric. The length of a period, in the same format as the \code{time} variable}
 
-\item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.}
+\item{verbose}{A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large data sets.}
 
 \item{pairwise}{A boolean. Toggles whether to perform pairwise ANOVAs as a TukeyHSD-like post-hoc.}
 }
 \value{
-A kronosOut S4 object containing coefficients and all operations.
+A \code{kronosOut} S4 object containing coefficients and all operations.
 }
 \description{
-This is the main workhorse function in the kronos package. It manages the individual functionalities of kronos, including rhythmicity analysis and differential rhythmicity.
+This is the main workhorse function in the 'kronos' package. It manages the individual functionalities of 'kronos', including rhythmicity analysis and differential rhythmicity.
 }
 \examples{
-\dontrun{
 #Load prepared data stored in Kronos library
 data("kronos_demo")
 output <- kronos(formula = Variable_1 ~ time(Timepoint), 
-data = onevariable, period = 24, verbose = T, pairwise = F)
+data = onevariable, period = 24, verbose = TRUE, pairwise = FALSE)
 
 #Extracting data from the output object:
 getKronos_fit(output)
@@ -41,9 +47,9 @@ getKronos_groupwise(output)
 gg_kronos_circle(output)
 gg_kronos_sinusoid(output)
 
-#For high-dimensional data, use fw_fronos:
-out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
-metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#For high-dimensional data, use fw_kronos:
+out_list = fw_kronos(x = bigdata[1:50,], formula = ~ Group + time(Timepoint), 
+metadata = bigmeta, period = 24, verbose = FALSE, pairwise = TRUE) 
 
 #Extracting data from the output object: 
 kronosListToTable(out_list)
@@ -51,6 +57,5 @@ kronosListToTable(out_list)
 
 #Plotting:
 gg_kronos_acrogram(out_list)
-}
 
 }

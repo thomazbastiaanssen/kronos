@@ -14,5 +14,5 @@ get_cos_sine(data, period, colnamePrefix = NULL)
 \item{colnamePrefix}{A character string. Typically the name of the "Time" variable.}
 }
 \description{
-Based on cosinor and limorhyde packages
+Based on 'cosinor' and 'limorhyde' packages
 }
