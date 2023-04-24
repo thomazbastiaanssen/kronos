@@ -7,6 +7,34 @@
 #' @param pairwise A boolean. Toggles whether to perform pairwise ANOVAs as a TukeyHSD-like post-hoc. 
 #' @param verbose A boolean. Toggles whether to print diagnostic information while running. Useful for debugging errors on large datasets.
 #' @return A kronosOut S4 object containing coefficients and all operations.
+#' @examples
+#' \dontrun{
+#' #Load prepared data stored in Kronos library
+#' data("kronos_demo")
+#' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
+#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' 
+#' #Extracting data from the output object:
+#' getKronos_fit(output)
+#' getKronos_trace(output)
+#' getKronos_groupwise(output)
+#' 
+#' #Plotting:
+#' gg_kronos_circle(output)
+#' gg_kronos_sinusoid(output)
+#' 
+#' #For high-dimensional data, use fw_fronos:
+#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#'
+#' #Extracting data from the output object: 
+#' kronosListToTable(out_list)
+#' 
+#' 
+#' #Plotting:
+#' gg_kronos_acrogram(out_list)
+#' }
+#' 
 #' @importFrom methods new
 #' @importFrom stats anova as.formula coef lm pf predict terms update.formula get_all_vars
 #' @importFrom utils combn
@@ -358,6 +386,33 @@ kronos_anova <- function(fit, time){
 #' @importFrom methods new
 #' @importFrom stats anova as.formula coef lm pf predict terms update.formula get_all_vars
 #' @importFrom utils combn
+#' @examples
+#' \dontrun{
+#' #Load prepared data stored in Kronos library
+#' data("kronos_demo")
+#' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
+#' data = onevariable, period = 24, verbose = T, pairwise = F)
+#' 
+#' #Extracting data from the output object:
+#' getKronos_fit(output)
+#' getKronos_trace(output)
+#' getKronos_groupwise(output)
+#' 
+#' #Plotting:
+#' gg_kronos_circle(output)
+#' gg_kronos_sinusoid(output)
+#' 
+#' #For high-dimensional data, use fw_fronos:
+#' out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
+#' metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+#'
+#' #Extracting data from the output object: 
+#' kronosListToTable(out_list)
+#' 
+#' 
+#' #Plotting:
+#' gg_kronos_acrogram(out_list)
+#' }
 #' @export
 fw_kronos <- function(x, formula, metadata, time = NULL, period = 24, verbose = F, pairwise = F){
   formula = update.formula(x_feature ~ ., formula)

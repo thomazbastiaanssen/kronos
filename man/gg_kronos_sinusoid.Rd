@@ -11,6 +11,37 @@ gg_kronos_sinusoid(kronosOut, fill = "unique_group")
 
 \item{fill}{The name of the variable that should be used to mark different groups. In the case of a single group, leave empty.}
 }
+\value{
+a ggplot2 compatible object.
+}
 \description{
 Wrapper around ggplot to make figures with a sinusoid trace.
+}
+\examples{
+\dontrun{
+#Load prepared data stored in Kronos library
+data("kronos_demo")
+output <- kronos(formula = Variable_1 ~ time(Timepoint), 
+data = onevariable, period = 24, verbose = T, pairwise = F)
+
+#Extracting data from the output object:
+getKronos_fit(output)
+getKronos_trace(output)
+getKronos_groupwise(output)
+
+#Plotting:
+gg_kronos_circle(output)
+gg_kronos_sinusoid(output)
+
+#For high-dimensional data, use fw_fronos:
+out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
+metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+
+#Extracting data from the output object: 
+kronosListToTable(out_list)
+
+
+#Plotting:
+gg_kronos_acrogram(out_list)
+}
 }

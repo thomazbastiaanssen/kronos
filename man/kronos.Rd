@@ -25,3 +25,32 @@ A kronosOut S4 object containing coefficients and all operations.
 \description{
 This is the main workhorse function in the kronos package. It manages the individual functionalities of kronos, including rhythmicity analysis and differential rhythmicity.
 }
+\examples{
+\dontrun{
+#Load prepared data stored in Kronos library
+data("kronos_demo")
+output <- kronos(formula = Variable_1 ~ time(Timepoint), 
+data = onevariable, period = 24, verbose = T, pairwise = F)
+
+#Extracting data from the output object:
+getKronos_fit(output)
+getKronos_trace(output)
+getKronos_groupwise(output)
+
+#Plotting:
+gg_kronos_circle(output)
+gg_kronos_sinusoid(output)
+
+#For high-dimensional data, use fw_fronos:
+out_list = fw_kronos(x = bigdata, formula = ~ Group + time(Timepoint), 
+metadata = bigmeta, period = 24, verbose = F, pairwise = T) 
+
+#Extracting data from the output object: 
+kronosListToTable(out_list)
+
+
+#Plotting:
+gg_kronos_acrogram(out_list)
+}
+
+}

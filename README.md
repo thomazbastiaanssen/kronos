@@ -418,7 +418,7 @@ calculations for the whole data set with an FDR correction to account
 for multiple tests.
 
 The resulting csv can be found
-[here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/RhythmicityResults.csv).
+[here](https://github.com/thomazbastiaanssen/kronos/blob/main/README_files/RhythmicityResults.csv).
 
 ``` r
 #plot a little of fit_df
@@ -464,7 +464,7 @@ write.csv(pairwise_csv, "README_files/PairwiseResults.csv")
 ```
 
 The resulting csv can be found
-[here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/PairwiseResults.csv).
+[here](https://github.com/thomazbastiaanssen/kronos/blob/main/README_files/PairwiseResults.csv).
 
 ### Figures
 
@@ -505,7 +505,7 @@ invisible(dev.off())
 ```
 
 The resulting pdf can be found
-[here](https://github.com/thomazbastiaanssen/kronos/tree/main/README_files/plots_circadian.pdf).
+[here](https://github.com/thomazbastiaanssen/kronos/blob/main/README_files/plots_circadian.pdf).
 The same approach can be applied for obtaining individual circle
 figures.
 
