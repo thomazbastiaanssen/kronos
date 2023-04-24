@@ -1,0 +1,20 @@
+citHeader("To cite kronos in publications use:")
+
+citEntry(entry = "Article",
+         title        = paste("Kronos: A computational tool to facilitate biological rhythmicity analysis"),
+         author       = personList(as.person("Thomaz F S Bastiaanssen"),
+                                   as.person("Sarah-Jane Leigh"),
+                                   as.person("Gabriel S S Tofani"),
+                                   as.person("Cassandra E Gheorghe"),
+                                   as.person("Gerard Clarke"),
+                                   as.person("John F Cryan")),
+         journal      = "bioRxiv",
+         year         = "2023",
+
+         textVersion  =
+           paste("Bastiaanssen TFS, Leigh S, Tofani GSS, Gheorghe CE, Clarke G, Cryan JF (2023)",
+                 "Kronos: A computational tool to facilitate biological rhythmicity analysis",
+                 "bioRxiv. doi: https://doi.org/10.1101/2023.04.21.537503")
+)
+
+
