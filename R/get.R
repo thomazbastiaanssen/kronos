@@ -8,7 +8,6 @@
 #' @return A \code{data.frame} of results.
 #' @importFrom methods slot slotNames
 #' @examples
-#' \dontrun{
 #' #Load prepared data stored in 'kronos' library
 #' data("kronos_demo")
 #' output <- kronos(formula = Variable_1 ~ time(Timepoint), 
@@ -33,7 +32,7 @@
 #' 
 #' #Plotting:
 #' gg_kronos_acrogram(out_list)
-#' }
+#' 
 #' @export
 getKronos <- function(kronosOut, target){
   stopifnot("The target entry could not be found in the kronosOut object." = target %in% slotNames(kronosOut))
