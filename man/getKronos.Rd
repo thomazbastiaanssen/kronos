@@ -19,7 +19,6 @@ These functions provides a unified wrapper to retrieve results
  from a \code{kronosOut} object.
 }
 \examples{
-\dontrun{
 #Load prepared data stored in 'kronos' library
 data("kronos_demo")
 output <- kronos(formula = Variable_1 ~ time(Timepoint), 
@@ -44,5 +43,5 @@ kronosListToTable(out_list)
 
 #Plotting:
 gg_kronos_acrogram(out_list)
-}
+
 }
