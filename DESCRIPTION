@@ -1,6 +1,6 @@
 Package: kronos
 Title: Microbiome Oriented Circadian Rhythm Analysis Toolkit
-Version: 1.0.0
+Version: 1.0.0.9000
 URL: https://github.com/thomazbastiaanssen/kronos
 Authors@R: c(person("Thomaz", "Bastiaanssen", email = "thomazbastiaanssen@gmail.com", role = c("aut", "cre")), 
              person("Sarah-Jane", "Leigh", email = "sjleigh@ucc.ie", role = c("aut")))
