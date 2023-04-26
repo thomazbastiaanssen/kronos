@@ -21,6 +21,7 @@ citation("kronos")
     ##     author = {Thomaz F S Bastiaanssen and Sarah-Jane Leigh and Gabriel S S Tofani and Cassandra E Gheorghe and Gerard Clarke and John F Cryan},
     ##     journal = {bioRxiv},
     ##     year = {2023},
+    ##     doi = {10.1101/2023.04.21.537503},
     ##   }
 
 The following document is adapted from the supplementary materials for
@@ -58,8 +59,7 @@ in with the mainline analysis.*
 
 ``` r
 #Install kronos
-library(devtools)
-#install_github("thomazbastiaanssen/kronos") 
+#install.packages("kronos") 
 
 #Load relevant packages
 library(kronos)
@@ -761,98 +761,87 @@ sessioninfo::session_info()
 
     ## ─ Session info ───────────────────────────────────────────────────────────────
     ##  setting  value
-    ##  version  R version 4.1.2 (2021-11-01)
-    ##  os       Ubuntu 20.04.3 LTS
+    ##  version  R version 4.2.2 Patched (2022-11-10 r83330)
+    ##  os       Ubuntu 18.04.6 LTS
     ##  system   x86_64, linux-gnu
     ##  ui       X11
-    ##  language en_GB:en
-    ##  collate  en_GB.UTF-8
-    ##  ctype    en_GB.UTF-8
+    ##  language en_IE:en
+    ##  collate  en_IE.UTF-8
+    ##  ctype    en_IE.UTF-8
     ##  tz       Europe/Dublin
-    ##  date     2023-04-24
-    ##  pandoc   2.19.2 @ /usr/lib/rstudio/bin/quarto/bin/tools/ (via rmarkdown)
+    ##  date     2023-04-26
+    ##  pandoc   2.19.2 @ /usr/lib/rstudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
     ## 
     ## ─ Packages ───────────────────────────────────────────────────────────────────
-    ##  package     * version date (UTC) lib source
-    ##  assertthat    0.2.1   2019-03-21 [1] CRAN (R 4.1.2)
-    ##  backports     1.4.1   2021-12-13 [1] CRAN (R 4.1.2)
-    ##  brio          1.1.3   2021-11-30 [1] CRAN (R 4.1.2)
-    ##  broom         0.8.0   2022-04-13 [1] CRAN (R 4.1.2)
-    ##  cachem        1.0.6   2021-08-19 [1] CRAN (R 4.1.2)
-    ##  callr         3.7.0   2021-04-20 [1] CRAN (R 4.1.2)
-    ##  cellranger    1.1.0   2016-07-27 [1] CRAN (R 4.1.2)
-    ##  cli           3.3.0   2022-04-25 [1] CRAN (R 4.1.2)
-    ##  colorspace    2.0-3   2022-02-21 [1] CRAN (R 4.1.2)
-    ##  crayon        1.5.1   2022-03-26 [1] CRAN (R 4.1.2)
-    ##  DBI           1.1.2   2021-12-20 [1] CRAN (R 4.1.2)
-    ##  dbplyr        2.2.0   2022-06-05 [1] CRAN (R 4.1.2)
-    ##  desc          1.4.1   2022-03-06 [1] CRAN (R 4.1.2)
-    ##  devtools    * 2.4.3   2021-11-30 [1] CRAN (R 4.1.2)
-    ##  digest        0.6.29  2021-12-01 [1] CRAN (R 4.1.2)
-    ##  dplyr       * 1.0.9   2022-04-28 [1] CRAN (R 4.1.2)
-    ##  ellipsis      0.3.2   2021-04-29 [1] CRAN (R 4.1.2)
-    ##  evaluate      0.15    2022-02-18 [1] CRAN (R 4.1.2)
-    ##  fansi         1.0.3   2022-03-24 [1] CRAN (R 4.1.2)
-    ##  farver        2.1.1   2022-07-06 [1] CRAN (R 4.1.2)
-    ##  fastmap       1.1.0   2021-01-25 [1] CRAN (R 4.1.2)
-    ##  forcats     * 0.5.1   2021-01-27 [1] CRAN (R 4.1.2)
-    ##  fs            1.5.2   2021-12-08 [1] CRAN (R 4.1.2)
-    ##  generics      0.1.2   2022-01-31 [1] CRAN (R 4.1.2)
-    ##  ggplot2     * 3.3.6   2022-05-03 [1] CRAN (R 4.1.2)
-    ##  glue          1.6.2   2022-02-24 [1] CRAN (R 4.1.2)
-    ##  gtable        0.3.0   2019-03-25 [1] CRAN (R 4.1.2)
-    ##  haven         2.5.0   2022-04-15 [1] CRAN (R 4.1.2)
-    ##  highr         0.9     2021-04-16 [1] CRAN (R 4.1.2)
-    ##  hms           1.1.1   2021-09-26 [1] CRAN (R 4.1.2)
-    ##  htmltools     0.5.2   2021-08-25 [1] CRAN (R 4.1.2)
-    ##  httr          1.4.3   2022-05-04 [1] CRAN (R 4.1.2)
-    ##  jsonlite      1.8.0   2022-02-22 [1] CRAN (R 4.1.2)
-    ##  knitr         1.39    2022-04-26 [1] CRAN (R 4.1.2)
-    ##  kronos      * 0.1.0.0 2023-04-24 [1] Github (thomazbastiaanssen/kronos@2208d0a)
-    ##  labeling      0.4.2   2020-10-20 [1] CRAN (R 4.1.2)
-    ##  lifecycle     1.0.1   2021-09-24 [1] CRAN (R 4.1.2)
-    ##  lubridate     1.8.0   2021-10-07 [1] CRAN (R 4.1.2)
-    ##  magrittr      2.0.3   2022-03-30 [1] CRAN (R 4.1.2)
-    ##  memoise       2.0.1   2021-11-26 [1] CRAN (R 4.1.2)
-    ##  modelr        0.1.8   2020-05-19 [1] CRAN (R 4.1.2)
-    ##  munsell       0.5.0   2018-06-12 [1] CRAN (R 4.1.2)
-    ##  pillar        1.7.0   2022-02-01 [1] CRAN (R 4.1.2)
-    ##  pkgbuild      1.3.1   2021-12-20 [1] CRAN (R 4.1.2)
-    ##  pkgconfig     2.0.3   2019-09-22 [1] CRAN (R 4.1.2)
-    ##  pkgload       1.2.4   2021-11-30 [1] CRAN (R 4.1.2)
-    ##  prettyunits   1.1.1   2020-01-24 [1] CRAN (R 4.1.2)
-    ##  processx      3.6.0   2022-06-10 [1] CRAN (R 4.1.2)
-    ##  ps            1.7.0   2022-04-23 [1] CRAN (R 4.1.2)
-    ##  purrr       * 0.3.4   2020-04-17 [1] CRAN (R 4.1.2)
-    ##  R6            2.5.1   2021-08-19 [1] CRAN (R 4.1.2)
-    ##  readr       * 2.1.2   2022-01-30 [1] CRAN (R 4.1.2)
-    ##  readxl        1.4.0   2022-03-28 [1] CRAN (R 4.1.2)
-    ##  remotes       2.4.2   2021-11-30 [1] CRAN (R 4.1.2)
-    ##  reprex        2.0.1   2021-08-05 [1] CRAN (R 4.1.2)
-    ##  rlang         1.1.0   2023-03-14 [1] CRAN (R 4.1.2)
-    ##  rmarkdown     2.14    2022-04-25 [1] CRAN (R 4.1.2)
-    ##  rprojroot     2.0.3   2022-04-02 [1] CRAN (R 4.1.2)
-    ##  rstudioapi    0.13    2020-11-12 [1] CRAN (R 4.1.2)
-    ##  rvest         1.0.2   2021-10-16 [1] CRAN (R 4.1.2)
-    ##  scales        1.2.0   2022-04-13 [1] CRAN (R 4.1.2)
-    ##  sessioninfo   1.2.2   2021-12-06 [1] CRAN (R 4.1.2)
-    ##  stringi       1.7.6   2021-11-29 [1] CRAN (R 4.1.2)
-    ##  stringr     * 1.4.0   2019-02-10 [1] CRAN (R 4.1.2)
-    ##  testthat      3.1.4   2022-04-26 [1] CRAN (R 4.1.2)
-    ##  tibble      * 3.1.7   2022-05-03 [1] CRAN (R 4.1.2)
-    ##  tidyr       * 1.2.0   2022-02-01 [1] CRAN (R 4.1.2)
-    ##  tidyselect    1.1.2   2022-02-21 [1] CRAN (R 4.1.2)
-    ##  tidyverse   * 1.3.1   2021-04-15 [1] CRAN (R 4.1.2)
-    ##  tzdb          0.3.0   2022-03-28 [1] CRAN (R 4.1.2)
-    ##  usethis     * 2.1.5   2021-12-09 [1] CRAN (R 4.1.2)
-    ##  utf8          1.2.2   2021-07-24 [1] CRAN (R 4.1.2)
-    ##  vctrs         0.4.1   2022-04-13 [1] CRAN (R 4.1.2)
-    ##  withr         2.5.0   2022-03-03 [1] CRAN (R 4.1.2)
-    ##  xfun          0.31    2022-05-10 [1] CRAN (R 4.1.2)
-    ##  xml2          1.3.3   2021-11-30 [1] CRAN (R 4.1.2)
-    ##  yaml          2.3.5   2022-02-21 [1] CRAN (R 4.1.2)
+    ##  package       * version date (UTC) lib source
+    ##  assertthat      0.2.1   2019-03-21 [1] CRAN (R 4.2.0)
+    ##  backports       1.4.1   2021-12-13 [1] CRAN (R 4.2.0)
+    ##  broom           1.0.2   2022-12-15 [1] CRAN (R 4.2.1)
+    ##  cellranger      1.1.0   2016-07-27 [1] CRAN (R 4.2.0)
+    ##  cli             3.6.0   2023-01-09 [1] CRAN (R 4.2.1)
+    ##  colorspace      2.0-3   2022-02-21 [1] CRAN (R 4.2.0)
+    ##  crayon          1.5.2   2022-09-29 [1] CRAN (R 4.2.1)
+    ##  DBI             1.1.3   2022-06-18 [1] CRAN (R 4.2.0)
+    ##  dbplyr          2.3.0   2023-01-16 [1] CRAN (R 4.2.1)
+    ##  digest          0.6.31  2022-12-11 [1] CRAN (R 4.2.1)
+    ##  dplyr         * 1.0.10  2022-09-01 [1] CRAN (R 4.2.1)
+    ##  ellipsis        0.3.2   2021-04-29 [1] CRAN (R 4.2.0)
+    ##  evaluate        0.20    2023-01-17 [1] CRAN (R 4.2.1)
+    ##  fansi           1.0.3   2022-03-24 [1] CRAN (R 4.2.0)
+    ##  farver          2.1.1   2022-07-06 [1] CRAN (R 4.2.1)
+    ##  fastmap         1.1.0   2021-01-25 [1] CRAN (R 4.2.0)
+    ##  forcats       * 0.5.2   2022-08-19 [1] CRAN (R 4.2.1)
+    ##  fs              1.5.2   2021-12-08 [1] CRAN (R 4.2.0)
+    ##  gargle          1.2.1   2022-09-08 [1] CRAN (R 4.2.1)
+    ##  generics        0.1.3   2022-07-05 [1] CRAN (R 4.2.1)
+    ##  ggplot2       * 3.4.0   2022-11-04 [1] CRAN (R 4.2.1)
+    ##  glue            1.6.2   2022-02-24 [1] CRAN (R 4.2.0)
+    ##  googledrive     2.0.0   2021-07-08 [1] CRAN (R 4.2.0)
+    ##  googlesheets4   1.0.1   2022-08-13 [1] CRAN (R 4.2.1)
+    ##  gtable          0.3.1   2022-09-01 [1] CRAN (R 4.2.1)
+    ##  haven           2.5.1   2022-08-22 [1] CRAN (R 4.2.1)
+    ##  highr           0.10    2022-12-22 [1] CRAN (R 4.2.1)
+    ##  hms             1.1.2   2022-08-19 [1] CRAN (R 4.2.1)
+    ##  htmltools       0.5.4   2022-12-07 [1] CRAN (R 4.2.1)
+    ##  httr            1.4.4   2022-08-17 [1] CRAN (R 4.2.1)
+    ##  jsonlite        1.8.4   2022-12-06 [1] CRAN (R 4.2.1)
+    ##  knitr           1.41    2022-11-18 [1] CRAN (R 4.2.1)
+    ##  kronos        * 1.0.0   2023-04-26 [1] CRAN (R 4.2.2)
+    ##  labeling        0.4.2   2020-10-20 [1] CRAN (R 4.2.0)
+    ##  lifecycle       1.0.3   2022-10-07 [1] CRAN (R 4.2.1)
+    ##  lubridate       1.9.0   2022-11-06 [1] CRAN (R 4.2.1)
+    ##  magrittr        2.0.3   2022-03-30 [1] CRAN (R 4.2.0)
+    ##  modelr          0.1.10  2022-11-11 [1] CRAN (R 4.2.1)
+    ##  munsell         0.5.0   2018-06-12 [1] CRAN (R 4.2.0)
+    ##  pillar          1.8.1   2022-08-19 [1] CRAN (R 4.2.1)
+    ##  pkgconfig       2.0.3   2019-09-22 [1] CRAN (R 4.2.0)
+    ##  purrr         * 1.0.1   2023-01-10 [1] CRAN (R 4.2.1)
+    ##  R6              2.5.1   2021-08-19 [1] CRAN (R 4.2.0)
+    ##  readr         * 2.1.3   2022-10-01 [1] CRAN (R 4.2.1)
+    ##  readxl          1.4.1   2022-08-17 [1] CRAN (R 4.2.1)
+    ##  reprex          2.0.2   2022-08-17 [1] CRAN (R 4.2.1)
+    ##  rlang           1.0.6   2022-09-24 [1] CRAN (R 4.2.1)
+    ##  rmarkdown       2.20    2023-01-19 [1] CRAN (R 4.2.1)
+    ##  rstudioapi      0.14    2022-08-22 [1] CRAN (R 4.2.1)
+    ##  rvest           1.0.3   2022-08-19 [1] CRAN (R 4.2.1)
+    ##  scales          1.2.1   2022-08-20 [1] CRAN (R 4.2.1)
+    ##  sessioninfo     1.2.2   2021-12-06 [1] CRAN (R 4.2.0)
+    ##  stringi         1.7.12  2023-01-11 [1] CRAN (R 4.2.1)
+    ##  stringr       * 1.5.0   2022-12-02 [1] CRAN (R 4.2.1)
+    ##  tibble        * 3.1.8   2022-07-22 [1] CRAN (R 4.2.1)
+    ##  tidyr         * 1.2.1   2022-09-08 [1] CRAN (R 4.2.1)
+    ##  tidyselect      1.2.0   2022-10-10 [1] CRAN (R 4.2.1)
+    ##  tidyverse     * 1.3.2   2022-07-18 [1] CRAN (R 4.2.1)
+    ##  timechange      0.2.0   2023-01-11 [1] CRAN (R 4.2.1)
+    ##  tzdb            0.3.0   2022-03-28 [1] CRAN (R 4.2.0)
+    ##  utf8            1.2.2   2021-07-24 [1] CRAN (R 4.2.0)
+    ##  vctrs           0.5.1   2022-11-16 [1] CRAN (R 4.2.1)
+    ##  withr           2.5.0   2022-03-03 [1] CRAN (R 4.2.0)
+    ##  xfun            0.36    2022-12-21 [1] CRAN (R 4.2.1)
+    ##  xml2            1.3.3   2021-11-30 [1] CRAN (R 4.2.0)
+    ##  yaml            2.3.6   2022-10-18 [1] CRAN (R 4.2.1)
     ## 
-    ##  [1] /home/thomaz/R/x86_64-pc-linux-gnu-library/4.1
+    ##  [1] /home/thomaz/R/x86_64-pc-linux-gnu-library/4.2
     ##  [2] /usr/local/lib/R/site-library
     ##  [3] /usr/lib/R/site-library
     ##  [4] /usr/lib/R/library

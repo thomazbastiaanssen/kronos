@@ -42,8 +42,7 @@ All R code used to transform, reorganise and plot the data is also shown below t
 ```{r load, message=FALSE}
 
 #Install kronos
-library(devtools)
-#install_github("thomazbastiaanssen/kronos") 
+#install.packages("kronos") 
 
 #Load relevant packages
 library(kronos)
